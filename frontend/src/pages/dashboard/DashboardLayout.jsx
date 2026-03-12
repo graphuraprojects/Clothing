@@ -63,7 +63,7 @@ const DashboardLayout = () => {
       {sidebarOpen && (
         <div
           onClick={closeSidebar}
-          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+          className="fixed inset-0 bg-black/40 z-30 md:hidden cursor-pointer"
         />
       )}
 
@@ -91,7 +91,7 @@ const DashboardLayout = () => {
             {/* Close button mobile */}
             <button
               onClick={closeSidebar}
-              className="md:hidden text-xl p-2 hover:bg-[#8B5E34] rounded-lg transition"
+              className="md:hidden text-xl p-2 hover:bg-[#8B5E34] rounded-lg transition cursor-pointer"
             >
               <FaTimes />
             </button>
@@ -161,14 +161,14 @@ const DashboardLayout = () => {
 
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="md:hidden text-xl p-2 hover:bg-[#5A3A1F] rounded-lg transition flex-shrink-0"
+                className="md:hidden text-xl p-2 hover:bg-[#5A3A1F] rounded-lg transition flex-shrink-0 cursor-pointer"
               >
                 <FaBars />
               </button>
 
               {/* Logo */}
 
-              <a href="/" className="flex-shrink-0 ml-1 sm:ml-2">
+              <a href="/" className="flex-shrink-0 ml-1 sm:ml-2 cursor-pointer">
                 <img
                   src={graphura}
                   className="h-7 sm:h-8 md:h-10 object-contain cursor-pointer"
@@ -191,7 +191,7 @@ const DashboardLayout = () => {
         transition
         text-xs sm:text-sm
         whitespace-nowrap
-        "
+         cursor-pointer"
               >
                 <FaHome className="text-xs" />
                 Home
@@ -206,7 +206,7 @@ const DashboardLayout = () => {
               <div className="relative">
                 <button
                   onClick={() => setNotifOpen(!notifOpen)}
-                  className="flex items-center justify-center hover:bg-[#5A3A1F] p-2 rounded-lg transition relative"
+                  className="flex items-center justify-center hover:bg-[#5A3A1F] p-2 rounded-lg transition relative cursor-pointer"
                 >
                   <FaBell className="text-sm sm:text-base" />
 
@@ -235,7 +235,7 @@ const DashboardLayout = () => {
               <div className="relative">
                 <button
                   onClick={() => setProfileOpen(!profileOpen)}
-                  className="flex items-center gap-2 hover:bg-[#5A3A1F] p-1.5 sm:px-2 rounded-lg transition"
+                  className="flex items-center gap-2 hover:bg-[#5A3A1F] p-1.5 sm:px-2 rounded-lg transition cursor-pointer"
                 >
                   <span className="hidden md:block text-sm whitespace-nowrap">
                     Hello, <strong>{user?.name}</strong>
@@ -277,7 +277,7 @@ const SidebarLink = ({ to, title, icon, close }) => (
   <NavLink
     to={to}
     onClick={close}
-    className={({ isActive }) =>
+    className={`cursor-pointer ${({ isActive }) =>
       `
       flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition
 
@@ -286,8 +286,7 @@ const SidebarLink = ({ to, title, icon, close }) => (
           ? "bg-black text-white shadow"
           : "text-white hover:bg-[#8B5E34] hover:text-white"
       }
-      `
-    }
+      `}`}
   >
     {icon}
     {title}

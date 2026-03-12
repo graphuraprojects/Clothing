@@ -99,7 +99,7 @@ return (
 
           <button
             onClick={() => deleteCategory(cat._id)}
-            className="text-red-600 hover:underline"
+            className="text-red-600 hover:underline cursor-pointer"
           >
             Delete
           </button>

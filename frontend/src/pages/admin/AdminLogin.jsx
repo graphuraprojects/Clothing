@@ -151,7 +151,7 @@ const AdminLogin = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-2 bg-black text-white py-3 rounded-3xl text-sm font-medium hover:opacity-90 transition active:scale-95 disabled:opacity-60"
+                className="w-full mt-2 bg-black text-white py-3 rounded-3xl text-sm font-medium hover:opacity-90 transition active:scale-95 disabled:opacity-60 cursor-pointer"
               >
                 {loading ? "Signing in..." : "SIGN IN"}
               </button>

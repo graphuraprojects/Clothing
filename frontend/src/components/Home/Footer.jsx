@@ -63,7 +63,7 @@ const Footer = () => {
                   href={href}
                   className="w-9 h-9 flex items-center justify-center rounded-full border border-gray-200 text-gray-400
                     hover:border-[#c4a265] hover:text-[#c4a265] hover:bg-[#c4a265]/5
-                    transition-all duration-300 hover:scale-105"
+                    transition-all duration-300 hover:scale-105 cursor-pointer"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -88,7 +88,7 @@ const Footer = () => {
                 <li key={to}>
                   <Link
                     to={to}
-                    className="text-[13px] font-light tracking-wide inline-block transition-all duration-300 hover:text-[#8b6f47] hover:translate-x-1"
+                    className="text-[13px] font-light tracking-wide inline-block transition-all duration-300 hover:text-[#8b6f47] hover:translate-x-1 cursor-pointer"
                   >
                     {label}
                   </Link>
@@ -111,7 +111,7 @@ const Footer = () => {
                 <li key={label}>
                   <button
                     onClick={action}
-                    className="w-full text-left text-[13px] font-light tracking-wide transition-all duration-300 hover:text-[#8b6f47] hover:translate-x-1"
+                    className="w-full text-left text-[13px] font-light tracking-wide transition-all duration-300 hover:text-[#8b6f47] hover:translate-x-1 cursor-pointer"
                   >
                     {label}
                   </button>
@@ -133,7 +133,7 @@ const Footer = () => {
                 <li key={label}>
                   <button
                     onClick={action}
-                    className="w-full text-left text-[13px] font-light tracking-wide transition-all duration-300 hover:text-[#8b6f47] hover:translate-x-1"
+                    className="w-full text-left text-[13px] font-light tracking-wide transition-all duration-300 hover:text-[#8b6f47] hover:translate-x-1 cursor-pointer"
                   >
                     {label}
                   </button>
@@ -144,7 +144,7 @@ const Footer = () => {
 
           {/* Contact Us */}
           <div>
-            <a href="/contact" className="inline-block group mb-6">
+            <a href="/contact" className="inline-block group mb-6 cursor-pointer">
               <div className="flex items-center gap-2">
                 <h3 className="text-gray-800 text-[11px] font-medium tracking-[0.2em] uppercase group-hover:text-[#c4a265] transition-all duration-300">
                   Contact Us
@@ -166,7 +166,7 @@ const Footer = () => {
                 <FaPhoneAlt className="text-gray-300 text-xs flex-shrink-0 transition-all duration-300 hover:text-[#c4a265]" />
                 <a
                   href="tel:+917378021327"
-                  className="text-[13px] font-light hover:text-[#8b6f47] transition-all duration-300"
+                  className="text-[13px] font-light hover:text-[#8b6f47] transition-all duration-300 cursor-pointer"
                 >
                   +91 7378021327
                 </a>
@@ -176,7 +176,7 @@ const Footer = () => {
                 <FaEnvelope className="text-gray-300 text-xs flex-shrink-0 transition-all duration-300 hover:text-[#c4a265]" />
                 <a
                   href="mailto:support@graphura.in"
-                  className="text-[13px] font-light hover:text-[#8b6f47] transition-all duration-300"
+                  className="text-[13px] font-light hover:text-[#8b6f47] transition-all duration-300 cursor-pointer"
                 >
                   support@graphura.in
                 </a>
@@ -190,10 +190,10 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] tracking-wider text-gray-400">
             <p>© 2026 Graphura India Private Limited. All rights reserved.</p>
             <div className="flex gap-8">
-              <Link to="/privacy-policy" className="hover:text-[#8b6f47] transition-all duration-300">
+              <Link to="/privacy-policy" className="hover:text-[#8b6f47] transition-all duration-300 cursor-pointer">
                 Privacy Policy
               </Link>
-              <Link to="/terms-of-service" className="hover:text-[#8b6f47] transition-all duration-300">
+              <Link to="/terms-of-service" className="hover:text-[#8b6f47] transition-all duration-300 cursor-pointer">
                 Terms of Service
               </Link>
             </div>

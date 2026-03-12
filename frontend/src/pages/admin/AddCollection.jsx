@@ -72,7 +72,7 @@ shadow-md transition-all hover:-translate-y-1 hover:shadow-xl">
           disabled={loading}
           className="bg-black text-white px-6 py-3 rounded-xl w-full
           transition transform hover:-translate-y-0.5 hover:bg-gray-900
-          disabled:opacity-50"
+          disabled:opacity-50 cursor-pointer"
         >
           {loading ? "Saving..." : "Save Collection"}
         </button>

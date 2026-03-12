@@ -233,7 +233,7 @@ const Contactus = () => {
                       ? "noopener noreferrer"
                       : ""
                   }
-                  className={`flex flex-col items-center p-6 bg-white rounded-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 ${!contact.action && "cursor-default"}`}
+                  className={`cursor-pointer ${`flex flex-col items-center p-6 bg-white rounded-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 ${!contact.action && "cursor-default"}`}`}
                 >
                   <div
                     className={`inline-flex p-4 rounded-xl ${contact.color} mb-4`}
@@ -385,7 +385,7 @@ const Contactus = () => {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-40 py-3 bg-[#8b6f47] text-white font-semibold rounded-xl hover:bg-[#7a6140] transition-all hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed text-sm"
+                    className="w-40 py-3 bg-[#8b6f47] text-white font-semibold rounded-xl hover:bg-[#7a6140] transition-all hover:shadow-xl flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed text-sm cursor-pointer"
                   >
                     {isLoading ? (
                       <>
@@ -473,7 +473,7 @@ const Contactus = () => {
                     href="https://maps.google.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#8b6f47] text-white rounded-lg hover:bg-[#7a6140] transition-colors text-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#8b6f47] text-white rounded-lg hover:bg-[#7a6140] transition-colors text-sm cursor-pointer"
                   >
                     <Globe className="w-3 h-3" />
                     Open in Google Maps
@@ -503,7 +503,7 @@ const Contactus = () => {
                       href={social.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex flex-row items-center justify-center gap-2 px-4 py-3 ${social.color} rounded-lg hover:scale-105 transition-all duration-300 min-w-[130px]`}
+                      className={`cursor-pointer ${`flex flex-row items-center justify-center gap-2 px-4 py-3 ${social.color} rounded-lg hover:scale-105 transition-all duration-300 min-w-[130px]`}`}
                     >
                       {social.icon}
                       <span className="font-medium text-sm">{social.name}</span>
@@ -525,7 +525,7 @@ const Contactus = () => {
                       placeholder="Enter your email"
                       className="flex-1 px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#c4a265] text-sm"
                     />
-                    <button className="px-4 py-2 bg-[#ECD1A8] text-gray-900 font-semibold rounded-lg hover:bg-[#D4B483] transition-colors text-sm">
+                    <button className="px-4 py-2 bg-[#ECD1A8] text-gray-900 font-semibold rounded-lg hover:bg-[#D4B483] transition-colors text-sm cursor-pointer">
                       Subscribe
                     </button>
                   </div>
@@ -627,7 +627,7 @@ const Contactus = () => {
             <div className="mt-6 text-center">
               <a
                 href="/faq"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ECD1A8] text-gray-900 font-semibold rounded-full hover:bg-[#D4B483] transition-colors text-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#ECD1A8] text-gray-900 font-semibold rounded-full hover:bg-[#D4B483] transition-colors text-sm cursor-pointer"
               >
                 View All FAQs
                 <MessageSquare className="w-3 h-3" />
@@ -657,7 +657,7 @@ const Contactus = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="tel:+917378021327"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#ECD1A8] text-gray-900 font-bold rounded-full hover:bg-[#D4B483] transition-colors text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#ECD1A8] text-gray-900 font-bold rounded-full hover:bg-[#D4B483] transition-colors text-sm cursor-pointer"
                 >
                   <Phone className="w-4 h-4" />
                   Call Us Now
@@ -665,7 +665,7 @@ const Contactus = () => {
 
                 <a
                   href="mailto:official@graphura.in"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-colors text-sm"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-colors text-sm cursor-pointer"
                 >
                   <Mail className="w-4 h-4" />
                   Email Us

@@ -246,7 +246,7 @@ const WeaversPage = () => {
             <h2 className="text-2xl font-bold text-gray-900">Weaver Profile</h2>
             <button
               onClick={() => setShowWeaverDetail(false)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
             >
               <X className="w-6 h-6" />
             </button>
@@ -767,8 +767,8 @@ const WeaversPage = () => {
                   Every purchase supports artisan livelihoods and helps preserve
                   India's rich textile heritage for future generations.
                 </p>
-                <a href="/collections" className="inline-block w-full">
-                  <button className="w-full py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-black transition-colors">
+                <a href="/collections" className="inline-block w-full cursor-pointer">
+                  <button className="w-full py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-black transition-colors cursor-pointer">
                     Support Artisan Livelihoods
                   </button>
                 </a>
@@ -801,7 +801,7 @@ const WeaversPage = () => {
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <a
                   href="/collections"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#ECD1A8] text-gray-900 font-bold rounded-full hover:bg-[#D4B483] transition-colors"
+                  className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#ECD1A8] text-gray-900 font-bold rounded-full hover:bg-[#D4B483] transition-colors cursor-pointer"
                 >
                   <ShoppingBag className="w-5 h-5" />
                   Shop Artisan Collection

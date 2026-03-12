@@ -61,7 +61,7 @@ export default function Coupans() {
 
             <button
               onClick={() => setOpen(true)}
-              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-sm w-full sm:w-auto"
+              className="flex items-center justify-center gap-2 px-5 py-2.5 bg-black text-white rounded-xl text-sm w-full sm:w-auto cursor-pointer"
             >
               <Plus size={18} />
               Create Coupon
@@ -162,7 +162,7 @@ export default function Coupans() {
                           });
                           loadCoupons();
                         }}
-                        className="px-3 py-1.5 border rounded-lg"
+                        className="px-3 py-1.5 border rounded-lg cursor-pointer"
                       >
                         Edit
                       </button>
@@ -172,7 +172,7 @@ export default function Coupans() {
                           await API.put(`/coupons/disable/${c._id}`);
                           loadCoupons();
                         }}
-                        className="px-3 py-1.5 border border-red-200 text-red-600 rounded-lg"
+                        className="px-3 py-1.5 border border-red-200 text-red-600 rounded-lg cursor-pointer"
                       >
                         Disable
                       </button>
@@ -229,7 +229,7 @@ export default function Coupans() {
                       });
                       loadCoupons();
                     }}
-                    className="px-3 py-1.5 border rounded-lg"
+                    className="px-3 py-1.5 border rounded-lg cursor-pointer"
                   >
                     Edit
                   </button>
@@ -239,7 +239,7 @@ export default function Coupans() {
                       await API.put(`/coupons/disable/${c._id}`);
                       loadCoupons();
                     }}
-                    className="px-3 py-1.5 border border-red-200 text-red-600 rounded-lg"
+                    className="px-3 py-1.5 border border-red-200 text-red-600 rounded-lg cursor-pointer"
                   >
                     Disable
                   </button>

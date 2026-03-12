@@ -33,7 +33,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/70" onClick={onClose}></div>
+      <div className="fixed inset-0 bg-black/70 cursor-pointer" onClick={onClose}></div>
       
       {/* Modal */}
       <div className="relative min-h-screen flex items-center justify-center p-4">
@@ -41,7 +41,7 @@ const ProductModal = ({ product, isOpen, onClose }) => {
           {/* Close button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors shadow-lg"
+            className="absolute top-4 right-4 z-10 p-2 bg-white/90 rounded-full hover:bg-white transition-colors shadow-lg cursor-pointer"
           >
             <X size={24} />
           </button>
@@ -124,11 +124,11 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                     {product.variants.map((variant, index) => (
                       <button
                         key={index}
-                        className={`px-4 py-2 rounded-lg border ${
+                        className={`cursor-pointer ${`px-4 py-2 rounded-lg border ${
                           variant.inStock
                             ? 'border-gray-300 hover:border-purple-500 hover:bg-purple-50'
                             : 'border-gray-200 bg-gray-100 text-gray-400 cursor-not-allowed'
-                        }`}
+                        }`}`}
                         disabled={!variant.inStock}
                       >
                         {variant.size}
@@ -157,14 +157,14 @@ const ProductModal = ({ product, isOpen, onClose }) => {
               {/* Action Buttons */}
               <div className="space-y-4 pt-4">
                 <div className="flex gap-4">
-                  <button className="flex-1 bg-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
+                  <button className="flex-1 bg-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:bg-purple-700 transition-colors flex items-center justify-center gap-2 cursor-pointer">
                     <ShoppingBag size={20} />
                     Add to Cart
                   </button>
-                  <button className="p-3 border border-gray-300 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-colors">
+                  <button className="p-3 border border-gray-300 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-colors cursor-pointer">
                     <Heart size={20} />
                   </button>
-                  <button className="p-3 border border-gray-300 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-colors">
+                  <button className="p-3 border border-gray-300 rounded-xl hover:border-purple-500 hover:bg-purple-50 transition-colors cursor-pointer">
                     <Share2 size={20} />
                   </button>
                 </div>

@@ -202,8 +202,8 @@ const Landing = () => {
             className="flex flex-col sm:flex-row items-start gap-4"
             style={{ position: "relative", zIndex: 5 }}
           >
-            <Link to="/collections">
-              <button className="hero-cta">
+            <Link className="cursor-pointer" to="/collections">
+              <button className="hero-cta cursor-pointer">
                 <span>Shop Collection</span>
                 <span className="hero-cta-arrow">→</span>
               </button>
@@ -321,7 +321,7 @@ const Landing = () => {
               </p>
             </div>
             <button
-              className="outfit text-sm sm:text-base tracking-[0.15em] uppercase pb-1 text-gray-500 hover:text-gray-900 transition-colors duration-300 sr visible sr-d2"
+              className="outfit text-sm sm:text-base tracking-[0.15em] uppercase pb-1 text-gray-500 hover:text-gray-900 transition-colors duration-300 sr visible sr-d2 cursor-pointer"
               style={{ borderBottom: "1px solid var(--gold)" }}
             >
               Wardrobe Picks
@@ -354,13 +354,13 @@ const Landing = () => {
 
           <div className="permanent-marker-regular flex gap-4 sm:gap-8 mb-8 sm:mb-12 sr visible sr-d1">
             <button
-              className="text-base sm:text-xl tracking-wide pb-2 text-inherit"
+              className="text-base sm:text-xl tracking-wide pb-2 text-inherit cursor-pointer"
               style={{ borderBottom: "2px solid var(--gold)" }}
             >
               BESTSELLER
             </button>
 
-            <button className="text-base sm:text-xl tracking-wide text-gray-400 transition-colors duration-300 hover:text-gray-600 pb-2">
+            <button className="text-base sm:text-xl tracking-wide text-gray-400 transition-colors duration-300 hover:text-gray-600 pb-2 cursor-pointer">
               THIS IS NEW
             </button>
           </div>
@@ -371,7 +371,7 @@ const Landing = () => {
               <Link
                 key={`${item._id}-${i}`}
                 to={`/product/${item._id}`}
-                className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
+                className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
               >
                 {/* Image Section */}
                 <div className="relative overflow-hidden">

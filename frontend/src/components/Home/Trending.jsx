@@ -57,7 +57,7 @@ const Trending = () => {
 
           <button
             onClick={() => navigate('/collections')}
-            className="text-xs sm:text-sm tracking-widest text-gray-900 flex items-center gap-2 hover:opacity-60 transition"
+            className="text-xs sm:text-sm tracking-widest text-gray-900 flex items-center gap-2 hover:opacity-60 transition cursor-pointer"
           >
             VIEW ALL
             <ChevronRight size={16} />

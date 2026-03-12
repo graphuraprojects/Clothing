@@ -61,7 +61,7 @@ function ImageCard({
             }
 
             className="absolute top-2 right-2 sm:top-3 sm:right-3
-            bg-black/70 text-white p-1.5 sm:p-2 rounded-full"
+            bg-black/70 text-white p-1.5 sm:p-2 rounded-full cursor-pointer"
           >
             <Trash2 size={14} className="sm:hidden" />
             <Trash2 size={16} className="hidden sm:block" />

@@ -55,7 +55,7 @@ const Collections = () => {
         </div>
         <button 
           onClick={() => navigate('/collections')}
-          className="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1 group"
+          className="text-sm text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1 group cursor-pointer"
         >
           View All
           <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -133,7 +133,7 @@ const Collections = () => {
                         e.stopPropagation();
                         console.log("Quick view for:", product.id);
                       }}
-                      className="text-xs text-gray-500 hover:text-indigo-600 font-medium"
+                      className="text-xs text-gray-500 hover:text-indigo-600 font-medium cursor-pointer"
                     >
                       Quick View
                     </button>

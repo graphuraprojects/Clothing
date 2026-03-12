@@ -108,7 +108,7 @@ export default function OrderTable({ orders = [] }) {
                 <td>
                   <Link
                     to={`/admin/orders/${order._id}`}
-                    className="text-blue-600 hover:underline"
+                    className="text-blue-600 hover:underline cursor-pointer"
                   >
                     View Order
                   </Link>
@@ -187,7 +187,7 @@ export default function OrderTable({ orders = [] }) {
 
               <Link
                 to={`/admin/orders/${order._id}`}
-                className="text-blue-600 text-xs hover:underline"
+                className="text-blue-600 text-xs hover:underline cursor-pointer"
               >
                 View Order
               </Link>

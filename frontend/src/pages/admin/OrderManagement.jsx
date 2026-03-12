@@ -118,7 +118,7 @@ const stats = {
                   hover:shadow transition
                   w-full sm:w-auto
                   text-sm sm:text-base
-                "
+                 cursor-pointer"
               >
                 <Download size={18} />
                 Export CSV
@@ -134,7 +134,7 @@ const stats = {
                   hover:opacity-90 transition
                   w-full sm:w-auto
                   text-sm sm:text-base
-                "
+                 cursor-pointer"
               >
                 <Plus size={18} />
                 Create Order

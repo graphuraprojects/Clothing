@@ -175,14 +175,14 @@ const SilkRouteCollection = () => {
               <button
                 key={c}
                 onClick={() => setCategory(c)}
-                className={`group relative block w-full text-left text-sm mb-2 px-4 py-2.5 rounded-xl
+                className={`cursor-pointer ${`group relative block w-full text-left text-sm mb-2 px-4 py-2.5 rounded-xl
                 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]
                 hover:translate-x-1 active:scale-[0.97]
                 ${
                   category === c
                     ? "bg-[#f5f0eb] text-[#8b6f47] font-semibold shadow-sm"
                     : "text-gray-600 hover:bg-gray-100"
-                }`}
+                }`}`}
               >
                 {c}
               </button>
@@ -195,9 +195,9 @@ const SilkRouteCollection = () => {
               <button
                 key={f}
                 onClick={() => setFabric(f)}
-                className={`block w-full text-left text-sm mb-2 ${
+                className={`cursor-pointer ${`block w-full text-left text-sm mb-2 ${
                   fabric === f ? "font-semibold text-[#8b6f47]" : "text-gray-600"
-                }`}
+                }`}`}
               >
                 {f}
               </button>

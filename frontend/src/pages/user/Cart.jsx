@@ -294,7 +294,7 @@ const handleQuantityChange = async (item, delta) => {
                 <Link
                   to="/collections"
                   className="inline-flex items-center gap-2 bg-[#8b6f47] text-white text-[12px] font-medium tracking-[0.15em] uppercase px-8 py-3.5
-                    hover:bg-[#7a6140] border border-[#8b6f47] transition-all duration-300"
+                    hover:bg-[#7a6140] border border-[#8b6f47] transition-all duration-300 cursor-pointer"
                 >
                   Start Shopping
                 </Link>
@@ -355,7 +355,7 @@ const handleQuantityChange = async (item, delta) => {
                           <div className="flex items-center border border-gray-200 rounded-lg">
                             <button
                               onClick={() => handleQuantityChange(item, -1)}
-                              className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-900 transition-colors"
+                              className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-900 transition-colors cursor-pointer"
                             >
                               <Minus size={14} />
                             </button>
@@ -364,7 +364,7 @@ const handleQuantityChange = async (item, delta) => {
                             </span>
                             <button
                               onClick={() => handleQuantityChange(item, 1)}
-                              className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-900 transition-colors"
+                              className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-900 transition-colors cursor-pointer"
                             >
                               <Plus size={14} />
                             </button>
@@ -383,12 +383,12 @@ const handleQuantityChange = async (item, delta) => {
                                 };
                                 toggleWishlist(wishlistItem);
                               }}
-                              className={`flex items-center gap-1.5 text-[11px] tracking-wider uppercase px-3 py-2 rounded-lg transition-all duration-300
+                              className={`cursor-pointer ${`flex items-center gap-1.5 text-[11px] tracking-wider uppercase px-3 py-2 rounded-lg transition-all duration-300
                                 ${
                                   isInWishlist(item._id)
                                     ? "text-red-500 bg-red-50"
                                     : "text-gray-400 hover:text-gray-900 hover:bg-gray-50"
-                                }`}
+                                }`}`}
                             >
                               <Heart
                                 size={13}
@@ -400,7 +400,7 @@ const handleQuantityChange = async (item, delta) => {
                             </button>
                             <button
                               onClick={() => removeFromCart(item._id)}
-                              className="flex items-center gap-1.5 text-[11px] tracking-wider uppercase text-gray-400 hover:text-red-500 px-3 py-2 rounded-lg hover:bg-red-50 transition-all duration-300"
+                              className="flex items-center gap-1.5 text-[11px] tracking-wider uppercase text-gray-400 hover:text-red-500 px-3 py-2 rounded-lg hover:bg-red-50 transition-all duration-300 cursor-pointer"
                             >
                               <Trash2 size={13} />
                               Remove
@@ -419,7 +419,7 @@ const handleQuantityChange = async (item, delta) => {
               <div className="mt-8">
                 <Link
                   to="/collections"
-                  className="inline-flex items-center gap-2 text-[12px] tracking-[0.1em] uppercase text-gray-400 hover:text-gray-900 transition-all duration-300"
+                  className="inline-flex items-center gap-2 text-[12px] tracking-[0.1em] uppercase text-gray-400 hover:text-gray-900 transition-all duration-300 cursor-pointer"
                 >
                   <ArrowLeft size={14} />
                   Continue Shopping
@@ -488,7 +488,7 @@ const handleQuantityChange = async (item, delta) => {
                     />
                     <button
                       onClick={handleApplyPromo}
-                      className="px-5 py-3 bg-gray-100 text-gray-900 text-[12px] font-medium tracking-wider uppercase rounded-lg hover:bg-[#8b6f47] hover:text-white transition-all duration-300"
+                      className="px-5 py-3 bg-gray-100 text-gray-900 text-[12px] font-medium tracking-wider uppercase rounded-lg hover:bg-[#8b6f47] hover:text-white transition-all duration-300 cursor-pointer"
                     >
                       Apply
                     </button>
@@ -499,11 +499,11 @@ const handleQuantityChange = async (item, delta) => {
                 <button
                   onClick={handleCheckout}
                   disabled={cart.length === 0}
-                  className={`w-full py-4 text-[12px] font-medium tracking-[0.15em] uppercase rounded-lg transition-all duration-300 ${
+                  className={`cursor-pointer ${`w-full py-4 text-[12px] font-medium tracking-[0.15em] uppercase rounded-lg transition-all duration-300 ${
                     cart.length === 0
                       ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                       : "bg-[#8b6f47] text-white hover:bg-[#7a6140] active:scale-[0.98]"
-                  }`}
+                  }`}`}
                 >
                   Proceed to Checkout
                 </button>
@@ -530,7 +530,7 @@ const handleQuantityChange = async (item, delta) => {
                   </p>
                   <a
                     href="tel:+917378021327"
-                    className="text-[13px] font-medium text-gray-900 hover:text-[#c4a265] transition-colors"
+                    className="text-[13px] font-medium text-gray-900 hover:text-[#c4a265] transition-colors cursor-pointer"
                   >
                     +91 7378021327
                   </a>
@@ -593,7 +593,7 @@ const handleQuantityChange = async (item, delta) => {
                             addRecommendedItem(item);
                           }}
                           className="text-[10px] font-medium tracking-wider uppercase text-gray-900 border border-gray-200 px-3 py-1.5 rounded-lg
-                            hover:bg-[#0a0a0a] hover:text-white hover:border-[#0a0a0a] transition-all duration-300 flex-shrink-0"
+                            hover:bg-[#0a0a0a] hover:text-white hover:border-[#0a0a0a] transition-all duration-300 flex-shrink-0 cursor-pointer"
                         >
                           Add
                         </button>
@@ -605,7 +605,7 @@ const handleQuantityChange = async (item, delta) => {
                   <div className="mt-4 pt-4 border-t border-gray-100">
                     <Link
                       to="/collections"
-                      className="block text-center text-[12px] tracking-wider uppercase text-gray-400 hover:text-gray-900 font-medium transition-colors"
+                      className="block text-center text-[12px] tracking-wider uppercase text-gray-400 hover:text-gray-900 font-medium transition-colors cursor-pointer"
                     >
                       View More →
                     </Link>

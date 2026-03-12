@@ -261,7 +261,7 @@ const TermsOfService = () => {
                 <a
                   key={index}
                   href={`#section-${item.num}`}
-                  className="flex items-center gap-4 p-6 bg-white rounded-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group"
+                  className="flex items-center gap-4 p-6 bg-white rounded-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group cursor-pointer"
                 >
                   <span
                     className={`flex items-center justify-center w-12 h-12 ${item.color} rounded-xl text-lg font-bold group-hover:scale-110 transition-transform`}
@@ -1059,7 +1059,7 @@ const TermsOfService = () => {
                   </p>
                   <a
                     href="mailto:wholesale@graphura.in"
-                    className="text-[#B89A67] font-semibold hover:underline"
+                    className="text-[#B89A67] font-semibold hover:underline cursor-pointer"
                   >
                     wholesale@graphura.in
                   </a>
@@ -1258,7 +1258,7 @@ const TermsOfService = () => {
                     </div>
                     <a
                       href="mailto:orders@graphura.in"
-                      className="text-[#ECD1A8] hover:underline block"
+                      className="text-[#ECD1A8] hover:underline block cursor-pointer"
                     >
                       orders@graphura.in
                     </a>
@@ -1271,7 +1271,7 @@ const TermsOfService = () => {
                     </div>
                     <a
                       href="mailto:returns@graphura.in"
-                      className="text-[#ECD1A8] hover:underline block"
+                      className="text-[#ECD1A8] hover:underline block cursor-pointer"
                     >
                       returns@graphura.in
                     </a>
@@ -1380,7 +1380,7 @@ const TermsOfService = () => {
         >
           <a
             href="#top"
-            className="inline-flex items-center gap-3 px-8 py-4 bg-[#8b6f47] text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all hover:scale-105 hover:bg-[#7a6140]"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-[#8b6f47] text-white font-bold text-lg rounded-full hover:shadow-2xl transition-all hover:scale-105 hover:bg-[#7a6140] cursor-pointer"
           >
             <span>Back to Top</span>
             <ChevronRight className="w-6 h-6 -rotate-90" />

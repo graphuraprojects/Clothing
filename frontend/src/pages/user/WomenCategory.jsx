@@ -139,13 +139,13 @@ export default function WomenCollectionPage() {
                   <button
                     key={cat}
                     onClick={() => setActiveCategory(cat)}
-                    className={`whitespace-nowrap px-4 py-2.5 rounded-lg text-[13px] tracking-wide
+                    className={`cursor-pointer ${`whitespace-nowrap px-4 py-2.5 rounded-lg text-[13px] tracking-wide
                       transition-all duration-300
                       ${
                         activeCategory === cat
                           ? "bg-[#f5f0eb] text-[#8b6f47] font-medium"
                           : "bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                      }`}
+                      }`}`}
                   >
                     {cat}
                   </button>

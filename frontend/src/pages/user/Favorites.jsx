@@ -97,7 +97,7 @@ function Favorites() {
           <button
             onClick={() => navigate("/collections")}
             className="inline-flex items-center gap-2 bg-[#8b6f47] text-white text-[12px] font-medium tracking-[0.15em] uppercase px-8 py-3.5
-              hover:bg-[#7a6140] border border-[#8b6f47] transition-all duration-300"
+              hover:bg-[#7a6140] border border-[#8b6f47] transition-all duration-300 cursor-pointer"
           >
             Start Shopping
             <ArrowRight size={14} />

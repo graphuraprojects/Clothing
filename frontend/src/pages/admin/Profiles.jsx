@@ -60,7 +60,7 @@ export default function AdminProfile() {
 
               <button
                 onClick={() => alert("Logged out")}
-                className="mt-6 w-full flex items-center justify-center gap-2 py-2 border rounded-xl text-sm hover:bg-gray-50"
+                className="mt-6 w-full flex items-center justify-center gap-2 py-2 border rounded-xl text-sm hover:bg-gray-50 cursor-pointer"
               >
                 <LogOut size={16} />
                 Logout
@@ -77,7 +77,7 @@ export default function AdminProfile() {
                   </h3>
                   <button
                     onClick={() => setEdit(!edit)}
-                    className="flex items-center gap-1 text-sm text-blue-600"
+                    className="flex items-center gap-1 text-sm text-blue-600 cursor-pointer"
                   >
                     <Edit size={14} />
                     {edit ? "Cancel" : "Edit"}
@@ -123,7 +123,7 @@ export default function AdminProfile() {
                 </div>
 
                 {edit && (
-                  <button className="mt-4 px-5 py-2 bg-black text-white rounded-xl text-sm hover:opacity-90">
+                  <button className="mt-4 px-5 py-2 bg-black text-white rounded-xl text-sm hover:opacity-90 cursor-pointer">
                     Save Changes
                   </button>
                 )}
@@ -141,7 +141,7 @@ export default function AdminProfile() {
                     Password & Authentication
                   </div>
 
-                  <button className="flex items-center gap-2 px-4 py-2 border rounded-xl text-sm hover:bg-gray-50">
+                  <button className="flex items-center gap-2 px-4 py-2 border rounded-xl text-sm hover:bg-gray-50 cursor-pointer">
                     <Lock size={16} />
                     Change Password
                   </button>

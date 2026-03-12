@@ -219,7 +219,7 @@ const EditProduct = () => {
           </div>
 
           <button
-            className="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-900 transition"
+            className="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-900 transition cursor-pointer"
           >
             Update Product
           </button>

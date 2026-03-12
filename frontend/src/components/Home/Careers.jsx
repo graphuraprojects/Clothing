@@ -371,7 +371,7 @@ const Careers = () => {
                 <button
                   key={dept.id}
                   onClick={() => setSelectedDepartment(dept.id)}
-                  className={`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all ${selectedDepartment === dept.id ? "bg-gray-900 text-white" : dept.color} hover:shadow-lg`}
+                  className={`cursor-pointer ${`flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all ${selectedDepartment === dept.id ? "bg-gray-900 text-white" : dept.color} hover:shadow-lg`}`}
                 >
                   {dept.icon}
                   {dept.name}
@@ -425,7 +425,7 @@ const Careers = () => {
                       </div>
                     </div>
                   </div>
-                  <button className="lg:self-start px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-black transition-colors">
+                  <button className="lg:self-start px-6 py-3 bg-gray-900 text-white font-semibold rounded-xl hover:bg-black transition-colors cursor-pointer">
                     Apply Now
                   </button>
                 </div>
@@ -480,7 +480,7 @@ const Careers = () => {
               </p>
               <button
                 onClick={() => setSelectedDepartment("all")}
-                className="px-6 py-3 bg-[#ECD1A8] text-gray-900 font-semibold rounded-xl hover:bg-[#D4B483] transition-colors"
+                className="px-6 py-3 bg-[#ECD1A8] text-gray-900 font-semibold rounded-xl hover:bg-[#D4B483] transition-colors cursor-pointer"
               >
                 View All Openings
               </button>
@@ -668,8 +668,8 @@ const Careers = () => {
                     movement towards sustainable, ethical fashion that empowers
                     artisans and protects our planet.
                   </p>
-                  <a href="/our-philosphy">
-                    <button className="mt-6 px-6 py-3 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-colors">
+                  <a className="cursor-pointer" href="/our-philosphy">
+                    <button className="mt-6 px-6 py-3 bg-white text-gray-900 font-semibold rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
                       Learn About Our Mission
                     </button>
                   </a>
@@ -783,12 +783,12 @@ const Careers = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                <button className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-[#ECD1A8] text-gray-900 font-bold text-lg rounded-full hover:bg-[#D4B483] transition-colors shadow-lg hover:shadow-xl">
+                <button className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-[#ECD1A8] text-gray-900 font-bold text-lg rounded-full hover:bg-[#D4B483] transition-colors shadow-lg hover:shadow-xl cursor-pointer">
                   View All Openings
                   <ArrowRight className="w-5 h-5" />
                 </button>
 
-                <button className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white/10 backdrop-blur-sm text-white font-bold text-lg rounded-full hover:bg-white/20 transition-colors border border-white/20">
+                <button className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white/10 backdrop-blur-sm text-white font-bold text-lg rounded-full hover:bg-white/20 transition-colors border border-white/20 cursor-pointer">
                   <Mail className="w-5 h-5" />
                   Send General Inquiry
                 </button>
@@ -799,7 +799,7 @@ const Careers = () => {
                   Have questions? Contact our Talent Team at{" "}
                   <a
                     href="mailto:careers@graphura.in"
-                    className="text-[#ECD1A8] hover:underline"
+                    className="text-[#ECD1A8] hover:underline cursor-pointer"
                   >
                     careers@graphura.in
                   </a>

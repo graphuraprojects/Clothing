@@ -108,7 +108,7 @@ export default function UserLogin() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#000000] text-white py-3 rounded-xl tracking-wide hover:opacity-90 active:scale-95 transition"
+                  className="w-full bg-[#000000] text-white py-3 rounded-xl tracking-wide hover:opacity-90 active:scale-95 transition cursor-pointer"
                 >
                   {loading ? "Signing in..." : "SIGN IN"}
                 </button>

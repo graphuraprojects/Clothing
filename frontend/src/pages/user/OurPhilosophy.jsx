@@ -424,7 +424,7 @@ const OurPhilosophy = () => {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
             <a
               href="/collections"
-              className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#8b6f47] text-white font-medium rounded-full hover:bg-[#7a6140] transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base group"
+              className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-[#8b6f47] text-white font-medium rounded-full hover:bg-[#7a6140] transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base group cursor-pointer"
             >
               Explore Collections
               <span className="group-hover:translate-x-1 transition-transform">
@@ -433,7 +433,7 @@ const OurPhilosophy = () => {
             </a>
             <a
               href="/about"
-              className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-800 font-medium rounded-full hover:bg-gray-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base border border-gray-200"
+              className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-800 font-medium rounded-full hover:bg-gray-50 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base border border-gray-200 cursor-pointer"
             >
               Learn Our Story
             </a>

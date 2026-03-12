@@ -65,12 +65,12 @@ const Navbar = () => {
             {/* MOBILE MENU BUTTON */}
             <button
               onClick={() => setOpen(true)}
-              className={`md:hidden p-2 rounded-lg transition-all duration-300 flex-shrink-0
+              className={`cursor-pointer ${`md:hidden p-2 rounded-lg transition-all duration-300 flex-shrink-0
                 ${
                   showTransparent
                     ? "text-white hover:bg-white/10"
                     : "text-gray-700 hover:bg-gray-100"
-                }`}
+                }`}`}
             >
               <Menu size={22} />
             </button>
@@ -78,7 +78,7 @@ const Navbar = () => {
             {/* LOGO */}
             <Link
               to="/"
-              className="flex items-center ml-1 sm:ml-2 md:ml-0 flex-shrink-0"
+              className="flex items-center ml-1 sm:ml-2 md:ml-0 flex-shrink-0 cursor-pointer"
             >
               <img
                 src={logo}
@@ -101,7 +101,7 @@ const Navbar = () => {
               <Link
                 key={to}
                 to={to}
-                className={`relative px-2 lg:px-3 py-2 text-[13px] font-medium tracking-[0.06em] uppercase transition-all duration-300
+                className={`cursor-pointer ${`relative px-2 lg:px-3 py-2 text-[13px] font-medium tracking-[0.06em] uppercase transition-all duration-300
                   ${
                     showTransparent
                       ? isActive(to)
@@ -110,7 +110,7 @@ const Navbar = () => {
                       : isActive(to)
                       ? "text-[#8b6f47]"
                       : "text-gray-500 hover:text-gray-900"
-                  }`}
+                  }`}`}
               >
                 {label}
                 {/* Underline indicator */}
@@ -128,13 +128,13 @@ const Navbar = () => {
             {/* SEARCH DESKTOP */}
             <div
               onClick={() => inputRef.current?.focus()}
-              className={`hidden md:flex items-center px-3 py-2 rounded-full border overflow-hidden flex-shrink-0
+              className={`cursor-pointer ${`hidden md:flex items-center px-3 py-2 rounded-full border overflow-hidden flex-shrink-0
                 w-9 focus-within:w-48 hover:w-48 transition-all duration-500 cursor-text
                 ${
                   showTransparent
                     ? "border-white/20 bg-white/10 backdrop-blur-sm"
                     : "border-gray-200 bg-gray-50/50"
-                }`}
+                }`}`}
             >
               <Search
                 size={14}
@@ -158,13 +158,13 @@ const Navbar = () => {
             {/* MOBILE SEARCH */}
             <div
               onClick={() => inputRef.current?.focus()}
-              className={`flex md:hidden items-center px-2 py-1.5 rounded-full border overflow-hidden flex-shrink-0
+              className={`cursor-pointer ${`flex md:hidden items-center px-2 py-1.5 rounded-full border overflow-hidden flex-shrink-0
                 w-9 focus-within:w-32 transition-all duration-500
                 ${
                   showTransparent
                     ? "border-white/20 bg-white/10"
                     : "border-gray-200 bg-gray-50/50"
-                }`}
+                }`}`}
             >
               <Search
                 size={15}
@@ -187,7 +187,7 @@ const Navbar = () => {
 
             {/* ICONS DESKTOP */}
             <div className="hidden md:flex items-center gap-5 flex-shrink-0">
-              <Link to="/favorites" className="relative group">
+              <Link to="/favorites" className="relative group cursor-pointer">
                 <Heart
                   className={`w-[18px] h-[18px] transition-all duration-300 group-hover:scale-110
                   ${
@@ -198,7 +198,7 @@ const Navbar = () => {
                 />
               </Link>
 
-              <Link to="/dashboard/profile" className="relative group">
+              <Link to="/dashboard/profile" className="relative group cursor-pointer">
                 <User
                   className={`w-[18px] h-[18px] transition-all duration-300 group-hover:scale-110
                   ${
@@ -209,7 +209,7 @@ const Navbar = () => {
                 />
               </Link>
 
-              <Link to="/cart" className="relative group">
+              <Link to="/cart" className="relative group cursor-pointer">
                 <ShoppingBag
                   className={`w-[18px] h-[18px] transition-all duration-300 group-hover:scale-110
                   ${
@@ -223,12 +223,12 @@ const Navbar = () => {
               {isLoggedIn ? (
                 <button
                   onClick={handleLogout}
-                  className={`flex items-center gap-1.5 text-[12px] tracking-wider uppercase transition-all duration-300
+                  className={`cursor-pointer ${`flex items-center gap-1.5 text-[12px] tracking-wider uppercase transition-all duration-300
                     ${
                       showTransparent
                         ? "text-white/50 hover:text-red-300"
                         : "text-gray-400 hover:text-red-400"
-                    }`}
+                    }`}`}
                 >
                   <LogOut size={15} />
                   <span className="hidden lg:inline">Logout</span>
@@ -236,12 +236,12 @@ const Navbar = () => {
               ) : (
                 <Link
                   to="/login"
-                  className={`flex items-center gap-1.5 text-[12px] tracking-wider uppercase transition-all duration-300
+                  className={`cursor-pointer ${`flex items-center gap-1.5 text-[12px] tracking-wider uppercase transition-all duration-300
                     ${
                       showTransparent
                         ? "text-white/70 hover:text-white"
                         : "text-gray-400 hover:text-gray-900"
-                    }`}
+                    }`}`}
                 >
                   <LogIn size={15} />
                   <span className="hidden lg:inline">Login</span>
@@ -252,12 +252,12 @@ const Navbar = () => {
             {/* MOBILE CART */}
             <Link
               to="/cart"
-              className={`md:hidden flex-shrink-0 transition-all duration-300
+              className={`cursor-pointer ${`md:hidden flex-shrink-0 transition-all duration-300
               ${
                 showTransparent
                   ? "text-white/80 hover:text-white"
                   : "text-gray-500 hover:text-gray-900"
-              }`}
+              }`}`}
             >
               <ShoppingBag size={20} />
             </Link>
@@ -272,9 +272,9 @@ const Navbar = () => {
 
       {/* OVERLAY */}
       <div
-        className={`fixed inset-0 bg-black/30 backdrop-blur-sm z-[998]
+        className={`cursor-pointer ${`fixed inset-0 bg-black/30 backdrop-blur-sm z-[998]
         transition-all duration-500
-        ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}
+        ${open ? "opacity-100 visible" : "opacity-0 invisible"}`}`}
         onClick={() => setOpen(false)}
       />
 
@@ -290,7 +290,7 @@ const Navbar = () => {
           <img src={logo} className="h-8 w-auto flex-shrink-0" alt="Logo" />
           <button
             onClick={() => setOpen(false)}
-            className="p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 text-gray-400"
+            className="p-1.5 hover:bg-gray-100 rounded-full transition-all duration-300 text-gray-400 cursor-pointer"
           >
             <X size={20} />
           </button>
@@ -310,12 +310,12 @@ const Navbar = () => {
               key={to}
               onClick={() => setOpen(false)}
               to={to}
-              className={`py-3 px-4 text-[14px] font-medium tracking-[0.08em] uppercase rounded-lg transition-all duration-300
+              className={`cursor-pointer ${`py-3 px-4 text-[14px] font-medium tracking-[0.08em] uppercase rounded-lg transition-all duration-300
                 ${
                   isActive(to)
                     ? "text-[#8b6f47] bg-[#f5f0eb]"
                     : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
-                }`}
+                }`}`}
             >
               {label}
             </Link>
@@ -326,21 +326,21 @@ const Navbar = () => {
             <Link
               to="/favorites"
               onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-[#c4a265] transition-all duration-300"
+              className="text-gray-400 hover:text-[#c4a265] transition-all duration-300 cursor-pointer"
             >
               <Heart size={20} />
             </Link>
             <Link
               to="/dashboard/profile"
               onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-[#c4a265] transition-all duration-300"
+              className="text-gray-400 hover:text-[#c4a265] transition-all duration-300 cursor-pointer"
             >
               <User size={20} />
             </Link>
             <Link
               to="/cart"
               onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-[#c4a265] transition-all duration-300"
+              className="text-gray-400 hover:text-[#c4a265] transition-all duration-300 cursor-pointer"
             >
               <ShoppingBag size={20} />
             </Link>
@@ -350,7 +350,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <button
               onClick={handleLogout}
-              className="flex items-center gap-2 text-red-400 hover:text-red-500 pt-6 text-sm tracking-wider uppercase transition-all duration-300"
+              className="flex items-center gap-2 text-red-400 hover:text-red-500 pt-6 text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer"
             >
               <LogOut size={16} />
               Logout
@@ -359,7 +359,7 @@ const Navbar = () => {
             <Link
               to="/login"
               onClick={() => setOpen(false)}
-              className="flex items-center gap-2 text-gray-400 hover:text-gray-900 pt-6 text-sm tracking-wider uppercase transition-all duration-300"
+              className="flex items-center gap-2 text-gray-400 hover:text-gray-900 pt-6 text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer"
             >
               <LogIn size={16} />
               Login

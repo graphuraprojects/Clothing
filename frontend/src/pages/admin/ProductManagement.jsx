@@ -152,13 +152,13 @@ export default function ProductManagement() {
     <button
       key={tab}
       onClick={() => setActiveTab(tab)}
-      className={`px-4 py-2 rounded-xl border border-gray-200 font-semibold
+      className={`cursor-pointer ${`px-4 py-2 rounded-xl border border-gray-200 font-semibold
       text-xs sm:text-sm transition
       ${
         activeTab === tab
           ? "bg-black text-white"
           : "bg-white hover:bg-gray-100"
-      }`}
+      }`}`}
     >
       {tab.replace("_", " ")}
     </button>

@@ -326,7 +326,7 @@ const handleWishlistToggle = async () => {
           </p>
           <button
             onClick={() => navigate("/collections")}
-            className="px-6 py-3 bg-[#8b6f47] text-white rounded-lg font-medium hover:bg-[#7a6140] transition-colors"
+            className="px-6 py-3 bg-[#8b6f47] text-white rounded-lg font-medium hover:bg-[#7a6140] transition-colors cursor-pointer"
           >
             Continue Shopping
           </button>
@@ -424,7 +424,7 @@ const handleWishlistToggle = async () => {
 
           <div className="l-1xl relative rounded-2xl overflow-hidden shadow-lg">
             <div className="relative w-full">
-              <div className="relative pt-[100%] md:pt-[75%] overflow-hidden cursor-zoom-in"
+              <div className="relative pt-[100%] md:pt-[75%] overflow-hidden cursor-zoom-in cursor-pointer"
                 onMouseMove={handleMouseMove}
                 onClick={handleImageZoom}>
              <img
@@ -477,7 +477,7 @@ const handleWishlistToggle = async () => {
                       e.stopPropagation();
                       setIsZoomed(false);
                     }}
-                    className="absolute top-4 left-4 bg-black/60 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/80 transition-colors shadow-lg z-20"
+                    className="absolute top-4 left-4 bg-black/60 text-white w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center backdrop-blur-sm hover:bg-black/80 transition-colors shadow-lg z-20 cursor-pointer"
                     title="Exit zoom"
                     aria-label="Exit zoom mode"
                   >
@@ -492,13 +492,13 @@ const handleWishlistToggle = async () => {
               <>
                 <button
                   onClick={() => handleImageNavigation("prev")}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors shadow-md z-10"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors shadow-md z-10 cursor-pointer"
                 >
                   <ChevronLeft className="text-xl" />
                 </button>
                 <button
                   onClick={() => handleImageNavigation("next")}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors shadow-md z-10"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/80 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors shadow-md z-10 cursor-pointer"
                 >
                   <ChevronRight className="text-xl" />
                 </button>
@@ -540,7 +540,7 @@ const handleWishlistToggle = async () => {
                     setSelectedImage(index);
                     setIsZoomed(false);
                   }}
-                  className={`rounded-xl overflow-hidden border-2 transition-all relative ${selectedImage === index ? "border-[#8b6f47] scale-105 ring-2 ring-[#d4c5a9]" : "border-transparent hover:border-gray-300"}`}
+                  className={`cursor-pointer ${`rounded-xl overflow-hidden border-2 transition-all relative ${selectedImage === index ? "border-[#8b6f47] scale-105 ring-2 ring-[#d4c5a9]" : "border-transparent hover:border-gray-300"}`}`}
                   aria-label={`View image ${index + 1}`}
                 >
                   <img
@@ -564,7 +564,7 @@ const handleWishlistToggle = async () => {
           <nav className="text-sm text-gray-500 flex items-center">
             <button
               onClick={() => navigate("/")}
-              className="hover:text-black transition-colors flex items-center"
+              className="hover:text-black transition-colors flex items-center cursor-pointer"
             >
               <ArrowLeft size={16} className="mr-1" />
               Back
@@ -572,14 +572,14 @@ const handleWishlistToggle = async () => {
             <span className="mx-2">•</span>
             <button
               onClick={() => navigate("/")}
-              className="hover:text-black transition-colors"
+              className="hover:text-black transition-colors cursor-pointer"
             >
               Home
             </button>
             <span className="mx-2">/</span>
             <button
               onClick={() => navigate("/collections")}
-              className="hover:text-black transition-colors"
+              className="hover:text-black transition-colors cursor-pointer"
             >
               Collections
             </button>
@@ -651,7 +651,7 @@ const handleWishlistToggle = async () => {
             <div className="flex items-center gap-4">
               <button
                 onClick={handleShare}
-                className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors"
+                className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors cursor-pointer"
               >
                 <Share2 size={20} />
                 <span className="text-sm hidden sm:inline">Share</span>
@@ -698,7 +698,7 @@ const handleWishlistToggle = async () => {
                   <button
                     key={color.id}
                     onClick={() => handleColorSelect(color)}
-                    className={`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-transform shadow-sm ${selectedColor?.id === color.id ? "border-black scale-110 ring-2 ring-black ring-opacity-20" : "border-gray-300 hover:scale-105"}`}
+                    className={`cursor-pointer ${`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-transform shadow-sm ${selectedColor?.id === color.id ? "border-black scale-110 ring-2 ring-black ring-opacity-20" : "border-gray-300 hover:scale-105"}`}`}
                     style={{ backgroundColor: color.value }}
                     title={color.name}
                     aria-label={`Select ${color.name} color`}
@@ -769,7 +769,7 @@ const handleWishlistToggle = async () => {
       </h3>
       <button
         onClick={() => setShowSizeGuide(true)}
-        className="text-xs sm:text-sm text-[#8b6f47] hover:underline font-medium"
+        className="text-xs sm:text-sm text-[#8b6f47] hover:underline font-medium cursor-pointer"
       >
         Size Guide
       </button>
@@ -786,11 +786,11 @@ const handleWishlistToggle = async () => {
             key={size}
             onClick={() => setSelectedSize(size)}
             disabled={stock === 0}
-            className={`relative py-2 px-3 rounded-lg border ${
+            className={`cursor-pointer ${`relative py-2 px-3 rounded-lg border ${
               selectedSize === size
                 ? "border-[#8b6f47] bg-[#f5f3ef]"
                 : "border-gray-200"
-            } ${stock === 0 ? "opacity-50 cursor-not-allowed" : ""}`}
+            } ${stock === 0 ? "opacity-50 cursor-not-allowed" : ""}`}`}
           >
             {size}
           </button>
@@ -816,7 +816,7 @@ const handleWishlistToggle = async () => {
                 <button
                   onClick={() => handleQuantityChange(-1)}
                   disabled={quantity <= 1}
-                  className="px-3 sm:px-4 py-2 sm:py-3 text-gray-600 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-3 sm:px-4 py-2 sm:py-3 text-gray-600 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
                   aria-label="Decrease quantity"
                 >
                   –
@@ -827,7 +827,7 @@ const handleWishlistToggle = async () => {
                 <button
                   onClick={() => handleQuantityChange(1)}
                   disabled={quantity >= variantStock}
-                  className="px-4 py-3 text-gray-600 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-3 text-gray-600 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
                   aria-label="Increase quantity"
                 >
                   +
@@ -865,7 +865,7 @@ const handleWishlistToggle = async () => {
                   Added to favorites!
                   <button
                     onClick={() => navigate("/favorites")}
-                    className="ml-0 sm:ml-2 block sm:inline text-green-800 underline font-semibold hover:text-green-900"
+                    className="ml-0 sm:ml-2 block sm:inline text-green-800 underline font-semibold hover:text-green-900 cursor-pointer"
                   >
                     View favorites
                   </button>
@@ -885,7 +885,7 @@ const handleWishlistToggle = async () => {
                   Item added to cart!
                   <button
                     onClick={() => navigate("/cart")}
-                    className="ml-0 sm:ml-2 block sm:inline text-[#6b5535] underline font-semibold hover:text-[#5a4830]"
+                    className="ml-0 sm:ml-2 block sm:inline text-[#6b5535] underline font-semibold hover:text-[#5a4830] cursor-pointer"
                   >
                     View cart
                   </button>
@@ -899,18 +899,18 @@ const handleWishlistToggle = async () => {
             <button
               onClick={handleBuyNow}
               disabled={!selectedSize || product.stock === 0}
-              className={`w-full py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl ${
+              className={`cursor-pointer ${`w-full py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl ${
                 !selectedSize || product.stock === 0
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-linear-to-r from-[#8b6f47] to-[#7a6140] text-white hover:from-[#7a6140] hover:to-[#6b5535]"
-              }`}
+              }`}`}
             >
               {product.stock === 0 ? "Out of Stock" : "Buy Now"}
             </button>
 
             <button
               onClick={() => navigate("/ai-try-on")}
-              className="w-full py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border-2 border-[#8b6f47] text-[#8b6f47] hover:bg-[#8b6f47] hover:text-white transition-all duration-300 shadow-md"
+              className="w-full py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border-2 border-[#8b6f47] text-[#8b6f47] hover:bg-[#8b6f47] hover:text-white transition-all duration-300 shadow-md cursor-pointer"
             >
               Try your clothes
             </button>
@@ -919,13 +919,13 @@ const handleWishlistToggle = async () => {
               <button
                 onClick={handleAddToCart}
                 disabled={!selectedSize || product.stock === 0 || isInCart}
-                className={`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${
+                className={`cursor-pointer ${`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${
                   isInCart
                     ? "bg-green-100 text-green-700 border-2 border-green-300"
                     : !selectedSize || product.stock === 0
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                       : "bg-[#8b6f47] text-white hover:bg-[#7a6140]"
-                }`}
+                }`}`}
               >
                 <ShoppingCart size={18} className="sm:size-5" />
                 <span className="font-semibold">
@@ -935,11 +935,11 @@ const handleWishlistToggle = async () => {
 
               <button
                 onClick={handleWishlistToggle}
-                className={`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base border-2 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${
+                className={`cursor-pointer ${`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base border-2 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${
                   isInWishlist
                     ? "border-red-500 text-red-600 bg-red-50 hover:bg-red-100"
                     : "border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-700"
-                }`}
+                }`}`}
               >
                 <Heart
                   size={18}
@@ -961,11 +961,11 @@ const handleWishlistToggle = async () => {
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`py-2 sm:py-3 px-1 font-medium text-xs sm:text-sm border-b-2 transition-colors whitespace-nowrap ${
+                      className={`cursor-pointer ${`py-2 sm:py-3 px-1 font-medium text-xs sm:text-sm border-b-2 transition-colors whitespace-nowrap ${
                         activeTab === tab
                           ? "border-[#8b6f47] text-[#8b6f47]"
                           : "border-transparent text-gray-500 hover:text-gray-700"
-                      }`}
+                      }`}`}
                     >
                       {tab.charAt(0).toUpperCase() + tab.slice(1)}
                     </button>
@@ -1074,7 +1074,7 @@ const handleWishlistToggle = async () => {
                   </div>
                   <button
                     onClick={() => navigate(`/product/${id}/reviews`)}
-                    className="text-[#8b6f47] hover:underline font-medium flex items-center gap-2"
+                    className="text-[#8b6f47] hover:underline font-medium flex items-center gap-2 cursor-pointer"
                   >
                     Read all reviews
                     <ChevronRight size={16} />
@@ -1172,7 +1172,7 @@ const handleWishlistToggle = async () => {
                 </div>
                 <button
                   onClick={() => navigate(`/product/${id}/reviews`)}
-                  className="text-[#8b6f47] hover:underline font-medium flex items-center gap-2"
+                  className="text-[#8b6f47] hover:underline font-medium flex items-center gap-2 cursor-pointer"
                 >
                   Read all reviews
                   <ChevronRight size={16} />
@@ -1192,7 +1192,7 @@ const handleWishlistToggle = async () => {
             </h2>
             <button
               onClick={() => navigate("/collections")}
-              className="text-sm text-[#8b6f47] hover:underline flex items-center gap-1 font-medium"
+              className="text-sm text-[#8b6f47] hover:underline flex items-center gap-1 font-medium cursor-pointer"
             >
               View All
               <ChevronRight size={16} />
@@ -1247,7 +1247,7 @@ const handleWishlistToggle = async () => {
                 </h3>
                 <button
                   onClick={() => setShowSizeGuide(false)}
-                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  className="text-gray-500 hover:text-gray-700 transition-colors cursor-pointer"
                 >
                   <X size={24} />
                 </button>
@@ -1336,7 +1336,7 @@ const handleWishlistToggle = async () => {
               <div className="mt-4 sm:mt-6 flex justify-end">
                 <button
                   onClick={() => setShowSizeGuide(false)}
-                  className="px-4 sm:px-6 py-2 text-sm sm:text-base bg-[#8b6f47] text-white rounded-lg font-medium hover:bg-[#7a6140] transition-colors"
+                  className="px-4 sm:px-6 py-2 text-sm sm:text-base bg-[#8b6f47] text-white rounded-lg font-medium hover:bg-[#7a6140] transition-colors cursor-pointer"
                 >
                   Close
                 </button>

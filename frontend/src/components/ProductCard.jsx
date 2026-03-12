@@ -49,9 +49,9 @@ const ProductCard = ({
         {/* HEART */}
         <button
           onClick={handleWishlistClick}
-          className={`absolute top-3 right-3 bg-white p-2 rounded-full shadow ${
+          className={`cursor-pointer ${`absolute top-3 right-3 bg-white p-2 rounded-full shadow ${
             isWishlisted ? "text-red-500" : "text-gray-600"
-          }`}
+          }`}`}
         >
           <Heart
             size={16}
@@ -89,7 +89,7 @@ const ProductCard = ({
         {showViewButton && (
           <button
             onClick={handleViewClick}
-            className="mt-3 w-full py-2 rounded-full text-sm border border-black hover:bg-black hover:text-white transition"
+            className="mt-3 w-full py-2 rounded-full text-sm border border-black hover:bg-black hover:text-white transition cursor-pointer"
           >
             View Product
           </button>

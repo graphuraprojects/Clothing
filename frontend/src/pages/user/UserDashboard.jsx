@@ -35,7 +35,7 @@ const UserDashboard = () => {
       </h1>
       <button
         onClick={handleLogout}
-        className="bg-[#2F2C79] text-white py-2 px-4 rounded"
+        className="bg-[#2F2C79] text-white py-2 px-4 rounded cursor-pointer"
       >
         Logout
       </button>

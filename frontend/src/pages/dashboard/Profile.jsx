@@ -138,7 +138,7 @@ export default function Profile() {
               setTempProfile(profile);
               setEditOpen(true);
             }}
-            className="px-5 py-2.5 rounded-xl text-sm flex items-center gap-2 bg-black text-white font-semibold hover:bg-gray-800 transition"
+            className="px-5 py-2.5 rounded-xl text-sm flex items-center gap-2 bg-black text-white font-semibold hover:bg-gray-800 transition cursor-pointer"
 
           >
 
@@ -243,7 +243,7 @@ export default function Profile() {
 
           <button
             onClick={() => setPasswordOpen(true)}
-            className="flex items-center gap-2 m-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 transition"
+            className="flex items-center gap-2 m-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 transition cursor-pointer"
           >
             <FiLock className="text-base" />
             Change Password
@@ -355,7 +355,7 @@ export default function Profile() {
 
           <button
             onClick={() => setCardOpen(true)}
-            className="rounded-2xl p-6 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition duration-200"
+            className="rounded-2xl p-6 flex flex-col items-center justify-center gap-2 border-2 border-dashed border-gray-300 text-gray-600 hover:bg-gray-50 hover:border-gray-400 transition duration-200 cursor-pointer"
           >
 
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100">
@@ -517,7 +517,7 @@ const Modal = ({ title, children, onClose }) => (
 
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-gray-500 hover:text-black"
+        className="absolute top-4 right-4 text-gray-500 hover:text-black cursor-pointer"
 
       >
 
@@ -565,7 +565,7 @@ const ModalFooter = ({ onCancel, onSave }) => (
 
     <button
       onClick={onCancel}
-      className="px-5 py-2 rounded-xl border hover:bg-gray-100 transition"
+      className="px-5 py-2 rounded-xl border hover:bg-gray-100 transition cursor-pointer"
 
     >
 
@@ -573,7 +573,7 @@ const ModalFooter = ({ onCancel, onSave }) => (
 
     <button
       onClick={onSave}
-      className="px-5 py-2 rounded-xl bg-black text-white hover:bg-gray-800 transition"
+      className="px-5 py-2 rounded-xl bg-black text-white hover:bg-gray-800 transition cursor-pointer"
 
     >
 

@@ -148,11 +148,11 @@ const ShippingReturns = () => {
             <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2">
               <button
                 onClick={() => setActiveTab("shipping")}
-                className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base md:text-lg transition-all ${
+                className={`cursor-pointer ${`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base md:text-lg transition-all ${
                   activeTab === "shipping"
                     ? "bg-[#8b6f47] text-white shadow"
                     : "text-gray-700 hover:bg-gray-50"
-                }`}
+                }`}`}
               >
                 <Truck className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 <span className="hidden sm:inline">Shipping</span>
@@ -161,11 +161,11 @@ const ShippingReturns = () => {
 
               <button
                 onClick={() => setActiveTab("returns")}
-                className={`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base md:text-lg transition-all ${
+                className={`cursor-pointer ${`flex-1 flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-6 py-2.5 sm:py-3 md:py-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-base md:text-lg transition-all ${
                   activeTab === "returns"
                     ? "bg-[#8b6f47] text-white shadow"
                     : "text-gray-700 hover:bg-gray-50"
-                }`}
+                }`}`}
               >
                 <RefreshCw className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 <span className="hidden sm:inline">Returns</span>
@@ -987,7 +987,7 @@ const ShippingReturns = () => {
                   </div>
                   <a
                     href="mailto:support@graphura.in"
-                    className="text-[#ECD1A8] hover:underline text-sm sm:text-base md:text-lg block"
+                    className="text-[#ECD1A8] hover:underline text-sm sm:text-base md:text-lg block cursor-pointer"
                   >
                     support@graphura.in
                   </a>
@@ -1010,7 +1010,7 @@ const ShippingReturns = () => {
                 </div>
               </div>
 
-              <button className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-4 bg-[#ECD1A8] text-gray-900 font-bold text-sm sm:text-base md:text-lg rounded-full hover:bg-[#D4B483] transition-colors shadow-lg hover:shadow-xl">
+              <button className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-4 bg-[#ECD1A8] text-gray-900 font-bold text-sm sm:text-base md:text-lg rounded-full hover:bg-[#D4B483] transition-colors shadow-lg hover:shadow-xl cursor-pointer">
                 Start Live Chat Now
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
@@ -1046,7 +1046,7 @@ const ShippingReturns = () => {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
                 <a
                   href="/collections"
-                  className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-4 bg-[#8b6f47] text-white font-bold rounded-full hover:bg-[#7a6140] transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
+                  className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-4 bg-[#8b6f47] text-white font-bold rounded-full hover:bg-[#7a6140] transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base cursor-pointer"
                 >
                   <Store className="w-4 h-4 sm:w-5 sm:h-5" />
                   Shop Premium Collection
@@ -1054,7 +1054,7 @@ const ShippingReturns = () => {
 
                 <a
                   href="/dashboard/orders"
-                  className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-4 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base"
+                  className="inline-flex items-center justify-center gap-2 sm:gap-3 px-6 py-3 sm:px-8 sm:py-4 md:px-10 md:py-4 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl text-sm sm:text-base cursor-pointer"
                 >
                   <Truck className="w-4 h-4 sm:w-5 sm:h-5" />
                   Track Your Order

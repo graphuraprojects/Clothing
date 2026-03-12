@@ -124,7 +124,7 @@ export default function TrackOrder() {
                 }
                 className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white
                 bg-black transition-all duration-300
-                hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5"
+                hover:bg-gray-800 hover:shadow-lg hover:-translate-y-0.5 cursor-pointer"
               >
                 Track →
               </button>

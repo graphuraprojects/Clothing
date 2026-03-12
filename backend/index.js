@@ -18,33 +18,29 @@ import cartRoutes from "./routes/cart.routes.js";
 import userRoutes from "./routes/auth.routes.js";
 import orderRoutes from "./routes/order.routes.js";
 import userdashboardRoutes from "./routes/userdashboard.routes.js";
-import collectionRoutes from "./routes/collection.routes.js"
+import collectionRoutes from "./routes/collection.routes.js";
 import inventoryRoutes from "./routes/inventory.routes.js";
 import tryOnRoutes from "./routes/tryon.routes.js";
 import whatsappRoutes from "./routes/whatsapp.routes.js";
-import couponRoutes from "./routes/coupons.routes.js"
-import paymentRoutes from"./routes/payment.routes.js"
+import couponRoutes from "./routes/coupons.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 import refundRoutes from "./routes/refund.routes.js";
-import adminRefundRoutes from "./routes/adminrefund.routes.js"
+import adminRefundRoutes from "./routes/adminrefund.routes.js";
 import adminNotificationRoutes from "./routes/adminnotification.routes.js";
-
-
-
-
 
 const app = express();
 
-app.use(cors({
-  origin: "*"
-}));
+app.use(
+  cors({
+    origin: "*",
+  }),
+);
 
 const PORT = process.env.PORT || 4000;
 
 /* ================= MIDDLEWARE ================= */
-app.use(express.json());               // 🔥 REQUIRED for req.body
+app.use(express.json()); // 🔥 REQUIRED for req.body
 app.use(express.urlencoded({ extended: true }));
-
-
 
 // comment
 // new
@@ -75,17 +71,6 @@ app.use("/api/admin/whatsapp", whatsappRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api", subscriptionRoutes);
 
-
-
-
-
-
-
-
-
-
-
-
 /* ================= HEALTH CHECK ================= */
 app.get("/", (req, res) => {
   res.send("Graphura Backend is running 🚀");
@@ -97,9 +82,7 @@ mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB Connected");
-    app.listen(PORT, () =>
-      console.log(`Server running on port ${PORT}`)
-    );
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   })
   .catch((err) => {
     console.error("MongoDB connection failed", err);

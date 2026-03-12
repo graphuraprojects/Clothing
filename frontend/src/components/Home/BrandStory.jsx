@@ -84,7 +84,7 @@ const BrandStory = () => {
             pb-1
             hover:opacity-60
             transition
-          ">
+           cursor-pointer">
             Discover Our Process
             <span className="text-lg">→</span>
           </button>

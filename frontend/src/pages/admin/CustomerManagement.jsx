@@ -66,7 +66,7 @@ export default function CustomerManagement() {
             <div className="flex gap-2 sm:gap-3">
               <button
                 onClick={() => exportToCSV(customersData, "customers.csv")}
-                className="flex items-center gap-2 bg-white border border-gray-200 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl hover:shadow-sm transition text-sm"
+                className="flex items-center gap-2 bg-white border border-gray-200 px-4 sm:px-5 py-2.5 sm:py-3 rounded-xl hover:shadow-sm transition text-sm cursor-pointer"
               >
                 <Download size={16} />
                 Export CSV

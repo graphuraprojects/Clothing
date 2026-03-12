@@ -208,7 +208,7 @@ data.append("sizes", JSON.stringify(sizes));
         setSizes([...sizes, sizeInput]);
         setSizeInput("");
       }}
-      className="bg-gray-200 px-3 rounded"
+      className="bg-gray-200 px-3 rounded cursor-pointer"
     >
       Add
     </button>
@@ -315,11 +315,11 @@ data.append("sizes", JSON.stringify(sizes));
             </div>
           ))}
 
-          <button type="button" onClick={addColor} className="bg-gray-200 px-4 py-2 rounded-xl">
+          <button type="button" onClick={addColor} className="bg-gray-200 px-4 py-2 rounded-xl cursor-pointer">
             + Add Color
           </button>
 
-          <button type="submit" className="w-full bg-black text-white py-3 rounded-xl">
+          <button type="submit" className="w-full bg-black text-white py-3 rounded-xl cursor-pointer">
             Save Product
           </button>
 

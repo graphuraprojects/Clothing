@@ -44,14 +44,14 @@ const StickyCategoryBar = ({ activeGender, setActiveGender }) => {
       setActiveGender("men");
       navigate("/men");
     }}
-    className={`
+    className={`cursor-pointer ${`
       px-6 py-2 text-sm font-semibold rounded-full transition-all duration-300
       ${
         activeGender === "men"
           ? "bg-black text-white shadow"
           : "text-gray-600 hover:bg-black/5"
       }
-    `}
+    `}`}
   >
     MEN
   </button>
@@ -61,14 +61,14 @@ const StickyCategoryBar = ({ activeGender, setActiveGender }) => {
       setActiveGender("women");
       navigate("/women");
     }}
-    className={`
+    className={`cursor-pointer ${`
       px-6 py-2 text-sm font-semibold rounded-full transition-all duration-300
       ${
         activeGender === "women"
           ? "bg-black text-white shadow"
           : "text-gray-600 hover:bg-black/5"
       }
-    `}
+    `}`}
   >
     WOMEN
   </button>
@@ -77,10 +77,10 @@ const StickyCategoryBar = ({ activeGender, setActiveGender }) => {
 
         {/* LINKS */}
         <ul className="hidden md:flex gap-6 text-sm font-medium text-black">
-          <a href="#winterwear"><li>WINTERWEAR</li></a>
-          <a href="/collections"><li>SHOP NOW</li></a>
-          <a href=""><li>PLUS SIZE</li></a>
-          <a href=""><li>OFFICIAL MERCH</li></a>
+          <a className="cursor-pointer" href="#winterwear"><li>WINTERWEAR</li></a>
+          <a className="cursor-pointer" href="/collections"><li>SHOP NOW</li></a>
+          <a className="cursor-pointer" href=""><li>PLUS SIZE</li></a>
+          <a className="cursor-pointer" href=""><li>OFFICIAL MERCH</li></a>
         </ul>
       </div>
     </div>

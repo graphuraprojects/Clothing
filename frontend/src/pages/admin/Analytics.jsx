@@ -239,7 +239,7 @@ export default function Analytics() {
           </div>
 
           {/* Top Products */}
-          <div className="bg-white border rounded-2xl p-5 md:p-6 mb-8 md:mb-12">
+          <div className="bg-white border border-gray-300 rounded-2xl p-5 md:p-6 mb-8 md:mb-12 shadow-[0_-6px_16px_rgba(0,0,0,0.18)]">
             <h2 className="font-bold mb-6">Top Products</h2>
             <div className="space-y-4">
               <ProductRow name="Silk Saree" orders={420} stock={12} best />
@@ -251,13 +251,13 @@ export default function Analytics() {
           <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={exportCSV}
-              className="px-6 py-2.5 bg-blue-600 text-white rounded-lg text-sm"
+              className="px-6 py-2.5 bg-blue-600 text-white rounded-lg text-sm cursor-pointer"
             >
               Export CSV
             </button>
             <button
               onClick={downloadReport}
-              className="px-6 py-2.5 border rounded-lg text-sm"
+              className="px-6 py-2.5 border rounded-lg text-sm cursor-pointer"
             >
               Download Report
             </button>

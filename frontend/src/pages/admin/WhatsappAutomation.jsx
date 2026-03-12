@@ -109,11 +109,11 @@ export default function WhatsAppAutomation() {
                     <button
                       key={t.name}
                       onClick={() => setActiveTemplate(t.name)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition ${
+                      className={`cursor-pointer ${`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition ${
                         activeTemplate === t.name
                           ? "bg-black text-white"
                           : "hover:bg-gray-100 text-gray-700"
-                      }`}
+                      }`}`}
                     >
                       <Icon size={18} />
                       {t.name}
@@ -135,7 +135,7 @@ export default function WhatsAppAutomation() {
               />
 
               <div className="mt-4 flex justify-end">
-                <button className="flex items-center gap-2 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-900 transition">
+                <button className="flex items-center gap-2 bg-black text-white px-5 py-3 rounded-xl hover:bg-gray-900 transition cursor-pointer">
                   <Send size={16} />
                   Save Template
                 </button>

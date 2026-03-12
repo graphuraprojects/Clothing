@@ -101,7 +101,7 @@ export default function UserSignup() {
               />
 
               {/* BUTTON */}
-              <button className="w-full py-3 rounded-full bg-black text-white text-sm font-medium active:scale-95 transition">
+              <button className="w-full py-3 rounded-full bg-black text-white text-sm font-medium active:scale-95 transition cursor-pointer">
                 SIGN UP
               </button>
 

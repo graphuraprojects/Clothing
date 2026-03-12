@@ -213,7 +213,7 @@ export default function KidsCollection() {
                         handleExplore(cat.name);
                       }}
                       className="text-[11px] tracking-[0.15em] uppercase text-white border border-white/40 px-6 py-2.5
-                        hover:bg-white hover:text-black transition-all duration-300"
+                        hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
                     >
                       Explore
                     </button>
@@ -250,13 +250,13 @@ export default function KidsCollection() {
                       setGender(g);
                       setCategory("all");
                     }}
-                    className={`whitespace-nowrap px-4 py-2.5 rounded-lg text-[13px] tracking-wide
+                    className={`cursor-pointer ${`whitespace-nowrap px-4 py-2.5 rounded-lg text-[13px] tracking-wide
                       transition-all duration-300
                       ${
                         gender === g
                           ? "bg-[#f5f0eb] text-[#8b6f47] font-medium"
                           : "bg-gray-50 text-gray-600 hover:bg-gray-100"
-                      }`}
+                      }`}`}
                   >
                     {g.toUpperCase()}
                   </button>
@@ -274,13 +274,13 @@ export default function KidsCollection() {
                     <button
                       key={c}
                       onClick={() => setCategory(c)}
-                      className={`whitespace-nowrap px-4 py-2.5 rounded-lg text-[13px] tracking-wide
+                      className={`cursor-pointer ${`whitespace-nowrap px-4 py-2.5 rounded-lg text-[13px] tracking-wide
                         transition-all duration-300
                         ${
                           category === c
                             ? "bg-[#f5f0eb] text-[#8b6f47] font-medium"
                             : "bg-gray-50 text-gray-600 hover:bg-gray-100"
-                        }`}
+                        }`}`}
                     >
                       {c.toUpperCase()}
                     </button>

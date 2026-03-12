@@ -105,7 +105,7 @@ const OrderDetails = () => {
           onClick={() => navigate(-1)}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl
           bg-white border shadow-sm text-sm font-semibold text-gray-700
-          hover:bg-black hover:text-white transition"
+          hover:bg-black hover:text-white transition cursor-pointer"
         >
           <FaArrowLeft />
           Back to Orders
@@ -232,7 +232,7 @@ const OrderDetails = () => {
             {order.status === "Processing" && (
               <button
                 onClick={handleCancel}
-                className="w-full py-3 rounded-xl border border-red-500 text-red-600 font-semibold hover:bg-red-50 transition"
+                className="w-full py-3 rounded-xl border border-red-500 text-red-600 font-semibold hover:bg-red-50 transition cursor-pointer"
               >
                 <FaTimesCircle className="inline mr-2" />
                 Cancel Order
@@ -242,7 +242,7 @@ const OrderDetails = () => {
             {order.status === "Delivered" && (
               <button
                 onClick={handleReturn}
-                className="w-full py-3 rounded-xl border border-orange-500 text-orange-600 font-semibold hover:bg-orange-50 transition"
+                className="w-full py-3 rounded-xl border border-orange-500 text-orange-600 font-semibold hover:bg-orange-50 transition cursor-pointer"
               >
                 <FaUndo className="inline mr-2" />
                 Return Order
@@ -253,7 +253,7 @@ const OrderDetails = () => {
               order.status === "Cancelled") && (
               <button
                 disabled
-                className="w-full py-3 rounded-xl bg-gray-100 text-gray-400 font-semibold"
+                className="w-full py-3 rounded-xl bg-gray-100 text-gray-400 font-semibold cursor-pointer"
               >
                 Action Completed
               </button>

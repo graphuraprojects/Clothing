@@ -31,10 +31,10 @@ export default function CreateOrder() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <button className="px-4 py-2 rounded-xl border text-sm font-semibold w-full sm:w-auto">
+              <button className="px-4 py-2 rounded-xl border text-sm font-semibold w-full sm:w-auto cursor-pointer">
                 Discard Draft
               </button>
-              <button className="px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold w-full sm:w-auto">
+              <button className="px-4 py-2 rounded-xl bg-primary text-white text-sm font-semibold w-full sm:w-auto cursor-pointer">
                 Save Draft
               </button>
             </div>
@@ -61,7 +61,7 @@ export default function CreateOrder() {
               <Card
                 title="Shipping Details"
                 right={
-                  <button className="text-xs text-primary font-semibold">
+                  <button className="text-xs text-primary font-semibold cursor-pointer">
                     EDIT ADDRESS
                   </button>
                 }
@@ -91,7 +91,7 @@ export default function CreateOrder() {
                   onFocus={() => setShowProducts(true)}
                 />
 
-                <Item
+                <Item className="cursor-pointer"
                   onClick={() => setShowProducts(true)}
                   name="Vintage Denim Jacket"
                   sku="SKU: VDJ-2023-M"
@@ -100,7 +100,7 @@ export default function CreateOrder() {
                   price="₹89.00"
                 />
 
-                <Item
+                <Item className="cursor-pointer"
                   onClick={() => setShowProducts(true)}
                   name="Premium Cotton Tee"
                   sku="SKU: PCT-092-L"
@@ -132,7 +132,7 @@ export default function CreateOrder() {
               <input className="input h-10" placeholder="Promo code..." />
             </div>
 
-            <button className="bg-primary text-white px-6 py-3 rounded-xl font-semibold w-full lg:w-auto">
+            <button className="bg-primary text-white px-6 py-3 rounded-xl font-semibold w-full lg:w-auto cursor-pointer">
               Create Order & Notify Customer
             </button>
           </div>
@@ -184,9 +184,9 @@ function Item({ name, sku, color, qty, price, onClick }) {
 
       <div className="flex items-center justify-between sm:justify-end gap-4">
         <div className="flex items-center border rounded-lg">
-          <button className="px-2">−</button>
+          <button className="px-2 cursor-pointer">−</button>
           <span className="px-3 text-sm font-bold">{qty}</span>
-          <button className="px-2">+</button>
+          <button className="px-2 cursor-pointer">+</button>
         </div>
         <p className="font-semibold">{price}</p>
       </div>
@@ -211,7 +211,7 @@ function ProductModal({ onClose }) {
       <div className="bg-white w-full max-w-5xl rounded-2xl p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-4">
           <h2 className="font-bold text-lg">Select Products</h2>
-          <button onClick={onClose}>
+          <button className="cursor-pointer" onClick={onClose}>
             <X />
           </button>
         </div>
@@ -229,7 +229,7 @@ function ProductModal({ onClose }) {
               <p className="text-xs text-gray-400">SKU: SKU-00{i}</p>
               <div className="flex justify-between items-center mt-3">
                 <span className="font-bold">$49.00</span>
-                <button className="bg-primary text-white p-2 rounded-lg">
+                <button className="bg-primary text-white p-2 rounded-lg cursor-pointer">
                   <Plus size={16} />
                 </button>
               </div>
@@ -238,10 +238,10 @@ function ProductModal({ onClose }) {
         </div>
 
         <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6">
-          <button onClick={onClose} className="px-5 py-2 border rounded-xl">
+          <button onClick={onClose} className="px-5 py-2 border rounded-xl cursor-pointer">
             Cancel
           </button>
-          <button className="px-5 py-2 bg-primary text-white rounded-xl">
+          <button className="px-5 py-2 bg-primary text-white rounded-xl cursor-pointer">
             Add to Order
           </button>
         </div>

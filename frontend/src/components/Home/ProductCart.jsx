@@ -27,7 +27,7 @@ const ProductCard = ({ product, onClick, onWishlist, wished }) => {
             e.stopPropagation();
             onWishlist?.();
           }}
-          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow"
+          className="absolute top-3 right-3 bg-white p-2 rounded-full shadow cursor-pointer"
         >
           <Heart
             size={16}
@@ -50,7 +50,7 @@ const ProductCard = ({ product, onClick, onWishlist, wished }) => {
 
         <p className="font-semibold mt-2">₹{product.price}</p>
 
-        <button className="mt-3 w-full py-2 rounded-full text-sm border border-black hover:bg-black hover:text-white transition">
+        <button className="mt-3 w-full py-2 rounded-full text-sm border border-black hover:bg-black hover:text-white transition cursor-pointer">
           View Product
         </button>
       </div>

@@ -83,7 +83,7 @@ useEffect(() => {
         <button
           onClick={() => index > 0 && setIndex(index - 1)}
           className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-10
-          p-2.5 sm:p-3.5 rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 text-gray-700 hover:text-[#8b6f47]"
+          p-2.5 sm:p-3.5 rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 text-gray-700 hover:text-[#8b6f47] cursor-pointer"
         >
           <ChevronLeft size={20} />
         </button>
@@ -92,7 +92,7 @@ useEffect(() => {
         <button
           onClick={() => setIndex(index + 1)}
           className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-10
-          p-2.5 sm:p-3.5 rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 text-gray-700 hover:text-[#8b6f47]"
+          p-2.5 sm:p-3.5 rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-110 transition-all duration-300 text-gray-700 hover:text-[#8b6f47] cursor-pointer"
         >
           <ChevronRight size={20} />
         </button>

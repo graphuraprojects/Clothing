@@ -9,7 +9,7 @@ export default function SectionAccordion({ title, children, defaultOpen = false 
     <div className="border-b border-gray-100 py-4">
       <button 
         onClick={() => setOpen(!open)} 
-        className="w-full flex justify-between items-center font-medium text-left hover:text-blue-600 transition-colors"
+        className="w-full flex justify-between items-center font-medium text-left hover:text-blue-600 transition-colors cursor-pointer"
         aria-expanded={open}
       >
         <span className="text-lg">{title}</span>

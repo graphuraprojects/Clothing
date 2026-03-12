@@ -136,7 +136,7 @@ export default function Inventory() {
 
               <button
                 onClick={exportInventory}
-                className="flex items-center gap-2 px-5 py-2.5  no-border rounded-xl text-sm font-medium bg-black text-white  shadow-sm hover:shadow-md transition"
+                className="flex items-center gap-2 px-5 py-2.5  no-border rounded-xl text-sm font-medium bg-black text-white  shadow-sm hover:shadow-md transition cursor-pointer"
               >
                 <Download size={16} />
                 Export
@@ -239,7 +239,7 @@ export default function Inventory() {
   {h.size && h.color && (
     <button
       onClick={() => undoLast(h.product?._id, h.size, h.color)}
-      className="text-xs px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition"
+      className="text-xs px-3 py-1 rounded-full bg-gray-100 hover:bg-gray-200 transition cursor-pointer"
     >
       Restore
     </button>

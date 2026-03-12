@@ -156,7 +156,7 @@ export default function HeroPhilosophy() {
                       hover:-translate-y-[2px]
                       transition-all duration-300
                       font-medium
-                    "
+                     cursor-pointer"
                   >
                     {item}
                   </button>

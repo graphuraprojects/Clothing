@@ -56,7 +56,7 @@ const AdminOtp = () => {
         {!otpSent && (
           <button
             onClick={sendOtp}
-            className="w-full bg-[#2F2C79] text-white py-2 rounded-lg"
+            className="w-full bg-[#2F2C79] text-white py-2 rounded-lg cursor-pointer"
           >
             Send OTP
           </button>
@@ -74,7 +74,7 @@ const AdminOtp = () => {
 
             <button
               onClick={verifyOtp}
-              className="w-full bg-black text-white py-2 rounded-lg mt-4"
+              className="w-full bg-black text-white py-2 rounded-lg mt-4 cursor-pointer"
             >
               Verify & Login
             </button>

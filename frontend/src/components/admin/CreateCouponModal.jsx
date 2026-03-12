@@ -47,7 +47,7 @@ export default function CreateCouponModal({ open, onClose, refresh }) {
             </p>
           </div>
 
-          <button onClick={onClose} className="shrink-0">
+          <button onClick={onClose} className="shrink-0 cursor-pointer">
             <X />
           </button>
         </div>
@@ -73,7 +73,7 @@ export default function CreateCouponModal({ open, onClose, refresh }) {
                     onClick={() =>
                       setCouponCode("SALE" + Math.floor(Math.random() * 999))
                     }
-                    className="px-4 py-2 border rounded-xl hover:bg-gray-50 text-sm"
+                    className="px-4 py-2 border rounded-xl hover:bg-gray-50 text-sm cursor-pointer"
                   >
                     Generate
                   </button>
@@ -98,22 +98,22 @@ export default function CreateCouponModal({ open, onClose, refresh }) {
                 <div className="flex gap-3 mt-2">
                   <button
                     onClick={() => setDiscountType("percentage")}
-                    className={`px-4 py-2 rounded-xl border text-sm ${
+                    className={`cursor-pointer ${`px-4 py-2 rounded-xl border text-sm ${
                       discountType === "percentage"
                         ? "bg-black text-white"
                         : ""
-                    }`}
+                    }`}`}
                   >
                     Percentage
                   </button>
 
                   <button
                     onClick={() => setDiscountType("fixed")}
-                    className={`px-4 py-2 rounded-xl border text-sm ${
+                    className={`cursor-pointer ${`px-4 py-2 rounded-xl border text-sm ${
                       discountType === "fixed"
                         ? "bg-black text-white"
                         : ""
-                    }`}
+                    }`}`}
                   >
                     Fixed Amount
                   </button>
@@ -161,7 +161,7 @@ export default function CreateCouponModal({ open, onClose, refresh }) {
               <div className="flex justify-end gap-3 pt-4 border-t">
                 <button
                   onClick={handlePublish}
-                  className="px-4 py-2 bg-black text-white rounded-xl"
+                  className="px-4 py-2 bg-black text-white rounded-xl cursor-pointer"
                 >
                   Publish Coupon
 

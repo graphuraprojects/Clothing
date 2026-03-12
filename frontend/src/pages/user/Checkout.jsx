@@ -651,13 +651,13 @@ const CheckoutPage = () => {
             <div className="flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleRetryPayment}
-                className="flex-1 bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition flex items-center justify-center gap-2"
+                className="flex-1 bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition flex items-center justify-center gap-2 cursor-pointer"
               >
                 <RefreshCw size={18} /> Try Again
               </button>
               <button
                 onClick={handleTryDifferentMethod}
-                className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition"
+                className="flex-1 border border-gray-300 text-gray-700 py-3 rounded-lg font-medium hover:bg-gray-50 transition cursor-pointer"
               >
                 Change Method
               </button>
@@ -723,19 +723,19 @@ const CheckoutPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => navigate("/")}
-              className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
+              className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer"
             >
               Continue Shopping
             </button>
             <button
               onClick={() => navigate(`/dashboard/orders/${orderId}`)}
-              className="px-8 py-3 bg-white text-green-600 border-2 border-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all duration-300"
+              className="px-8 py-3 bg-white text-green-600 border-2 border-green-600 rounded-xl font-semibold hover:bg-green-50 transition-all duration-300 cursor-pointer"
             >
               View Order Details
             </button>
             <button
               onClick={() => window.print()}
-              className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition"
+              className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition cursor-pointer"
             >
               Print Invoice
             </button>
@@ -796,19 +796,19 @@ const CheckoutPage = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={handleRetryPayment}
-              className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+              className="px-8 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 cursor-pointer"
             >
               <RefreshCw size={18} /> Try Payment Again
             </button>
             <button
               onClick={handleTryDifferentMethod}
-              className="px-8 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 hover:border-gray-400 flex items-center justify-center gap-2"
+              className="px-8 py-3 bg-white text-gray-700 border-2 border-gray-300 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 hover:border-gray-400 flex items-center justify-center gap-2 cursor-pointer"
             >
               <CreditCard size={18} /> Change Payment Method
             </button>
             <button
               onClick={() => navigate("/cart")}
-              className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition flex items-center justify-center gap-2"
+              className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition flex items-center justify-center gap-2 cursor-pointer"
             >
               <ChevronLeft size={18} /> Back to Cart
             </button>
@@ -819,14 +819,14 @@ const CheckoutPage = () => {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href="tel:+917378021327"
-                className="text-green-600 font-medium hover:text-green-800 hover:underline"
+                className="text-green-600 font-medium hover:text-green-800 hover:underline cursor-pointer"
               >
                 📞 Call Support: +91 7378021327
               </a>
               <span className="text-gray-400">•</span>
               <a
                 href="mailto:support@graphura.com"
-                className="text-green-600 font-medium hover:text-green-800 hover:underline"
+                className="text-green-600 font-medium hover:text-green-800 hover:underline cursor-pointer"
               >
                 ✉️ Email: support@graphura.com
               </a>
@@ -1022,12 +1022,12 @@ const CheckoutPage = () => {
                         if (!isAddressValid()) return;
                         setCurrentStep(2);
                       }}
-                      className={`mt-6 px-6 py-3 rounded-lg font-semibold transition
+                      className={`cursor-pointer ${`mt-6 px-6 py-3 rounded-lg font-semibold transition
                         ${isAddressValid()
                           ? "bg-[#8b6f47] text-white hover:bg-[#7a6140]"
                           : "bg-gray-300 text-gray-500 cursor-not-allowed"
                         }
-                      `}
+                      `}`}
                     >
                       Continue to Payment →
                     </button>
@@ -1164,15 +1164,15 @@ const CheckoutPage = () => {
                     <div className="flex justify-between">
                       <button
                         onClick={() => setCurrentStep(1)}
-                        className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition"
+                        className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition cursor-pointer"
                       >
                         ← Back to Address
                       </button>
                       <button
                         onClick={handlePlaceOrder}
                         disabled={!paymentMethod}
-                        className={`px-6 py-3 rounded-lg font-semibold transition
-                          ${paymentMethod ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
+                        className={`cursor-pointer ${`px-6 py-3 rounded-lg font-semibold transition
+                          ${paymentMethod ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}`}
                       >
                         Place Order & Pay →
                       </button>
@@ -1295,7 +1295,7 @@ const CheckoutPage = () => {
                         />
                         <button
                           onClick={handleApplyPromo}
-                          className="px-6 py-3 bg-[#8b6f47] text-white font-medium rounded-md hover:bg-[#7a6140] transition-colors"
+                          className="px-6 py-3 bg-[#8b6f47] text-white font-medium rounded-md hover:bg-[#7a6140] transition-colors cursor-pointer"
                         >
                           Apply
                         </button>
@@ -1319,7 +1319,7 @@ const CheckoutPage = () => {
                       <p className="text-gray-700 mb-3">Need help? Contact Styling Expert</p>
                       <a
                         href="tel:+917378021327"
-                        className="text-green-600 font-medium hover:text-green-800"
+                        className="text-green-600 font-medium hover:text-green-800 cursor-pointer"
                       >
                         +91 7378021327
                       </a>
@@ -1342,7 +1342,7 @@ const CheckoutPage = () => {
                   </p>
                   <button
                     onClick={() => navigate("/collections")}
-                    className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition"
+                    className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition cursor-pointer"
                   >
                     Shop Now
                   </button>

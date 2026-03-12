@@ -113,14 +113,14 @@ export default function ProductCard({
         {/* ❤️ WISHLIST */}
         <button
           onClick={handleWishlistToggle}
-          className={`absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full backdrop-blur-md
+          className={`cursor-pointer ${`absolute top-3 right-3 w-9 h-9 flex items-center justify-center rounded-full backdrop-blur-md
             transition-all duration-300 hover:scale-110
             ${
               wishlisted
                 ? "bg-red-50 text-red-500 shadow-md"
                 : "bg-white/80 text-gray-600 hover:bg-white hover:shadow-md opacity-0 group-hover:opacity-100"
             }
-            ${wishlisted ? "opacity-100" : ""}`}
+            ${wishlisted ? "opacity-100" : ""}`}`}
         >
           <Heart
             size={15}
@@ -136,7 +136,7 @@ export default function ProductCard({
               goToDetails();
             }}
             className="w-full py-2.5 bg-white/95 backdrop-blur-md text-gray-800 text-[11px] font-medium tracking-[0.15em] uppercase
-              hover:bg-white shadow-sm transition-all duration-300"
+              hover:bg-white shadow-sm transition-all duration-300 cursor-pointer"
           >
             Quick View
           </button>

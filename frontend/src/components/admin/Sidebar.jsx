@@ -70,7 +70,7 @@ const fetchAdmin = async () => {
           p-2 sm:p-2.5
           rounded-xl
           shadow-md
-        "
+         cursor-pointer"
       >
         ☰
       </button>
@@ -79,7 +79,7 @@ const fetchAdmin = async () => {
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden cursor-pointer"
         />
       )}
 
@@ -91,7 +91,7 @@ const fetchAdmin = async () => {
           h-screen
           w-64 sm:w-60
           bg-white
-          border-r
+          shadow-[4px_0_14px_rgba(0,0,0,0.12)]
           flex flex-col
           px-4 sm:px-6
           py-4 sm:py-6
@@ -139,7 +139,7 @@ const fetchAdmin = async () => {
                 key={item.name}
                 to={item.path}
                 onClick={() => setOpen(false)}
-                className={({ isActive }) =>
+                className={`cursor-pointer ${({ isActive }) =>
                   `
                     flex items-center gap-3
                     px-3 sm:px-4
@@ -153,8 +153,7 @@ const fetchAdmin = async () => {
                         ? "bg-gradient-to-r from-purple-500 to-violet-600 text-white shadow-md"
                         : "text-gray-600 hover:bg-gray-100"
                     }
-                  `
-                }
+                  `}`}
               >
                 <Icon size={18} />
                 {item.name}
@@ -170,7 +169,7 @@ const fetchAdmin = async () => {
         <NavLink
           to="/admin/settings"
           onClick={() => setOpen(false)}
-          className={({ isActive }) =>
+          className={`cursor-pointer ${({ isActive }) =>
             `
               flex items-center gap-3
               px-3 sm:px-4
@@ -184,8 +183,7 @@ const fetchAdmin = async () => {
                   ? "bg-gradient-to-r from-purple-500 to-violet-600 text-white shadow-md"
                   : "text-gray-600 hover:bg-gray-100"
               }
-            `
-          }
+            `}`}
         >
           <Settings size={18} />
           Settings

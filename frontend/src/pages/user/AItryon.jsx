@@ -109,7 +109,7 @@ const handleTryOn = async () => {
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-gray-600 hover:text-black"
+            className="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer"
           >
             <FaArrowLeft />
             <span className="hidden sm:block">Back to Product</span>
@@ -171,9 +171,9 @@ const handleTryOn = async () => {
                   <button
                     key={s}
                     onClick={() => setSize(s)}
-                    className={`px-4 py-2 rounded-lg border ${
+                    className={`cursor-pointer ${`px-4 py-2 rounded-lg border ${
                       size === s ? "bg-[#8b6f47] text-white" : "bg-white"
-                    }`}
+                    }`}`}
                   >
                     {s}
                   </button>
@@ -189,9 +189,9 @@ const handleTryOn = async () => {
                   <button
                     key={f}
                     onClick={() => setFit(f)}
-                    className={`px-4 py-2 rounded-lg border ${
+                    className={`cursor-pointer ${`px-4 py-2 rounded-lg border ${
                       fit === f ? "bg-[#8b6f47] text-white" : "bg-white"
-                    }`}
+                    }`}`}
                   >
                     {f}
                   </button>
@@ -208,7 +208,7 @@ const handleTryOn = async () => {
     handleTryOn();
   }}
   disabled={!file}
-  className="mt-8 w-full bg-[#8b6f47] text-white py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-[#7a6140] transition-all duration-300"
+  className="mt-8 w-full bg-[#8b6f47] text-white py-3 rounded-xl flex items-center justify-center gap-2 hover:bg-[#7a6140] transition-all duration-300 cursor-pointer"
 >
   <FaMagic />
   {loading ? "Generating your look..." : "Try Outfit with AI"}

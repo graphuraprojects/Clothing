@@ -102,7 +102,7 @@ const PhilosophySection = () => {
               <button
                 onClick={() => navigate("/philosophy")}
                 className="btn-editorial group relative inline-flex items-center gap-3
-                           pointer-events-auto"
+                           pointer-events-auto cursor-pointer"
               >
                 <span>Discover Process</span>
                 <span className="btn-arrow">

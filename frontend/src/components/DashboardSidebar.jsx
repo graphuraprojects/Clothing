@@ -19,13 +19,12 @@ const DashboardSidebar = () => {
             key={item.name}
             to={item.to}
             end
-            className={({ isActive }) =>
+            className={`cursor-pointer ${({ isActive }) =>
               `block px-4 py-3 rounded-lg text-sm font-medium transition ${
                 isActive
                   ? "bg-black text-white"
                   : "text-gray-700 hover:bg-gray-100"
-              }`
-            }
+              }`}`}
           >
             {item.name}
           </NavLink>

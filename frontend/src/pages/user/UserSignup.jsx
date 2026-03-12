@@ -137,7 +137,7 @@ export default function UserSignup() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-full bg-black text-white text-sm font-medium active:scale-95 transition"
+                  className="w-full py-3 rounded-full bg-black text-white text-sm font-medium active:scale-95 transition cursor-pointer"
                 >
                   {loading ? "Creating account..." : "SIGN UP"}
                 </button>

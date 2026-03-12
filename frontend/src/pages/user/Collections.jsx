@@ -180,21 +180,21 @@ const [viewMode, setViewMode] = useState("grid");
           <div className="flex bg-white border rounded-lg p-1">
             <button
               onClick={() => setViewMode("grid")}
-              className={`p-2 rounded ${
+              className={`cursor-pointer ${`p-2 rounded ${
                 viewMode === "grid"
                   ? "bg-[#f5f0eb] text-[#8b6f47] font-medium"
                   : "text-gray-600"
-              }`}
+              }`}`}
             >
               <Grid size={20} />
             </button>
             <button
               onClick={() => setViewMode("list")}
-              className={`p-2 rounded ${
+              className={`cursor-pointer ${`p-2 rounded ${
                 viewMode === "list"
                   ? "bg-[#f5f0eb] text-[#8b6f47] font-medium"
                   : "text-gray-600"
-              }`}
+              }`}`}
             >
               <List size={20} />
             </button>
@@ -269,13 +269,13 @@ const [viewMode, setViewMode] = useState("grid");
       type="button"
       onMouseDown={(e) => e.preventDefault()}
       onClick={() => setSelectedCategory(c)}
-      className={`cinzel whitespace-nowrap
+      className={`cursor-pointer ${`cinzel whitespace-nowrap
         px-4 py-2 rounded-lg text-sm sm:text-base
         ${
           selectedCategory === c
             ? "bg-[#f5f0eb] text-[#8b6f47] font-medium"
             : "bg-gray-100 hover:bg-gray-200"
-        }`}
+        }`}`}
     >
       {c}
     </button>
@@ -311,7 +311,7 @@ const [viewMode, setViewMode] = useState("grid");
                   setPriceRange([0, 50000]);
                   setSearchTerm("");
                 }}
-                className="w-full mt-6 border py-2 rounded hover:bg-[#8b6f47] hover:text-white transition-all duration-300"
+                className="w-full mt-6 border py-2 rounded hover:bg-[#8b6f47] hover:text-white transition-all duration-300 cursor-pointer"
               >
                 Clear Filters
               </button>
@@ -370,11 +370,11 @@ const [viewMode, setViewMode] = useState("grid");
       {/* MOBILE DRAWER */}
       {showFilter && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm cursor-pointer"
           onClick={() => setShowFilter(false)}
         >
           <div
-            className="absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white p-6 overflow-y-auto no-scrollbar shadow-2xl"
+            className="absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white p-6 overflow-y-auto no-scrollbar shadow-2xl cursor-pointer"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
@@ -383,7 +383,7 @@ const [viewMode, setViewMode] = useState("grid");
               </h2>
               <button
                 onClick={() => setShowFilter(false)}
-                className="p-2 rounded-full hover:bg-gray-100"
+                className="p-2 rounded-full hover:bg-gray-100 cursor-pointer"
               >
                 <X />
               </button>

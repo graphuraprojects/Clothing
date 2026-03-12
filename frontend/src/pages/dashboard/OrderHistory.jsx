@@ -173,7 +173,7 @@ export default function OrderHistory() {
                   }
                   whileTap={{ scale: 0.9 }}
                   whileHover={{ scale: 1.05 }}
-                  className="px-5 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 text-sm font-semibold"
+                  className="px-5 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-600 text-sm font-semibold cursor-pointer"
                 >
                   View Details →
                 </motion.button>
@@ -192,7 +192,7 @@ export default function OrderHistory() {
         orders.length === 0 && (
           <div className="flex flex-col mt-5">
             <div className="text-center text-2xl font-semibold text-gray-500">No Orders Found</div>
-            <button
+            <button className="cursor-pointer"
             onClick={() => 
               navigate('/')
             }

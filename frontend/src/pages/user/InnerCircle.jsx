@@ -113,7 +113,7 @@ return (
               />
               <button
                 onClick={handleSubscribe}
-                className="ic-submit"
+                className="ic-submit cursor-pointer"
               >
                 Subscribe
               </button>

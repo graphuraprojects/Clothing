@@ -109,7 +109,7 @@ const Invoices = () => {
     hover:shadow-xl hover:scale-[1.05]
     active:scale-[0.97]
     focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2
-  "
+   cursor-pointer"
             >
               <FaDownload
                 className="

@@ -128,7 +128,7 @@ const unreadCount = notifications.filter((n) => n.unread).length;
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-white border-b">
+      <header className="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-[0_5px_14px_rgba(0,0,0,0.16)]">
         <div className="h-16 px-4 sm:px-8 flex items-center justify-between gap-3">
           {/* Search */}
           <div
@@ -146,8 +146,12 @@ const unreadCount = notifications.filter((n) => n.unread).length;
                 setSearchOpen(true);
               }}
               placeholder="Search orders, products, customers..."
-              className="pl-10 pr-4 py-2 text-sm rounded-xl border bg-gray-50
-              focus:bg-white focus:ring-2 focus:ring-black outline-none w-72 md:w-80"
+              className="pl-10 pr-4 py-2 text-sm rounded-xl border-2 border-gray-400 bg-white
+shadow-[0_2px_6px_rgba(0,0,0,0.10)]
+hover:shadow-[0_3px_10px_rgba(0,0,0,0.15)]
+focus:border-black focus:ring-2 focus:ring-black
+outline-none transition-all duration-200
+w-72 md:w-80"
             />
 
             {searchOpen && query && (
@@ -184,14 +188,14 @@ const unreadCount = notifications.filter((n) => n.unread).length;
           <div className="flex items-center gap-2 sm:gap-4 ml-auto">
             <button
               onClick={() => navigate("/admin/coupons")}
-              className="icon-btn text-blue-600 hover:bg-blue-50"
+              className="icon-btn text-blue-600 hover:bg-blue-50 cursor-pointer"
             >
               <TicketPercent className="icon-svg" />
             </button>
 
             <button
               onClick={() => navigate("/admin/whatsapp")}
-              className="icon-btn text-green-600 hover:bg-green-50"
+              className="icon-btn text-green-600 hover:bg-green-50 cursor-pointer"
             >
               <MessageCircle className="icon-svg" />
             </button>
@@ -203,7 +207,7 @@ const unreadCount = notifications.filter((n) => n.unread).length;
             >
               <button
                 onClick={() => setNotifOpen(!notifOpen)}
-                className="icon-btn"
+                className="icon-btn cursor-pointer"
               >
                 <Bell className="icon-svg" />
                 {unreadCount > 0 && <span className="notif-dot" />}
@@ -215,7 +219,7 @@ const unreadCount = notifications.filter((n) => n.unread).length;
                     <span className="font-semibold">Notifications</span>
                     <button
                       onClick={markAllAsRead}
-                      className="text-xs text-blue-600 hover:underline"
+                      className="text-xs text-blue-600 hover:underline cursor-pointer"
                     >
                       Mark all as read
                     </button>

@@ -42,7 +42,7 @@ const AITryOn = () => {
         <div className="flex items-center justify-between mb-8">
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-2 text-gray-600 hover:text-black"
+            className="flex items-center gap-2 text-gray-600 hover:text-black cursor-pointer"
           >
             <FaArrowLeft />
             <span className="hidden sm:block">Back to Product</span>
@@ -227,7 +227,7 @@ const AITryOn = () => {
                 <p className="text-sm text-gray-500 ">
                   92% users buy after try Own Clothes
                 </p>
-                <button className="mt-3 px-6 py-2 bg-green-600 text-white rounded-lg">
+                <button className="mt-3 px-6 py-2 bg-green-600 text-white rounded-lg cursor-pointer">
                   Add to Cart
                 </button>
               </div>

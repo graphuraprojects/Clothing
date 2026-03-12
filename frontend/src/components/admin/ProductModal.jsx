@@ -67,7 +67,7 @@ export default function ProductModal({
           <h2 className="text-lg sm:text-xl font-bold">
             {product ? "Edit Product" : "Add Product"}
           </h2>
-          <button onClick={onClose}>
+          <button className="cursor-pointer" onClick={onClose}>
             <X className="w-5 h-5 sm:w-6 sm:h-6" />
           </button>
         </div>
@@ -165,12 +165,12 @@ export default function ProductModal({
         <div className="flex flex-col sm:flex-row justify-end gap-3 mt-6 sm:mt-8">
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-xl border text-sm sm:text-base"
+            className="px-5 py-2 rounded-xl border text-sm sm:text-base cursor-pointer"
           >
             Cancel
           </button>
 
-          <button className="px-6 py-2 rounded-xl bg-primary text-white font-semibold text-sm sm:text-base">
+          <button className="px-6 py-2 rounded-xl bg-primary text-white font-semibold text-sm sm:text-base cursor-pointer">
             Save Product
           </button>
         </div>

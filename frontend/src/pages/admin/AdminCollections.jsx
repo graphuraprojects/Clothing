@@ -76,9 +76,9 @@ const AdminCollections = () => {
             <button
               key={cat}
               onClick={() => setSelectedCategory(cat)}
-              className={`px-4 py-1 border rounded ${
+              className={`cursor-pointer ${`px-4 py-1 border rounded ${
                 selectedCategory === cat ? "bg-black text-white" : ""
-              }`}
+              }`}`}
             >
               {cat}
             </button>
@@ -107,14 +107,14 @@ const AdminCollections = () => {
 
                   <button
                     onClick={() => navigate(`/admin/products/edit/${product._id}`)}
-                    className="flex items-center gap-1 bg-blue-500 text-white px-3 py-1 rounded"
+                    className="flex items-center gap-1 bg-blue-500 text-white px-3 py-1 rounded cursor-pointer"
                   >
                     <Edit size={16} /> Edit
                   </button>
 
                   <button
                     onClick={() => deleteProduct(product._id)}
-                    className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded"
+                    className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded cursor-pointer"
                   >
                     <Trash2 size={16} /> Delete
                   </button>

@@ -146,7 +146,7 @@ export default function ProductTable() {
 
           <button
             onClick={() => navigate("/admin/products/add")}
-            className="bg-black text-white px-4 py-2 rounded-xl text-sm font-semibold"
+            className="bg-black text-white px-4 py-2 rounded-xl text-sm font-semibold cursor-pointer"
           >
             + Add Product
           </button>
@@ -210,13 +210,13 @@ export default function ProductTable() {
                   <td className="p-4 text-right">
                     <button
                       onClick={() => navigate(`/admin/products/edit/${product._id}`)}
-                      className="text-blue-600 text-sm font-semibold hover:underline"
+                      className="text-blue-600 text-sm font-semibold hover:underline cursor-pointer"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => handleDelete(product._id)}
-                      className="text-red-500 text-sm font-semibold ml-4 hover:underline"
+                      className="text-red-500 text-sm font-semibold ml-4 hover:underline cursor-pointer"
                     >
                       Delete
                     </button>
@@ -260,13 +260,13 @@ export default function ProductTable() {
               <div className="flex justify-end gap-4 mt-3 text-sm">
                 <button
                   onClick={() => navigate(`/admin/products/edit/${product._id}`)}
-                  className="text-blue-600 font-semibold"
+                  className="text-blue-600 font-semibold cursor-pointer"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(product._id)}
-                  className="text-red-500 font-semibold"
+                  className="text-red-500 font-semibold cursor-pointer"
                 >
                   Delete
                 </button>
@@ -283,11 +283,11 @@ export default function ProductTable() {
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={`px-4 py-2 rounded-lg text-sm font-semibold ${
+              className={`cursor-pointer ${`px-4 py-2 rounded-lg text-sm font-semibold ${
                 page === currentPage
                   ? "bg-black text-white"
                   : "border border-gray-300"
-              }`}
+              }`}`}
             >
               {page}
             </button>

@@ -78,7 +78,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-5 mt-10">
           <Link
             to="/"
-            className="font-body px-10 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 justify-center hover:scale-105 hover:shadow-[0_10px_40px_rgba(255,255,255,0.25)] transition"
+            className="font-body px-10 py-4 bg-white text-black rounded-full font-medium flex items-center gap-2 justify-center hover:scale-105 hover:shadow-[0_10px_40px_rgba(255,255,255,0.25)] transition cursor-pointer"
           >
             <ShoppingBag size={18} />
             Back to Store
@@ -86,7 +86,7 @@ export default function NotFound() {
 
           <Link
             to="/collections"
-            className="font-body px-10 py-4 border border-white/40 rounded-full flex items-center gap-2 justify-center hover:bg-white hover:text-black hover:scale-105 transition"
+            className="font-body px-10 py-4 border border-white/40 rounded-full flex items-center gap-2 justify-center hover:bg-white hover:text-black hover:scale-105 transition cursor-pointer"
           >
             <Search size={18} />
             Explore Collection
@@ -96,7 +96,7 @@ export default function NotFound() {
         {/* Back button */}
         <button
           onClick={() => window.history.back()}
-          className="font-body mt-8 flex items-center gap-2 text-white/60 hover:text-white transition"
+          className="font-body mt-8 flex items-center gap-2 text-white/60 hover:text-white transition cursor-pointer"
         >
           <ArrowLeft size={18} />
           Return to Previous Page

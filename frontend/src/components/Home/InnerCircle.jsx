@@ -102,7 +102,7 @@ const InnerCircle = () => {
                 hover:scale-105
                 active:scale-95
                 transition-all duration-300
-              "
+               cursor-pointer"
             >
               Request Access
             </button>

@@ -117,7 +117,7 @@ const AddCategory = ({ refresh }) => {
 
         <button
           className="bg-black text-white px-5 py-3 rounded-xl w-full
-          transition transform hover:-translate-y-0.5 hover:bg-gray-900"
+          transition transform hover:-translate-y-0.5 hover:bg-gray-900 cursor-pointer"
         >
           Add Category
         </button>

@@ -187,7 +187,7 @@ const AdminSignup = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-2 bg-black text-white py-3 rounded-3xl text-sm font-medium hover:opacity-90 transition active:scale-95"
+              className="w-full mt-2 bg-black text-white py-3 rounded-3xl text-sm font-medium hover:opacity-90 transition active:scale-95 cursor-pointer"
             >
               {loading ? "Signing up..." : "SIGN UP"}
             </button>

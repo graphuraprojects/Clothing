@@ -56,7 +56,7 @@ const AdminOrderDetail = () => {
             onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 px-4 py-2 rounded-xl
             bg-white border shadow-sm text-sm font-semibold text-gray-700
-            hover:bg-black hover:text-white transition"
+            hover:bg-black hover:text-white transition cursor-pointer"
           >
             <FaArrowLeft /> Back to Orders
      
@@ -196,7 +196,7 @@ const AdminOrderDetail = () => {
                   placeholder="Add a private note..."
                 />
 
-                <button className="mt-3 w-full h-9 bg-black text-white rounded-lg text-sm">
+                <button className="mt-3 w-full h-9 bg-black text-white rounded-lg text-sm cursor-pointer">
                   Post Note
                 </button>
               </div>

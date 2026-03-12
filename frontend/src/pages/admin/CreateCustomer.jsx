@@ -178,13 +178,13 @@ export default function CreateCustomer() {
 
           {/* ================= ACTIONS ================= */}
           <div className="p-4 sm:p-6 bg-gray-50 space-y-3">
-            <button className="w-full bg-black text-white py-3 rounded-xl font-semibold">
+            <button className="w-full bg-black text-white py-3 rounded-xl font-semibold cursor-pointer">
               Save Customer
             </button>
-            <button className="w-full border border-black py-3 rounded-xl font-semibold hover:bg-black hover:text-white transition">
+            <button className="w-full border border-black py-3 rounded-xl font-semibold hover:bg-black hover:text-white transition cursor-pointer">
               Save & Create Order
             </button>
-            <button className="w-full text-sm text-gray-500 hover:text-red-500">
+            <button className="w-full text-sm text-gray-500 hover:text-red-500 cursor-pointer">
               Cancel
             </button>
           </div>
@@ -234,9 +234,9 @@ function Toggle({ label, desc, enabled, setEnabled }) {
       </div>
       <button
         onClick={() => setEnabled(!enabled)}
-        className={`w-12 h-6 rounded-full p-1 transition ${
+        className={`cursor-pointer ${`w-12 h-6 rounded-full p-1 transition ${
           enabled ? "bg-black" : "bg-gray-300"
-        }`}
+        }`}`}
       >
         <div
           className={`bg-white w-4 h-4 rounded-full transition ${

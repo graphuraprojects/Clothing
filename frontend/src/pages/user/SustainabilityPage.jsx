@@ -588,7 +588,7 @@ const SustainabilityPage = () => {
                 </div>
               </div>
 
-              <button className="w-full mt-8 py-4 bg-white text-emerald-700 font-bold rounded-xl hover:bg-gray-100 transition-colors">
+              <button className="w-full mt-8 py-4 bg-white text-emerald-700 font-bold rounded-xl hover:bg-gray-100 transition-colors cursor-pointer">
                 Explore Sustainable Collection
               </button>
             </div>
@@ -657,8 +657,8 @@ const SustainabilityPage = () => {
                 </div>
               </div>
 
-              <a href="/collections">
-                <button className="inline-flex items-center gap-3 px-10 py-4 bg-white text-emerald-700 font-bold text-lg rounded-full hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl">
+              <a className="cursor-pointer" href="/collections">
+                <button className="inline-flex items-center gap-3 px-10 py-4 bg-white text-emerald-700 font-bold text-lg rounded-full hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl cursor-pointer">
                   Shop Sustainable Collection
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -689,7 +689,7 @@ const SustainabilityPage = () => {
               <div className="flex flex-col sm:flex-row gap-6 justify-center">
                 <a
                   href="/collections"
-                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white text-emerald-700 font-bold rounded-full hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-white text-emerald-700 font-bold rounded-full hover:bg-emerald-50 transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                 >
                   <Leaf className="w-5 h-5" />
                   Shop Sustainable Collection
@@ -697,7 +697,7 @@ const SustainabilityPage = () => {
 
                 <a
                   href="/weavers"
-                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-emerald-800 text-white font-bold rounded-full hover:bg-emerald-900 transition-colors shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-emerald-800 text-white font-bold rounded-full hover:bg-emerald-900 transition-colors shadow-lg hover:shadow-xl cursor-pointer"
                 >
                   <Users className="w-5 h-5" />
                   Meet Our Artisans

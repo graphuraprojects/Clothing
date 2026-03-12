@@ -174,7 +174,7 @@ const FAQPage = () => {
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-gray-400" />
             <button
               type="submit"
-              className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#8b6f47] text-white px-6 py-2 rounded-xl hover:bg-[#7a6140] transition-colors"
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#8b6f47] text-white px-6 py-2 rounded-xl hover:bg-[#7a6140] transition-colors cursor-pointer"
             >
               Search
             </button>
@@ -206,7 +206,7 @@ const FAQPage = () => {
                     >
                       <button
                         onClick={() => toggleAccordion(id)}
-                        className="w-full flex justify-between items-center px-6 py-6 text-left hover:bg-gray-50/50 transition-colors"
+                        className="w-full flex justify-between items-center px-6 py-6 text-left hover:bg-gray-50/50 transition-colors cursor-pointer"
                       >
                         <span
                           className={`text-lg font-medium pr-8 transition-colors ${isOpen ? "text-[#B89A67]" : "text-gray-800"}`}
@@ -261,14 +261,14 @@ const FAQPage = () => {
           <div className="flex flex-wrap justify-center gap-4">
             <a
               href="tel:+917378021327"
-              className="flex items-center gap-2 bg-[#fbf6ed] text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-[#ECD1A8] transition-colors"
+              className="flex items-center gap-2 bg-[#fbf6ed] text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-[#ECD1A8] transition-colors cursor-pointer"
             >
               <Phone size={18} />
               Call Now
             </a>
             <a
               href="mailto:support@graphura.in"
-              className="flex items-center gap-2 bg-white text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-[#ECD1A8] transition-colors"
+              className="flex items-center gap-2 bg-white text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-[#ECD1A8] transition-colors cursor-pointer"
             >
               <Mail size={18} />
               Email Support

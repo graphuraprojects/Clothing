@@ -157,7 +157,7 @@ export default function Payments() {
 
             <button
               onClick={() => exportToCSV(filteredPayments, "payments-report")}
-              className="flex items-center justify-center gap-2 bg-black text-white px-5 py-3 rounded-xl w-full sm:w-auto"
+              className="flex items-center justify-center gap-2 bg-black text-white px-5 py-3 rounded-xl w-full sm:w-auto cursor-pointer"
             >
               <Download size={18} /> Export CSV
             </button>
@@ -258,7 +258,7 @@ export default function Payments() {
                     <td className="p-4 text-center">
                       <button
                         onClick={() => setActivePayment(p)}
-                        className="inline-flex items-center gap-1 font-semibold"
+                        className="inline-flex items-center gap-1 font-semibold cursor-pointer"
                       >
                         <Eye size={16} /> View
                       </button>
@@ -284,7 +284,7 @@ export default function Payments() {
                   <span>{p.method}</span>
                   <span className="font-bold">₹{p.amount}</span>
                 </div>
-                <button onClick={() => setActivePayment(p)} className="mt-3 text-sm font-semibold flex items-center gap-1">
+                <button onClick={() => setActivePayment(p)} className="mt-3 text-sm font-semibold flex items-center gap-1 cursor-pointer">
                   <Eye size={14} /> View Details
                 </button>
               </div>
@@ -335,7 +335,7 @@ function PaymentModal({ payment, onClose }) {
       >
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold">Payment Details</h3>
-          <button onClick={onClose}>
+          <button className="cursor-pointer" onClick={onClose}>
             <X />
           </button>
         </div>

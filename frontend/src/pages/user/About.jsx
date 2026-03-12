@@ -310,7 +310,7 @@ const About = () => {
               Experience clothing that feels good, looks beautiful, and does good for the planet and its people.
             </p>
 
-            <a href="/collections" className="inline-block mb-16">
+            <a href="/collections" className="inline-block mb-16 cursor-pointer">
               <motion.button
                 whileHover={{ scale: 1.04, y: -2 }}
                 whileTap={{ scale: 0.98 }}
