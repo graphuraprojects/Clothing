@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useShop } from "../../context/ShopContext";
 import SectionAccordion from "../../components/SectionAccordion";
@@ -10,7 +10,7 @@ import API from "../../api/axios";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import { X, ZoomIn } from "lucide-react";
+import { X, ZoomIn, AlertCircle } from "lucide-react";
 // Import from lucide-react instead of react-icons/fi
 import {
   Heart,
@@ -18,7 +18,6 @@ import {
   Share2,
   ChevronLeft,
   ChevronRight,
-  Search,
   User,
   ShoppingBag,
   ArrowLeft,
@@ -27,111 +26,155 @@ import {
   Package,
   Truck,
   RefreshCw,
-  Shield,
-  Menu
+  Shield
 } from "lucide-react";
 
-import graphura from "../../assets/graphuralogo/graphura.webp";
 import Navbar from "../../components/Home/Navbar";
 
 function ProductDetails() {
-  const [isZoomed, setIsZoomed] = useState(false);
+  // URL and navigation
   const { id } = useParams();
   const navigate = useNavigate();
-  const { addToCart, toggleWishlist, wishlist, cart } = useShop();
+  const { addToCart, wishlist, cart } = useShop();
 
+  // Loading and error states
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  // Product and variant states
   const [product, setProduct] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
+  
+  // Image states
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [imageLoading, setImageLoading] = useState(true);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  
+  // Cart and UI states
   const [quantity, setQuantity] = useState(1);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
   const [showWishlistMessage, setShowWishlistMessage] = useState(false);
   const [showCartMessage, setShowCartMessage] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
-  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [selectedSize, setSelectedSize] = useState("");
 
-useEffect(() => {
-  if (!product?.inventory?.length) return;
+  // ============ DATA FETCHING ============
+  const loadProduct = useCallback(async () => {
+    // Safety check
+    if (!id) {
+      setError("Product ID is invalid");
+      setLoading(false);
+      return;
+    }
 
-  const firstSize = product.inventory[0].size;
-  setSelectedSize(firstSize);
-}, [product]);
+    setLoading(true);
+    setError(null);
 
+    try {
+      // Fetch product details
+      const productRes = await API.get(`/products/${id}`, {
+        timeout: 10000, // 10 second timeout
+      });
+      
+      if (!productRes.data) {
+        throw new Error("No product data received from server");
+      }
 
+      const prod = productRes.data;
+      
+      // Validate product has required fields
+      if (!prod._id || !prod.name) {
+        throw new Error("Product data is incomplete");
+      }
 
+      setProduct(prod);
+      
+      // Set initial color
+      if (prod.colors && prod.colors.length > 0) {
+        setSelectedColor(prod.colors[0]);
+      } else if (prod.colors) {
+        setSelectedColor(null);
+      }
+      
+      // Reset image selection
+      setSelectedImage(0);
+      setImageLoading(true);
 
-const selectedVariant = product?.inventory?.find(
-  i => i.size === selectedSize && i.color === selectedColor?.name
-);
+      // Fetch related products
+      try {
+        const relRes = await API.get("/products", {
+          timeout: 10000,
+        });
 
+        const allProducts = Array.isArray(relRes.data)
+          ? relRes.data
+          : relRes.data?.products || [];
 
-const variantStock = selectedVariant?.stock || 0;
+        const related = allProducts
+          .filter((p) => p._id !== prod._id && p.category === prod.category)
+          .slice(0, 4);
 
+        setRelatedProducts(related);
+      } catch (relErr) {
+        console.warn("Failed to fetch related products:", relErr.message);
+        // Don't fail the entire load if related products fail
+        setRelatedProducts([]);
+      }
 
-const sizes = product?.inventory
-  ? Array.from(
-      new Set(product.inventory.map(i => i.size))
-    ).sort()
-  : [];
-
-
-  useEffect(() => {
-    loadProduct();
+    } catch (err) {
+      console.error("Product loading error:", err);
+      
+      let errorMessage = "Failed to load product";
+      
+      if (err.response?.status === 404) {
+        errorMessage = "Product not found";
+      } else if (err.response?.status === 500) {
+        errorMessage = "Server error. Please try again later";
+      } else if (err.code === "ECONNABORTED") {
+        errorMessage = "Request timeout. Please check your connection";
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+      
+      setError(errorMessage);
+      setProduct(null);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
- const loadProduct = async () => {
- setLoading(true);
+  // Load product when ID changes
+  useEffect(() => {
+    loadProduct();
+  }, [id, loadProduct]);
 
- try {
-  const res = await API.get(`/products/${id}`);
-  const prod = res.data;
-
-  setProduct(prod);
-  setSelectedColor(prod.colors?.[0]);
-  setSelectedImage(0);
-
-  const rel = await API.get("/products");
-
-  const all = Array.isArray(rel.data)
-    ? rel.data
-    : rel.data.products;
-
-    const related = all
-  .filter(p => p._id !== prod._id)
-  .slice(0, 4);
-
-  // const related = all
-  //   .filter(p => p._id !== prod._id)
-  //   .slice(0,4)
-  //   .map(p => ({
-  //     id:p._id,
-  //     name:p.name,
-  //     price:p.price,
-  //     image:p.colors?.[0]?.images?.[0],
-  //     category:p.category?.name,
-  //     rating:p.rating || 4.5,
-  //     originalPrice:p.originalPrice,
-  //     discount:p.discount
-  //   }));
-
-  setRelatedProducts(related);
-
- } catch (err) {
-  console.error(err);
- } finally {
-  setLoading(false);
- }
-};
+  // Set initial size when product or color changes
+  useEffect(() => {
+    if (product?.inventory && product.inventory.length > 0) {
+      const firstSize = product.inventory[0].size;
+      setSelectedSize(firstSize);
+    } else {
+      setSelectedSize(null);
+    }
+  }, [product]);
 
 
- const isInWishlist =
-  product && Array.isArray(wishlist) && wishlist.includes(product._id);
 
+  // ============ DERIVED VALUES ============
+  const selectedVariant = product?.inventory?.find(
+    (i) => i.size === selectedSize && i.color === selectedColor?.name
+  );
+
+  const variantStock = selectedVariant?.stock || 0;
+
+  const sizes = product?.inventory
+    ? Array.from(new Set(product.inventory.map((i) => i.size))).sort()
+    : [];
+
+  const isInWishlist =
+    product && Array.isArray(wishlist) && wishlist.includes(product._id);
 
   const isInCart =
     product &&
@@ -139,102 +182,105 @@ const sizes = product?.inventory
       (item) =>
         item.id === product._id &&
         item.size === selectedSize &&
-        item.color === selectedColor?.name,
+        item.color === selectedColor?.name
     );
 
-    
+  // ============ EVENT HANDLERS ============
+  const handleAddToCart = useCallback(async () => {
+    // Validate prerequisites
+    const token = localStorage.getItem("token");
 
- const handleAddToCart = async () => {
-  const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/user/login");
+      return;
+    }
 
-  if (!token) {
-    navigate("/user/login");
-    return;
-  }
+    if (!selectedSize) {
+      alert("Please select a size");
+      return;
+    }
 
-  if (!selectedSize) {
-    alert("Select size");
-    return;
-  }
+    if (!product) {
+      alert("Product data is not loaded");
+      return;
+    }
 
-  try {
-    await new Promise(resolve => setTimeout(resolve, 0));
-
-    const res = await API.post(
-      "/cart",
-      {
+    try {
+      const cartItem = {
         product: product._id,
         name: product.name,
         price: product.discountPrice || product.price,
         image: product.colors?.[0]?.images?.[0],
         size: selectedSize,
         color: selectedColor?.name,
-        quantity
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+        quantity,
+      };
 
-    addToCart({
-      id: product._id,
-      name: product.name,
-      price: product.discountPrice || product.price,
-      image: product.colors?.[0]?.images?.[0],
-      size: selectedSize,
-      color: selectedColor?.name,
-      quantity
-    });
-
-    setShowCartMessage(true);
-    setTimeout(() => setShowCartMessage(false), 3000);
-
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    alert("Add to cart failed");
-  }
-};
-
-
-
-  const handleBuyNow = () => {
-    handleAddToCart();
-    navigate("/checkout");
-  };
-
-const handleWishlistToggle = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/user/login");
-    return;
-  }
-
-  try {
-    await API.post(
-      `/cart/wishlist/${product._id}`,
-      {},
-      {
+      await API.post("/cart", cartItem, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
+      });
 
-    setShowWishlistMessage(true);
-    setTimeout(() => setShowWishlistMessage(false), 3000);
+      // Update local cart state
+      addToCart({
+        id: product._id,
+        name: product.name,
+        price: product.discountPrice || product.price,
+        image: product.colors?.[0]?.images?.[0],
+        size: selectedSize,
+        color: selectedColor?.name,
+        quantity,
+      });
 
-  } catch (err) {
-    console.error("Wishlist error", err.response?.data);
-  }
-};
+      setShowCartMessage(true);
+      setTimeout(() => setShowCartMessage(false), 3000);
+    } catch (err) {
+      console.error("Add to cart error:", err);
+      alert("Failed to add to cart. Please try again.");
+    }
+  }, [product, selectedSize, selectedColor, quantity, navigate, addToCart]);
 
+  const handleBuyNow = useCallback(() => {
+    handleAddToCart();
+    setTimeout(() => navigate("/checkout"), 300);
+  }, [handleAddToCart, navigate]);
 
+  const handleWishlistToggle = useCallback(async () => {
+    const token = localStorage.getItem("token");
 
+    if (!token) {
+      navigate("/user/login");
+      return;
+    }
 
+    if (!product) {
+      alert("Product data is not loaded");
+      return;
+    }
 
-  const handleShare = async () => {
+    try {
+      await API.post(
+        `/cart/wishlist/${product._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setShowWishlistMessage(true);
+      setTimeout(() => setShowWishlistMessage(false), 3000);
+    } catch (err) {
+      console.error("Wishlist error:", err);
+      alert("Failed to update wishlist");
+    }
+  }, [product, navigate]);
+
+  const handleShare = useCallback(() => {
+    if (!product) return;
+
     const shareData = {
       title: product.name,
       text: `Check out ${product.name} on Graphura - ₹${product.price}`,
@@ -243,45 +289,45 @@ const handleWishlistToggle = async () => {
 
     try {
       if (navigator.share) {
-        await navigator.share(shareData);
+        navigator.share(shareData);
       } else {
-        await navigator.clipboard.writeText(window.location.href);
+        navigator.clipboard.writeText(window.location.href);
         alert("Link copied to clipboard!");
       }
     } catch (err) {
       console.error("Error sharing:", err);
     }
-  };
+  }, [product]);
 
-  const handleImageNavigation = (direction) => {
-    if (!product) return;
+  const handleImageNavigation = useCallback((direction) => {
+    // Get the images array from selectedColor or default to first color
+    const currentImages =
+      selectedColor?.images || product?.colors?.[0]?.images || [];
+
+    if (!currentImages || currentImages.length === 0) return;
 
     const newIndex =
       direction === "next"
-        ? (selectedImage + 1) % product.images.length
-        : (selectedImage - 1 + product.images.length) % product.images.length;
+        ? (selectedImage + 1) % currentImages.length
+        : (selectedImage - 1 + currentImages.length) % currentImages.length;
 
     setSelectedImage(newIndex);
-  };
+  }, [selectedColor, product, selectedImage]);
 
-  const handleColorSelect = (color) => {
+  const handleColorSelect = useCallback((color) => {
     setSelectedColor(color);
-    if (product && color.image) {
-      const colorIndex = product.colors.findIndex((c) => c.id === color.id);
-      if (colorIndex >= 0) {
-        setSelectedImage(colorIndex);
-      }
-    }
-  };
+    setSelectedImage(0);
+    setImageLoading(true);
+  }, []);
 
-  const handleQuantityChange = (change) => {
+  const handleQuantityChange = useCallback((change) => {
     const newQuantity = quantity + change;
-    if (newQuantity >= 1 && newQuantity <= (product?.stock || 10)) {
+    if (newQuantity >= 1 && newQuantity <= (variantStock || 10)) {
       setQuantity(newQuantity);
     }
-  };
+  }, [quantity, variantStock]);
 
-  const handleImageZoom = (e) => {
+  const handleImageZoom = useCallback((e) => {
     if (!product) return;
 
     const rect = e.currentTarget.getBoundingClientRect();
@@ -295,22 +341,49 @@ const handleWishlistToggle = async () => {
 
     setZoomPosition({ x, y });
     setIsZoomed(true);
-  };
+  }, [product]);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (isZoomed) {
       handleImageZoom(e);
     }
-  };
+  }, [isZoomed, handleImageZoom]);
 
-  const handleTouchMove = (e) => {
-    if (isZoomed && e.touches) {
-      handleImageZoom(e);
-    }
-  };
-
+  // ============ RENDER STATES ============
   if (loading) {
     return <ProductSkeleton />;
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-center max-w-md">
+          <div className="flex justify-center mb-4">
+            <AlertCircle size={64} className="text-red-500" />
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            {error === "Product not found" ? "Product Not Found" : "Oops! Something went wrong"}
+          </h2>
+          <p className="text-gray-600 mb-6">
+            {error || "Unable to load the product. Please try again."}
+          </p>
+          <div className="space-x-3">
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors inline-block"
+            >
+              Try Again
+            </button>
+            <button
+              onClick={() => navigate("/collections")}
+              className="px-6 py-3 bg-gray-200 text-gray-900 rounded-lg font-medium hover:bg-gray-300 transition-colors inline-block"
+            >
+              Continue Shopping
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   if (!product) {
@@ -430,7 +503,7 @@ const handleWishlistToggle = async () => {
              <img
   src={selectedColor?.images?.[selectedImage]}
   alt={`${product.name} - View ${selectedImage + 1}`}
-  className={`absolute inset-0 w-full h-full object-cover transition-transform duration-300 pointer-events-none ${
+  className={`absolute inset-0 w-full h-full object-cover transition-all duration-300 pointer-events-none ${
     isZoomed ? "scale-150" : "hover:scale-105"
   } ${imageLoading ? "opacity-0" : "opacity-100"}`}
   style={{

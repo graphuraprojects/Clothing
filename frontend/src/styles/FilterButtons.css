@@ -1,0 +1,51 @@
+/* Premium Filter Button Styles for Fashion E-commerce */
+
+/* Base filter button styles */
+.filter-button {
+  @apply whitespace-nowrap px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 border;
+}
+
+/* Inactive state - clean and minimal */
+.filter-button-inactive {
+  @apply bg-gray-50 text-gray-700 border-gray-200 hover:border-amber-300 hover:bg-amber-50 hover:scale-105 hover:shadow-md;
+}
+
+/* Active state - premium fashion colors */
+.filter-button-active {
+  /* Soft coffee brown background with subtle gradient */
+  background: linear-gradient(135deg, #d4a574 0%, #c49666 100%);
+  @apply text-white border-amber-600 shadow-lg scale-105;
+
+  /* Alternative: Beige luxury tone */
+  /* background: linear-gradient(135deg, #f5f1e8 0%, #e8dcc0 100%); */
+  /* @apply text-amber-900 border-amber-400; */
+
+  /* Alternative: Subtle gradient brown */
+  /* background: linear-gradient(135deg, #a67c52 0%, #8b5a3c 100%); */
+  /* @apply text-white border-amber-700; */
+}
+
+/* Hover effects for active buttons */
+.filter-button-active:hover {
+  @apply scale-110 shadow-xl;
+  background: linear-gradient(135deg, #c49666 0%, #b08968 100%);
+}
+
+/* Focus states for accessibility */
+.filter-button:focus {
+  @apply outline-none ring-2 ring-amber-400 ring-opacity-50;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .filter-button {
+    @apply px-3 py-2 text-xs;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  .filter-button-inactive {
+    @apply bg-gray-800 text-gray-300 border-gray-600 hover:border-amber-400 hover:bg-amber-900;
+  }
+}

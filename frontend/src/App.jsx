@@ -148,5 +148,4 @@ const App = () => {
     </ShopProvider>
   );
 };
-
 export default App;
