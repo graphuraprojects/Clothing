@@ -360,60 +360,71 @@ const Landing = () => {
               BESTSELLER
             </button>
 
-            <button className="text-base sm:text-xl tracking-wide text-gray-400 transition-colors duration-300 hover:text-gray-600 pb-2 cursor-pointer">
+            {/* <button className="text-base sm:text-xl tracking-wide text-gray-400 transition-colors duration-300 hover:text-gray-600 pb-2 cursor-pointer">
               THIS IS NEW
-            </button>
+            </button> */}
           </div>
 
           {/* ─── PRODUCT GRID — Asymmetric editorial ─── */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {products.map((item, i) => (
-              <Link
-                key={`${item._id}-${i}`}
-                to={`/product/${item._id}`}
-                className="group block bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
-              >
-                {/* Image Section */}
-                <div className="relative overflow-hidden">
-                  <img
-                    src={item.colors?.[0]?.images?.[0] || "/fallback.jpg"}
-                    alt={item.name}
-                    className="w-full h-[260px] sm:h-[320px] md:h-[360px] lg:h-[400px] object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+  {products.map((item, i) => (
+    <Link
+      key={`${item._id}-${i}`}
+      to={`/product/${item._id}`}
+      className="group block bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.03)] border border-gray-100 hover:shadow-[0_12px_40px_rgba(0,0,0,0.08)] hover:-translate-y-1 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] cursor-pointer flex flex-col h-full"
+    >
+      {/* Image Section */}
+      <div className="relative overflow-hidden aspect-[4/5] bg-gray-50 shrink-0">
+        <img
+          src={item.colors?.[0]?.images?.[0] || "/fallback.jpg"}
+          alt={item.name}
+          className="w-full h-full object-cover object-top group-hover:scale-105 group-hover:brightness-95 transition-all duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+        />
 
-                  {/* Badge */}
-                  {item.badge && (
-                    <span className="absolute top-3 left-3 bg-[#8b6f47] text-white text-xs px-3 py-1 rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
+        {/* Overlay Fade */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  {/* Hover Overlay */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                    <span className="text-white text-sm tracking-wide">
-                      View Details
-                    </span>
-                  </div>
-                </div>
+        {/* Badge */}
+        {item.badge && (
+          <span className="absolute top-4 left-4 bg-white/95 backdrop-blur-md text-gray-900 shadow-sm text-[10px] font-bold tracking-wider px-3 py-1.5 rounded-full uppercase z-10 transition-transform duration-500 group-hover:scale-105">
+            {item.badge}
+          </span>
+        )}
 
-                {/* Details */}
-                <div className="p-4 space-y-1">
-                  <p className="text-sm font-medium text-gray-900 line-clamp-2">
-                    {item.name}
-                  </p>
+        {/* View Details Pill */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 translate-y-6 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] z-10 w-[85%] sm:w-auto text-center">
+          <span className="inline-block w-full sm:w-auto bg-white/95 backdrop-blur-md text-gray-900 text-xs font-semibold tracking-wider px-6 py-2.5 rounded-full shadow-[0_4px_16px_rgba(0,0,0,0.15)]">
+            View Details
+          </span>
+        </div>
+      </div>
 
-                  <p className="text-base font-semibold text-black">
-                    ₹{item.discountPrice ?? item.price ?? 0}
-                  </p>
+      {/* Details Section */}
+      <div className="p-5 flex flex-col grow justify-between bg-white relative">
+        <div className="space-y-1">
+          <p className="text-sm md:text-[15px] font-medium text-gray-800 line-clamp-2 group-hover:text-black transition-colors duration-300">
+            {item.name}
+          </p>
+          <p className="text-[11px] font-medium tracking-wider text-gray-500 uppercase mt-1">
+            {item.sizes?.length ? item.sizes.join(", ") : "Free Size"}
+          </p>
+        </div>
 
-                  <p className="text-xs text-gray-500">
-                    <b>Size:</b>{" "}
-                    {item.sizes?.length ? item.sizes.join(", ") : "Free Size"}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+        <div className="flex items-center gap-2 mt-4">
+          <p className="text-base font-semibold text-gray-900">
+            ₹{item.discountPrice ?? item.price ?? 0}
+          </p>
+          {item.discountPrice && item.discountPrice < item.price && (
+            <p className="text-xs text-gray-400 line-through decoration-gray-300">
+              ₹{item.price}
+            </p>
+          )}
+        </div>
+      </div>
+    </Link>
+  ))}
+</div>
+
         </div>
       </section>
 

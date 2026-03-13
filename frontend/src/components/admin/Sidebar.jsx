@@ -9,43 +9,39 @@ import {
   X,
 } from "lucide-react";
 import graphuraLogo from "../../assets/graphuralogo/graphura.webp";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import API from "../../api/axios";
 export default function Sidebar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [admin, setAdmin] = useState({});
 
-   useEffect(() => {
+  useEffect(() => {
     fetchAdmin();
   }, []);
 
-useEffect(() => {
-  document.body.style.overflow = open ? "hidden" : "auto";
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "auto";
 
-  return () => {
-    document.body.style.overflow = "auto";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [open]);
+
+  const fetchAdmin = async () => {
+    try {
+      const token = localStorage.getItem("admin_token");
+      console.log("ADMIN TOKEN:", token);
+
+      const res = await API.get("/admin/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      setAdmin(res.data);
+    } catch (err) {
+      console.log("ADMIN ERROR:", err.response?.data);
+    }
   };
-}, [open]);
-
-
-
-
-const fetchAdmin = async () => {
-  try {
-    const token = localStorage.getItem("admin_token");
-    console.log("ADMIN TOKEN:", token);
-
-    const res = await API.get("/admin/profile", {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-
-    setAdmin(res.data);
-  } catch (err) {
-    console.log("ADMIN ERROR:", err.response?.data);
-  }
-};
-
 
   const menu = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/admin/dashboard" },
@@ -130,7 +126,8 @@ const fetchAdmin = async () => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex flex-col gap-1 sm:gap-2 flex-1 mt-2">
+        <nav className="flex flex-col gap-1 sm:gap-2 flex-1 mt-2 text-black">
+          {" "}
           {menu.map((item) => {
             const Icon = item.icon;
 
@@ -139,21 +136,13 @@ const fetchAdmin = async () => {
                 key={item.name}
                 to={item.path}
                 onClick={() => setOpen(false)}
-                className={`cursor-pointer ${({ isActive }) =>
-                  `
-                    flex items-center gap-3
-                    px-3 sm:px-4
-                    py-2.5 sm:py-3
-                    rounded-xl
-                    font-semibold
-                    text-sm sm:text-base
-                    transition-all
-                    ${
-                      isActive
-                        ? "bg-gradient-to-r from-purple-500 to-violet-600 text-white shadow-md"
-                        : "text-gray-600 hover:bg-gray-100"
-                    }
-                  `}`}
+                className={({ isActive }) =>
+                  `cursor-pointer flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base transition-all ${
+                    isActive
+                      ? "bg-gray-200 font-medium text-gray-800"
+                      : "text-gray-700 hover:bg-gray-100 hover:text-black"
+                  }`
+                }
               >
                 <Icon size={18} />
                 {item.name}
@@ -169,21 +158,13 @@ const fetchAdmin = async () => {
         <NavLink
           to="/admin/settings"
           onClick={() => setOpen(false)}
-          className={`cursor-pointer ${({ isActive }) =>
-            `
-              flex items-center gap-3
-              px-3 sm:px-4
-              py-2.5 sm:py-3
-              rounded-xl
-              font-semibold
-              text-sm sm:text-base
-              transition-all
-              ${
-                isActive
-                  ? "bg-gradient-to-r from-purple-500 to-violet-600 text-white shadow-md"
-                  : "text-gray-600 hover:bg-gray-100"
-              }
-            `}`}
+          className={({ isActive }) =>
+            `cursor-pointer flex items-center gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base transition-all ${
+              isActive
+                ? "bg-gray-200 font-medium text-gray-800"
+                : "text-gray-700 hover:bg-gray-100 hover:text-black"
+            }`
+          }
         >
           <Settings size={18} />
           Settings
