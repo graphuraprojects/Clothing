@@ -12,6 +12,7 @@ import Home from "./pages/user/Home";
 import MenCategoryPage from "./pages/user/MenCategory";
 import WomenCategory from "./pages/user/WomenCategory";
 import KidsCategory from "./pages/user/KidsCategory";
+import KidsSection from "./pages/user/KidsSection";
 import ShopCollectionPage from "./pages/user/ShopCollectionPage";
 import ProductDetails from "./pages/user/ProductDetails";
 import Cart from "./pages/user/Cart";
@@ -104,6 +105,7 @@ const App = () => {
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/ai-try-on" element={<AITry />} />
             <Route path="/kids" element={<KidsCategory />} />
+            <Route path="/kids-section" element={<KidsSection />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contactus />} />
             <Route path="/shipping" element={<ShippingReturns />} />
