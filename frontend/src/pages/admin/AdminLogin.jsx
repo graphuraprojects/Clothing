@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "../../api/axios.js";
+import axios from "axios";
+import { motion } from "framer-motion";
 
-import logo from "../../assets/logo/logo.webp";
+import logo from "../../assets/logo/logoWhite.webp";
 import userlogin from "../../assets/Login/userlogin.webp";
 
 const AdminLogin = () => {
@@ -18,35 +19,22 @@ const AdminLogin = () => {
     setError("");
     setLoading(true);
 
-    console.log("===== ADMIN LOGIN FORM SUBMITTED =====");
-    console.log("SENDING POST to /admin/login with email:", email);
-
     try {
       const res = await axios.post(
-        "/admin/login",
-        { email, password },
-       
+        "/api/admin/login",
+        { email, password }
       );
-
-      console.log("LOGIN RESPONSE STATUS:", res.status);
-      console.log("LOGIN RESPONSE DATA:", JSON.stringify(res.data));
 
       if (res.data.token) {
         localStorage.setItem("admin_token", res.data.token);
         localStorage.setItem("graphura_admin", "true");
-        console.log("TOKEN SAVED, navigating to /admin/dashboard");
         navigate("/admin/dashboard");
       } else {
-        console.log("NO TOKEN IN RESPONSE");
         setError(res.data.message || "Login failed");
       }
     } catch (err) {
-      console.error("===== LOGIN REQUEST FAILED =====");
-      console.error("ERROR STATUS:", err.response?.status);
-      console.error("ERROR DATA:", JSON.stringify(err.response?.data));
-      console.error("ERROR MESSAGE:", err.message);
       setError(
-        err.response?.data?.message || "Server error. Please try again.",
+        err.response?.data?.message || "Server error. Please try again."
       );
     } finally {
       setLoading(false);
@@ -54,116 +42,128 @@ const AdminLogin = () => {
   };
 
   return (
-    <>
-      <style>{`
-        @media (max-width: 767px) {
-          .admin-login-center {
-            min-height: 100vh !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            padding-top: 0 !important;
-            padding-bottom: 0 !important;
-          }
-        }
-      `}</style>
+    <div className="min-h-screen grid md:grid-cols-2 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617]">
 
-      <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-[#FAFAF7]">
-        {/* LEFT IMAGE */}
-        <div
-          className="relative hidden md:flex h-screen w-full overflow-hidden items-center bg-cover bg-top"
-          style={{ backgroundImage: `url(${userlogin})` }}
-        >
-          <div className="relative z-10 h-full w-full flex flex-col justify-between px-8 py-8 text-white">
-            <div className="font-semibold tracking-wide">
-              <img src={logo} alt="Graphura Logo" className="h-15 w-auto" />
-            </div>
+      {/* LEFT SIDE */}
+      <div className="relative hidden md:flex h-screen w-full items-center justify-center overflow-hidden">
+        <img
+          src={userlogin}
+          alt="Login Banner"
+          className="absolute inset-0 w-full h-full object-cover object-top opacity-60"
+        />
 
-            <div>
-              <h1 className="text-xl md:text-3xl font-serif font-semibold">
-                Elegance is an attitude.
-              </h1>
-              <p className="mt-3 max-w-xs text-sm opacity-90">
-                Join our exclusive community of curators and define your
-                signature style.
-              </p>
-            </div>
+        <div className="relative z-10 h-full w-full flex flex-col justify-between px-8 py-8 text-white">
+
+          {/* LOGO */}
+          <div>
+            <img
+              src={logo}
+              alt="Graphura Logo"
+              className="h-12 mb-10"
+            />
           </div>
-        </div>
 
-        {/* RIGHT LOGIN CARD */}
-        <div className="admin-login-center flex min-h-screen md:h-screen items-center justify-center px-4 sm:px-6 py-8 md:py-0 bg-[#FAFAF7]">
-          <div
-            className="w-full max-w-sm sm:max-w-md bg-white rounded-2xl px-6 sm:px-8 py-8 sm:py-10"
-            style={{ boxShadow: "0 16px 40px rgb(128, 128, 128)" }}
-          >
-            <h2 className="text-2xl font-semibold text-black">Admin Login</h2>
-            <p className="text-sm text-gray-500 mt-1">Sign in to continue</p>
+          {/* TEXT */}
+          <div>
+            <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+            className="text-4xl md:text-3xl font-serif font-semibold leading-snug">
+              Elegance is <br />
+               an attitude.
+            </motion.h1>
 
-            <form className="mt-6 space-y-4" onSubmit={handleLogin}>
-              {/* EMAIL */}
-              <div>
-                <label className="text-xs font-medium tracking-wide text-gray-600">
-                  EMAIL ADDRESS
-                </label>
-                <input
-                  type="email"
-                  placeholder="e.g. admin@graphura.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 rounded-2xl text-sm bg-[#ECEFF4] focus:outline-none"
-                  style={{
-                    boxShadow: `
-                      6px 6px 14px rgba(160,160,160,0.9),
-                      -6px -6px 14px rgba(255,255,255,1),
-                      inset 2px 2px 4px rgba(160,160,160,0.6),
-                      inset -2px -2px 4px rgba(255,255,255,0.9)
-                    `,
-                  }}
-                />
-              </div>
-
-              {/* PASSWORD */}
-              <div>
-                <label className="text-xs font-medium tracking-wide text-gray-600">
-                  PASSWORD
-                </label>
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 rounded-2xl text-sm bg-[#ECEFF4] focus:outline-none"
-                  style={{
-                    boxShadow: `
-                      6px 6px 14px rgba(160,160,160,0.9),
-                      -6px -6px 14px rgba(255,255,255,1),
-                      inset 2px 2px 4px rgba(160,160,160,0.6),
-                      inset -2px -2px 4px rgba(255,255,255,0.9)
-                    `,
-                  }}
-                />
-              </div>
-
-              {/* LOGIN BUTTON */}
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full mt-2 bg-black text-white py-3 rounded-3xl text-sm font-medium hover:opacity-90 transition active:scale-95 disabled:opacity-60 cursor-pointer"
-              >
-                {loading ? "Signing in..." : "SIGN IN"}
-              </button>
-            </form>
-
-            {error && (
-              <p className="mt-4 text-xs text-center text-red-500">{error}</p>
-            )}
+            <p className="mt-4 max-w-sm opacity-80">
+              Join our exclusive community of curators and define your signature style.
+            </p>
           </div>
+
         </div>
       </div>
-    </>
+
+      {/* RIGHT SIDE LOGIN */}
+      <div className="flex items-center justify-center px-6">
+
+        <motion.div
+          initial={{ opacity: 0, y: 70 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl"
+        >
+          <h2 className="text-3xl font-bold text-white text-center">
+            Admin Login
+          </h2>
+
+          <p className="text-gray-300 text-center mt-2 text-sm">
+            Sign in to manage Graphura dashboard
+          </p>
+
+          {error && (
+            <p className="text-red-400 text-sm text-center mt-3">{error}</p>
+          )}
+
+          <form className="mt-8 space-y-5" onSubmit={handleLogin}>
+
+            {/* EMAIL */}
+            <div>
+              <label className="text-xs text-gray-300 tracking-wide">
+                EMAIL ADDRESS
+              </label>
+
+              <input
+                type="email"
+                placeholder="admin@graphura.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+              />
+            </div>
+
+            {/* PASSWORD */}
+            <div>
+              <label className="text-xs text-gray-300 tracking-wide">
+                PASSWORD
+              </label>
+
+              <input
+                type="password"
+                placeholder="••••••••"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+              />
+            </div>
+
+            {/* LOGIN BUTTON */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.03 }}
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition disabled:opacity-60"
+            >
+              {loading ? "Signing in..." : "SIGN IN"}
+            </motion.button>
+
+          </form>
+
+          <p className="mt-6 text-sm text-center text-gray-300">
+            Don't have an account?{" "}
+            <span
+              onClick={() => navigate("/admin/signup")}
+              className="text-indigo-400 font-medium cursor-pointer hover:underline"
+            >
+              Sign Up
+            </span>
+          </p>
+
+        </motion.div>
+
+      </div>
+    </div>
   );
 };
 

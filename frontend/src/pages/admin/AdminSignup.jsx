@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import leftBlue from "../../assets/Login/userlogin.webp";
 import logo from "../../assets/logo/logoWhite.webp";
-// import leftImage from "../../assets/Login/leftnew.webp";
-import axios from "../../api/axios.js";
+import axios from "axios";
+import { motion } from "framer-motion";
 
 const AdminSignup = () => {
   const navigate = useNavigate();
@@ -19,55 +19,39 @@ const AdminSignup = () => {
     e.preventDefault();
     setError("");
 
-    console.log("===== ADMIN SIGNUP FORM SUBMITTED =====");
-
-    // Validation
     if (!email || !password || !confirmPassword) {
-      console.log("VALIDATION FAIL: empty fields");
       setError("Please fill all fields");
       return;
     }
 
     if (password !== confirmPassword) {
-      console.log("VALIDATION FAIL: passwords don't match");
       setError("Passwords do not match");
       return;
     }
 
     if (password.length < 6) {
-      console.log("VALIDATION FAIL: password too short");
       setError("Password must be at least 6 characters");
       return;
     }
 
     setLoading(true);
-    console.log("SENDING POST to /admin/signup with email:", email);
 
     try {
-      const res = await axios.post("/admin/signup", { email, password });
-
-      console.log("SIGNUP RESPONSE STATUS:", res.status);
-      console.log("SIGNUP RESPONSE DATA:", JSON.stringify(res.data));
+      const res = await axios.post("/api/admin/signup", { email, password });
 
       const token =
         res.data.token || res.data.admin?.token || res.data.data?.token;
 
-      console.log("EXTRACTED TOKEN:", token ? "YES" : "NO");
+      console.log("SIGNUP TOKEN:", token);
 
       if (token) {
         localStorage.setItem("admin_token", token);
         localStorage.setItem("graphura_admin", "true");
-        console.log("TOKEN SAVED, navigating to /admin/dashboard");
         navigate("/admin/dashboard");
       } else {
-        console.log("NO TOKEN IN RESPONSE");
         setError("Token not received from server");
       }
     } catch (err) {
-      console.error("===== SIGNUP REQUEST FAILED =====");
-      console.error("ERROR STATUS:", err.response?.status);
-      console.error("ERROR DATA:", JSON.stringify(err.response?.data));
-      console.error("ERROR MESSAGE:", err.message);
       const errorMsg =
         err.response?.data?.message || "Server error. Please try again.";
       setError(errorMsg);
@@ -75,135 +59,132 @@ const AdminSignup = () => {
       setLoading(false);
     }
   };
+
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2 bg-[#FAFAF7]">
-      {/* LEFT IMAGE */}
-      <div className="relative hidden md:flex h-screen w-full overflow-hidden">
+    <div className="min-h-screen grid md:grid-cols-2 bg-gradient-to-br from-[#0f172a] via-[#1e293b] to-[#020617]">
+      {/* LEFT SECTION */}
+      <div className="relative hidden md:flex h-screen w-full items-center justify-center overflow-hidden">
         <img
           src={leftBlue}
           alt="Signup Banner"
-          className="absolute inset-0 w-full h-full object-cover object-top"
+          className="absolute inset-0 w-full h-full object-cover object-top opacity-60"
         />
 
-        <div className="relative z-10 h-full w-full flex flex-col justify-between px-8 py-8 text-white">
+        <div className="relative z-10 h-full w-full flex flex-col justify-between text-white px-8 py-8 ">
           <div>
-            <img src={logo} alt="Graphura Logo" className="h-12 w-auto" />
+            <img src={logo} alt="logo" className="h-12 mb-10" />
           </div>
 
           <div>
-            <h1 className="text-xl md:text-3xl font-serif font-semibold">
-              Elegance is an attitude.
-            </h1>
-            <p className="mt-3 max-w-xs text-sm opacity-90">
-              Join our exclusive community of curators and define your signature
-              style.
+            <motion.h1
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+              className="text-4xl md:text-3xl font-serif font-semibold leading-snug"
+            >
+              Elegance is <br /> an attitude.
+            </motion.h1>
+
+            <p className="mt-4 max-w-sm opacity-80">
+              Join our exclusive admin community and manage your luxury
+              collections with power and style.
             </p>
           </div>
         </div>
       </div>
 
-      {/* RIGHT SIGNUP CARD */}
-      <div className="flex h-screen items-center justify-center px-4 sm:px-6">
-        <div
-          className="w-full max-w-md bg-white rounded-2xl px-8 py-10"
-          style={{
-            boxShadow: "0 16px 40px rgb(128,128,128)",
-          }}
+      {/* RIGHT SIGNUP */}
+      <div className="flex items-center justify-center px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="w-full max-w-md backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-10 shadow-2xl"
         >
-          <h2 className="text-2xl font-semibold text-black">Create account</h2>
-          <p className="text-sm text-gray-500 mt-1">
-            Join Graphura and curate your luxury wardrobe.
+          <h2 className="text-3xl font-bold text-white text-center">
+            Create Admin Account
+          </h2>
+
+          <p className="text-gray-300 text-center mt-2 text-sm">
+            Join Graphura and manage luxury inventory
           </p>
 
-          <form className="mt-6 space-y-4" onSubmit={handleSignup}>
+          {error && (
+            <p className="text-red-400 text-sm text-center mt-3">{error}</p>
+          )}
+
+          <form className="mt-8 space-y-5" onSubmit={handleSignup}>
             {/* EMAIL */}
-            <div>
-              <label className="text-xs font-medium tracking-wide text-gray-600">
+            <div className="relative">
+              <label className="text-xs text-gray-300 tracking-wide">
                 EMAIL ADDRESS
               </label>
+
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-2xl text-sm bg-[#ECEFF4] focus:outline-none"
                 required
-                style={{
-                  boxShadow: `
-                    6px 6px 14px rgba(160,160,160,0.9),
-                    -6px -6px 14px rgba(255,255,255,1),
-                    inset 2px 2px 4px rgba(160,160,160,0.6),
-                    inset -2px -2px 4px rgba(255,255,255,0.9)
-                  `,
-                }}
+                className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               />
             </div>
 
             {/* PASSWORD */}
             <div>
-              <label className="text-xs font-medium tracking-wide text-gray-600">
+              <label className="text-xs text-gray-300 tracking-wide">
                 PASSWORD
               </label>
+
               <input
                 type="password"
                 placeholder="Password (min 6 chars)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-2xl text-sm bg-[#ECEFF4] focus:outline-none"
-                style={{
-                  boxShadow: `
-                    6px 6px 14px rgba(160,160,160,0.9),
-                    -6px -6px 14px rgba(255,255,255,1),
-                    inset 2px 2px 4px rgba(160,160,160,0.6),
-                    inset -2px -2px 4px rgba(255,255,255,0.9)
-                  `,
-                }}
+                className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               />
             </div>
+
+            {/* CONFIRM PASSWORD */}
             <div>
-              <label className="text-xs font-medium tracking-wide text-gray-600">
-                PASSWORD
+              <label className="text-xs text-gray-300 tracking-wide">
+                CONFIRM PASSWORD
               </label>
+
               <input
                 type="password"
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-2xl text-sm bg-[#ECEFF4] focus:outline-none"
-                style={{
-                  boxShadow: `
-                    6px 6px 14px rgba(160,160,160,0.9),
-                    -6px -6px 14px rgba(255,255,255,1),
-                    inset 2px 2px 4px rgba(160,160,160,0.6),
-                    inset -2px -2px 4px rgba(255,255,255,0.9)
-                  `,
-                }}
+                className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               />
             </div>
 
-            {/* SIGN UP BUTTON */}
-            <button
+            {/* BUTTON */}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1.02 }}
               type="submit"
               disabled={loading}
-              className="w-full mt-2 bg-black text-white py-3 rounded-3xl text-sm font-medium hover:opacity-90 transition active:scale-95 cursor-pointer"
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition"
             >
               {loading ? "Signing up..." : "SIGN UP"}
-            </button>
+            </motion.button>
           </form>
 
           {/* FOOTER */}
-          <p className="mt-6 text-xs text-center text-gray-500">
+          <p className="mt-6 text-sm text-center text-gray-300">
             Already have an account?{" "}
             <span
               onClick={() => navigate("/admin/login")}
-              className="text-[#2F2C79] font-medium cursor-pointer hover:underline"
+              className="text-indigo-400 font-medium cursor-pointer hover:underline"
             >
-              SIGN IN
+              Sign In
             </span>
           </p>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
