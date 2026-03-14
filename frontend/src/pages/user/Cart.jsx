@@ -229,7 +229,7 @@ const handleQuantityChange = async (item, delta) => {
 
 
   return (
-    <div className="min-h-screen bg-[#faf8f5]">
+    <div className="min-h-screen bg-[#faf8f5] mt-10">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
         {/* Page Header */}
         <div className="mb-8">

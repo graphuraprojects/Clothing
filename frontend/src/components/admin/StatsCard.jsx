@@ -36,8 +36,7 @@ export default function StatsCard({
     <motion.div
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 300 }}
-
-      className={`relative overflow-hidden rounded-2xl p-4 sm:p-6 ${accentMap[accent].bg}`}
+      className={`relative overflow-hidden rounded-2xl p-4 sm:p-6 h-full ${accentMap[accent].bg}`}
     >
       {/* Top pill */}
       <div
@@ -54,15 +53,11 @@ export default function StatsCard({
         </h2>
 
         <span
-
           className={`px-2 py-1 rounded-full text-[10px] sm:text-xs font-semibold ${badgeColor}`}
         >
           {badge}
         </span>
       </div>
-
-
-
 
       <p className="text-xs sm:text-sm text-gray-500 mt-1">Than last week</p>
 

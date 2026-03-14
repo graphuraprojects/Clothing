@@ -1,5 +1,3 @@
-
-
 import { X, Upload } from "lucide-react";
 import { useState, useEffect } from "react";
 

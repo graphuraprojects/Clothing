@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "https://clothingbrand-4c8j.onrender.com/api/$1" },
+    { "source": "/api/(.*)", "destination": "https://clothing-eks4.onrender.com/api/$1" },
 
     { "source": "/(.*)", "destination": "/index.html" }
   ]

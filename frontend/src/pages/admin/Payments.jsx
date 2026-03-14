@@ -2,16 +2,7 @@ import { useMemo, useState, useEffect } from "react";
 import Sidebar from "../../components/admin/Sidebar";
 import Header from "../../components/admin/Header";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Download,
-  IndianRupee,
-  RotateCcw,
-  Wallet,
-  Eye,
-  X,
-} from "lucide-react";
-
-
+import { Download, IndianRupee, RotateCcw, Wallet, Eye, X } from "lucide-react";
 
 import StatsCard from "../../components/admin/StatsCard";
 import LineChartBox from "../../components/charts/LineChartBox";
@@ -67,7 +58,20 @@ export default function Payments() {
   const [range, setRange] = useState("7");
   const [activePayment, setActivePayment] = useState(null);
 
-  const monthMap = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const monthMap = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
 
   useEffect(() => {
     const fetchAdminPayments = async () => {
@@ -88,7 +92,7 @@ export default function Payments() {
             method: p.method.toUpperCase(),
             status: p.status.charAt(0).toUpperCase() + p.status.slice(1),
             date: p.createdAt,
-          }))
+          })),
         );
 
         setStats({
@@ -101,7 +105,7 @@ export default function Payments() {
           chartRes.data.map((d) => ({
             month: monthMap[d._id - 1],
             revenue: d.revenue,
-          }))
+          })),
         );
       } catch (err) {
         console.error(err);
@@ -143,16 +147,13 @@ export default function Payments() {
         <Header />
 
         <main className="px-4 sm:px-6 lg:px-10 py-6 space-y-6 max-w-[1400px] mx-auto w-full min-h-0">
-
           {/* HEADER */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-2xl sm:text-3xl font-extrabold">
                 Payments & Revenue
               </h1>
-              <p className="text-gray-500">
-                Track transactions & earnings
-              </p>
+              <p className="text-gray-500">Track transactions & earnings</p>
             </div>
 
             <button
@@ -207,23 +208,57 @@ export default function Payments() {
 
           {/* STATS */}
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-            <StatsCard title="Total Revenue" value={`₹${stats.totalRevenue.toLocaleString()}`} icon={<IndianRupee size={16} />} />
-            <StatsCard title="Refund Rate" value={`${stats.refundRate}%`} icon={<RotateCcw size={16} />} />
-            <StatsCard title="Net Earnings" value={`₹${stats.netEarnings.toLocaleString()}`} icon={<Wallet size={16} />} />
+            <StatsCard
+              title="Total Revenue"
+              value={`₹${stats.totalRevenue.toLocaleString()}`}
+              icon={<IndianRupee size={16} />}
+              accent="blue"
+            />
+
+            <StatsCard
+              title="Refund Rate"
+              value={`${stats.refundRate}%`}
+              icon={<RotateCcw size={16} />}
+              accent="orange"
+              badge="2.1%"
+              badgeType="down"
+            />
+
+            <StatsCard
+              title="Net Earnings"
+              value={`₹${stats.netEarnings.toLocaleString()}`}
+              icon={<Wallet size={16} />}
+              accent="green"
+              badge="95%"
+            />
           </div>
 
           {/* CHARTS */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
-              <LineChartBox title="Revenue Trend" data={revenueData} xKey="month" yKey="revenue" height={260} />
+              <LineChartBox
+                title="Revenue Trend"
+                data={revenueData}
+                xKey="month"
+                yKey="revenue"
+                height={260}
+              />
             </div>
 
             <div className="bg-white border rounded-2xl p-6">
               <h3 className="font-bold mb-4">Payment Methods</h3>
               <ResponsiveContainer height={220}>
                 <PieChart>
-                  <Pie data={getPaymentMethodData(filteredPayments)} dataKey="value" nameKey="name" innerRadius={60} outerRadius={90}>
-                    {pieColors.map((c, i) => <Cell key={i} fill={c} />)}
+                  <Pie
+                    data={getPaymentMethodData(filteredPayments)}
+                    dataKey="value"
+                    nameKey="name"
+                    innerRadius={60}
+                    outerRadius={90}
+                  >
+                    {pieColors.map((c, i) => (
+                      <Cell key={i} fill={c} />
+                    ))}
                   </Pie>
                   <Tooltip />
                   <Legend />
@@ -284,7 +319,10 @@ export default function Payments() {
                   <span>{p.method}</span>
                   <span className="font-bold">₹{p.amount}</span>
                 </div>
-                <button onClick={() => setActivePayment(p)} className="mt-3 text-sm font-semibold flex items-center gap-1 cursor-pointer">
+                <button
+                  onClick={() => setActivePayment(p)}
+                  className="mt-3 text-sm font-semibold flex items-center gap-1 cursor-pointer"
+                >
                   <Eye size={14} /> View Details
                 </button>
               </div>
@@ -296,7 +334,10 @@ export default function Payments() {
       {/* MODAL */}
       <AnimatePresence>
         {activePayment && (
-          <PaymentModal payment={activePayment} onClose={() => setActivePayment(null)} />
+          <PaymentModal
+            payment={activePayment}
+            onClose={() => setActivePayment(null)}
+          />
         )}
       </AnimatePresence>
     </div>
@@ -346,7 +387,10 @@ function PaymentModal({ payment, onClose }) {
           <Detail label="Amount" value={`₹${payment.amount}`} />
           <Detail label="Method" value={payment.method} />
           <Detail label="Status" value={payment.status} />
-          <Detail label="Date" value={new Date(payment.date).toLocaleString()} />
+          <Detail
+            label="Date"
+            value={new Date(payment.date).toLocaleString()}
+          />
         </div>
       </motion.div>
     </motion.div>
