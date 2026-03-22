@@ -56,7 +56,7 @@ const [sizeInput, setSizeInput] = useState("");
   useEffect(() => {
     if (formData.collections.length) {
       setFilteredCategories(
-        categories.filter(c => c.collection === formData.collections[0])
+        categories.filter(c => c.collectionRef === formData.collections[0])
       );
     }
   }, [formData.collections, categories]);
@@ -83,6 +83,9 @@ data.append("sizes", JSON.stringify(sizes));
       } else if (k === "discountPrice") {
         data.append("discountPrice", discountPrice);
       } else if (k === "gender") {
+        return;
+      } else if (k === "category" && !formData[k]) {
+        // Skip empty category to avoid Mongoose CastError
         return;
       } else {
         data.append(k, formData[k]);
@@ -112,14 +115,14 @@ data.append("sizes", JSON.stringify(sizes));
       });
     });
 
-    await API.post("/products", data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("admin_token")}`
-      }
-    });
-
-    alert("✅ Product Added Successfully");
-    navigate("/admin/products");
+    try {
+      await API.post("/products", data);
+      alert("✅ Product Added Successfully");
+      navigate("/admin/products");
+    } catch (err) {
+      console.error("ADD PRODUCT ERROR:", err);
+      alert("❌ Failed to add product: " + (err.response?.data?.message || err.message));
+    }
   };
 
   const handleChange = (e) => {

@@ -94,7 +94,13 @@ export const addProduct = async (req, res) => {
     });
 
     await product.save();
-    await notifySubscribersNewProduct(product);
+
+    // Non-blocking: don't let email failures crash product creation
+    try {
+      await notifySubscribersNewProduct(product);
+    } catch (emailErr) {
+      console.log("EMAIL NOTIFICATION ERROR (non-blocking):", emailErr.message);
+    }
 
     res.json(product);
 

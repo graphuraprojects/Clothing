@@ -16,7 +16,7 @@ export const createCategory = async (req, res) => {
 
   const exists = await Category.findOne({
    name:new RegExp(`^${normalizedName}$`,"i"),
-   collection,
+   collectionRef: collection,
    gender: gender || null,
    isActive:true
   });
@@ -30,7 +30,7 @@ export const createCategory = async (req, res) => {
    name:normalizedName,
    slug:slugify(normalizedName,{lower:true,strict:true}),
 
-   collection,
+   collectionRef: collection,
    gender: gender || null,
 
    isActive:true
@@ -53,7 +53,7 @@ export const getAllCategories = async (req, res) => {
 
   let filter = { isActive:true };
 
-  if(collection) filter.collection = collection;
+  if(collection) filter.collectionRef = collection;
   if(gender) filter.gender = gender;
 
   const categories = await Category.find(filter)
