@@ -8,11 +8,16 @@ const router = express.Router();
 router.use(protect, isAdmin);
 
 router.get("/", async (req, res) => {
-  const requests = await RefundRequest.find()
-    .populate("order")
-    .populate("user", "name email");
+  try {
+    const requests = await RefundRequest.find()
+      .populate("order")
+      .populate("user", "name email");
 
-  res.json(requests);
+    res.json(requests);
+  } catch (err) {
+    console.error("ADMIN REFUND LIST ERROR:", err.message);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;

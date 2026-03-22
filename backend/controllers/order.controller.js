@@ -217,16 +217,18 @@ export const updateOrderStatus = async (req, res) => {
 
     if (!order) return res.status(404).json({ success: false });
 
-    let phone = order.shipping.phone;
-    if (phone.length === 10) {
-      phone = "+91" + phone;
-    }
-    else if (!phone.startsWith("+")) {
-      phone = "+" + phone;
-    }
-    const itemNames = order.items.map(i => i.name).join(", ");
+    /* ===== WHATSAPP NOTIFICATION (non-blocking) ===== */
+    try {
+      let phone = order.shipping.phone;
+      if (phone.length === 10) {
+        phone = "+91" + phone;
+      }
+      else if (!phone.startsWith("+")) {
+        phone = "+" + phone;
+      }
+      const itemNames = order.items.map(i => i.name).join(", ");
 
-    const message = `Hello ${order.shipping.fullName},
+      const message = `Hello ${order.shipping.fullName},
 
 Your order ${order._id}, Items:${itemNames}    
 status is now:
@@ -236,20 +238,20 @@ Total: ₹${order.total}
 
 – Graphura`;
 
-    // console.log("PHONE:", phone);
-    // console.log("MESSAGE:", message);
+      await client.messages.create({
+        from: "whatsapp:+14155238886",
+        to: `whatsapp:${phone}`,
+        body: message
+      });
 
-    await client.messages.create({
-      from: "whatsapp:+14155238886",
-      to: `whatsapp:${phone}`,
-      body: message
-    });
-
-    await WhatsappLog.create({
-      phone,
-      template: status,
-      status: "Sent"
-    });
+      await WhatsappLog.create({
+        phone,
+        template: status,
+        status: "Sent"
+      });
+    } catch (waErr) {
+      console.log("WHATSAPP NOTIFICATION ERROR (non-blocking):", waErr.message);
+    }
 
     res.json({ success: true });
 

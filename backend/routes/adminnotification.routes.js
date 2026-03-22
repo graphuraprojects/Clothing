@@ -7,24 +7,29 @@ import Notification from "../models/Notification.model.js";
 
 const router = express.Router();
 
-// router.use(protect, isAdmin);
-
-router.use((req, res, next) => {
-  console.log("🔥 ADMIN NOTIFICATION ROUTE HIT");
-  next();
-});
+router.use(protect, isAdmin);
 
 
 /* GET ALL NOTIFICATIONS */
 router.get("/", async (req, res) => {
-  const notifications = await Notification.find().sort({ createdAt: -1 });
-  res.json(notifications);
+  try {
+    const notifications = await Notification.find().sort({ createdAt: -1 });
+    res.json(notifications);
+  } catch (err) {
+    console.error("NOTIFICATION LIST ERROR:", err.message);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 /* MARK AS READ */
 router.put("/:id/read", async (req, res) => {
-  await Notification.findByIdAndUpdate(req.params.id, { read: true });
-  res.json({ success: true });
+  try {
+    await Notification.findByIdAndUpdate(req.params.id, { read: true });
+    res.json({ success: true });
+  } catch (err) {
+    console.error("NOTIFICATION UPDATE ERROR:", err.message);
+    res.status(500).json({ message: err.message });
+  }
 });
 
 export default router;

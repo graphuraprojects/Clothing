@@ -75,7 +75,7 @@ app.use("/api", subscriptionRoutes);
 app.get("/", (req, res) => {
   res.send("Graphura Backend is running 🚀");
 });
-console.log("JWT_SECRET:", process.env.JWT_SECRET);
+
 
 /* ================= DATABASE ================= */
 mongoose

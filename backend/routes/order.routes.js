@@ -22,14 +22,19 @@ router.get(
   protect,
   isAdmin,
   async (req, res) => {
-    const order = await Order.findById(req.params.id)
-      .populate("user", "name email");
+    try {
+      const order = await Order.findById(req.params.id)
+        .populate("user", "name email");
 
-    if (!order) {
-      return res.status(404).json({ message: "Order not found" });
+      if (!order) {
+        return res.status(404).json({ message: "Order not found" });
+      }
+
+      res.json({ order });
+    } catch (err) {
+      console.error("ORDER DETAIL ERROR:", err.message);
+      res.status(500).json({ message: err.message });
     }
-
-    res.json({ order });
   }
 );
 

@@ -39,10 +39,11 @@ export const getUserProfile = async () => {
 };
 
 export const logoutUser = () => {
-  
+  const wasAdmin = !!localStorage.getItem("admin_token");
   localStorage.removeItem("token");
   localStorage.removeItem("admin_token");
-   window.location.href = "/admin/login";
-  };
+  localStorage.removeItem("graphura_admin");
+  window.location.href = wasAdmin ? "/admin/login" : "/login";
+};
 
 export default API;

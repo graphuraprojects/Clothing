@@ -4,44 +4,55 @@ import Inventory from "../models/inventory.model.js";
 /* GET FULL INVENTORY */
 
 export const getAllInventory = async (req, res) => {
-  const products = await Product.find({ isDeleted: false })
-  .populate("collections", "name")
-  .select("name sku inventory sizes colors gender collections");
+  try {
+    const products = await Product.find({ isDeleted: false })
+    .populate("collections", "name")
+    .select("name sku inventory sizes colors gender collections");
 
-  res.json(products);
+    res.json(products);
+  } catch (err) {
+    console.error("GET INVENTORY ERROR:", err.message);
+    res.status(500).json({ message: err.message });
+  }
 };
 
 /* UPDATE VARIANT STOCK */
 
 export const updateInventory = async (req, res) => {
-  const { productId, size, color, quantity } = req.body;
+  try {
+    const { productId, size, color, quantity } = req.body;
 
-  const product = await Product.findById(productId);
+    const product = await Product.findById(productId);
 
-  let variant = product.inventory.find(
-    v => v.size === size && v.color === color
-  );
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
 
-  if (!variant) {
-    product.inventory.push({ size, color, stock: quantity });
-  } else {
-    variant.stock += Number(quantity);
+    let variant = product.inventory.find(
+      v => v.size === size && v.color === color
+    );
+
+    if (!variant) {
+      product.inventory.push({ size, color, stock: quantity });
+    } else {
+      variant.stock += Number(quantity);
+    }
+
+    await product.save();
+
+    await Inventory.create({
+      product: productId,
+      size,
+      color,
+      change: Number(quantity),
+      updatedBy: req.user?.name || "Admin",
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error("UPDATE INVENTORY ERROR:", err.message);
+    res.status(500).json({ message: err.message });
   }
-
-  await product.save();
-
-console.log("LOGGING HISTORY:", size, color, quantity);
-
- await Inventory.create({
-  product: productId,
-  size,
-  color,
-  change: Number(quantity),
-  updatedBy: req.user?.name || "Admin",
-});
-
-
-  res.json({ success: true });
 };
 
 /* HISTORY */
