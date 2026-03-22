@@ -1,35 +1,33 @@
-import mongoose from "mongoose";
-
 const categorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
-      unique: true,
-      trim: true
+      trim: true,
     },
     slug: {
       type: String,
       required: true,
-      unique: true
     },
     isActive: {
       type: Boolean,
-      default: true
+      default: true,
     },
-collectionRef: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Collection"
-},
-
-gender:{
- type:String,
- enum:["boys","girls",null],
- default:null
-}
-
+    collectionRef: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Collection",
+    },
+    gender: {
+      type: String,
+      enum: ["boys", "girls", null],
+      default: null,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-export default mongoose.model("Category", categorySchema);
+/* ✅ COMPOUND UNIQUE INDEX */
+categorySchema.index(
+  { name: 1, collectionRef: 1, gender: 1 },
+  { unique: true },
+);
