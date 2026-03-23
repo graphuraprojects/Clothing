@@ -12,6 +12,7 @@ const AdminSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [secretKey, setSecretKey] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -19,7 +20,7 @@ const AdminSignup = () => {
     e.preventDefault();
     setError("");
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password || !confirmPassword || !secretKey) {
       setError("Please fill all fields");
       return;
     }
@@ -37,7 +38,11 @@ const AdminSignup = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post("/api/admin/signup", { email, password });
+      const res = await axios.post("/api/admin/signup", { 
+        email, 
+        password,
+        secretKey
+      });
 
       const token =
         res.data.token || res.data.admin?.token || res.data.data?.token;
@@ -157,6 +162,22 @@ const AdminSignup = () => {
                 placeholder="Confirm Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
+              />
+            </div>
+
+            {/* SECRET KEY */}
+            <div>
+              <label className="text-xs text-gray-300 tracking-wide">
+                SECRET KEY
+              </label>
+
+              <input
+                type="password"
+                placeholder="Enter Secret Key"
+                value={secretKey}
+                onChange={(e) => setSecretKey(e.target.value)}
                 required
                 className="w-full mt-1 px-5 py-3 rounded-xl bg-white/10 text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
               />

@@ -6,9 +6,21 @@ export const adminSignup = async (req, res) => {
   console.log("===== ADMIN SIGNUP HIT =====");
   console.log("REQ BODY:", JSON.stringify(req.body));
   try {
-    const { email, password } = req.body;
+    const { email, password, secretKey } = req.body;
     console.log("SIGNUP EMAIL:", email);
     console.log("SIGNUP PASSWORD LENGTH:", password?.length);
+
+    // Validate admin secret key
+    const requiredSecretKey = process.env.ADMIN_SECRET_KEY;
+    if (!requiredSecretKey) {
+      console.log("SIGNUP ERROR: Admin secret key not configured on server");
+      return res.status(500).json({ message: "Server configuration error" });
+    }
+
+    if (secretKey !== requiredSecretKey) {
+      console.log("SIGNUP ERROR: Invalid secret key provided");
+      return res.status(403).json({ message: "Invalid secret key" });
+    }
 
     if (!email || !password) {
       console.log("SIGNUP ERROR: Missing email or password");

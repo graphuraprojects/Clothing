@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 const categorySchema = new mongoose.Schema(
   {
     name: {
@@ -31,3 +32,5 @@ categorySchema.index(
   { name: 1, collectionRef: 1, gender: 1 },
   { unique: true },
 );
+
+export default mongoose.model("Category", categorySchema);
