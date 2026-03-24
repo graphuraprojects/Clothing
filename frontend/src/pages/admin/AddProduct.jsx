@@ -1,9 +1,458 @@
+// import { useState, useEffect } from "react";
+// import API from "../../api/axios";
+// import { useNavigate } from "react-router-dom";
+
+// const AddProduct = () => {
+
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     category: "",
+//     price: "",
+//     discountPercent: "",
+//     discountPrice: "",
+//     description: "",
+//     fabric: "",
+//     material: "",
+//     care: "",
+//     weight: "",
+//     dimensions: "",
+//     origin: "",
+//     sizes: "",
+//     collections: [],
+//     gender: "",
+//     isTrending: false,
+//     isCarousel: false,
+//     isPremium: false,
+//     isLimited: false,
+
+//     // ✅ carousel fields
+//     carouselTitle: "",
+//     carouselSubtitle: "",
+//     carouselPriceText: ""
+//   });
+
+//   const [colors, setColors] = useState([]);
+//   const [sizes, setSizes] = useState([]);
+//   const [sizeInput, setSizeInput] = useState("");
+//   const [filteredCategories, setFilteredCategories] = useState([]);
+//   const [collectionsList, setCollectionsList] = useState([]);
+//   const [selectedCollectionName, setSelectedCollectionName] = useState("");
+//   const navigate = useNavigate();
+  
+//   // const [categories, setCategories] = useState([]);
+
+//   useEffect(() => {
+//     const loadCollections = async () => {
+//       try {
+//         const colRes = await API.get("/collections");
+//         console.log("COLLECTIONS:", colRes.data);
+//         setCollectionsList(colRes.data || []);
+//       } catch (error) {
+//         console.error("Error loading collections:", error);
+//       }
+//     };
+
+//     loadCollections();
+//   }, []);
+
+//   // useEffect(() => {
+//   //   const loadData = async () => {
+//   //     const catRes = await API.get("/categories");
+//   //     const colRes = await API.get("/collections");
+
+//   //     setCategories(catRes.data);
+//   //     setCollectionsList(colRes.data);
+//   //   };
+
+//   //   loadData();
+//   // }, []);
+
+
+//   // useEffect(() => {
+//   //   if (formData.collections.length) {
+//   //     setFilteredCategories(
+//   //       categories.filter(c => c.collection === formData.collections[0])
+//   //     );
+//   //   }
+//   // }, [formData.collections, categories]);
+
+//   useEffect(() => {
+//     const fetchFilteredCategories = async () => {
+//       try {
+//         if (!formData.collections.length) {
+//           setFilteredCategories([]);
+//           return;
+//         }
+
+//         const selectedCollection = formData.collections[0];
+//         let url = `/categories?collection=${selectedCollection}`;
+
+//         if (selectedCollectionName === "kids" && formData.gender) {
+//           url += `&gender=${formData.gender}`;
+//         }
+
+//         console.log("FETCHING CATEGORY URL:", url);
+
+//         const res = await API.get(url);
+
+//         console.log("FILTERED CATEGORIES:", res.data);
+
+//         setFilteredCategories(Array.isArray(res.data) ? res.data : []);
+//       } catch (error) {
+//         console.error("Error fetching categories:", error);
+//         setFilteredCategories([]);
+//       }
+//     };
+
+//     fetchFilteredCategories();
+//   }, [formData.collections, formData.gender, selectedCollectionName]);
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (selectedCollectionName === "kids" && !formData.gender) {
+//       alert("Please select gender for kids product");
+//       return;
+//     }
+
+//     const data = new FormData();
+
+//     const price = Number(formData.price || 0);
+//     const percent = Number(formData.discountPercent || 0);
+//     const discountPrice = Math.round(price - (price * percent) / 100);
+
+//     Object.keys(formData).forEach(k => {
+//       if (k === "sizes") {
+//         data.append("sizes", JSON.stringify(sizes));
+//       } else if (k === "collections") {
+//         data.append("collections", JSON.stringify(formData.collections));
+//       } else if (k === "discountPrice") {
+//         data.append("discountPrice", discountPrice);
+//       } else if (k === "gender") {
+//         return;
+//       } else {
+//         data.append(k, formData[k]);
+//       }
+//     });
+
+//     if (selectedCollectionName === "kids") {
+//       data.append("gender", formData.gender);
+//     }
+
+//     data.append("details", JSON.stringify({
+//       fabric: formData.fabric,
+//       material: formData.material,
+//       care: formData.care,
+//       weight: formData.weight,
+//       dimensions: formData.dimensions,
+//       origin: formData.origin,
+//     }));
+
+//     data.append("colors", JSON.stringify(
+//       colors.map(c => ({ name: c.name, hex: c.hex }))
+//     ));
+
+//     colors.forEach((color, i) => {
+//       color.images.forEach(img => {
+//         data.append(`colorImages_${i}`, img);
+//       });
+//     });
+
+//     await API.post("/products", data, {
+//       headers: {
+//         Authorization: `Bearer ${localStorage.getItem("admin_token")}`
+//       }
+//     });
+
+//     alert("✅ Product Added Successfully");
+//     navigate("/admin/products");
+//   };
+
+//   const handleChange = (e) => {
+//     const { name, value, type, checked } = e.target;
+
+//     let updated = {
+//       ...formData,
+//       [name]: type === "checkbox" ? checked : value
+//     };
+
+//     if (name === "price" || name === "discountPercent") {
+//       const price = Number(name === "price" ? value : updated.price);
+//       const percent = Number(name === "discountPercent" ? value : updated.discountPercent);
+//       updated.discountPrice = Math.round(price - (price * percent) / 100);
+//     }
+
+//     setFormData(updated);
+//   };
+
+//   const addColor = () =>
+//     setColors([...colors, { name: "", hex: "", images: [] }]);
+
+//   return (
+//     <div className="bg-gray-100 py-16">
+//       <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 p-8 shadow-md">
+
+//         <h1 className="text-3xl font-bold mb-8 text-center">Add Product</h1>
+
+//         <form onSubmit={handleSubmit} className="space-y-6">
+
+//           {/* collection */}
+//           {/* <select
+//             className="input"
+//             value={formData.collections[0] || ""}
+//             onChange={(e) => {
+//               const selected = collectionsList.find(c => c._id === e.target.value);
+
+//               setFormData({
+//                 ...formData,
+//                 collections: e.target.value ? [e.target.value] : [],
+//                 gender: "",
+//                 category: ""
+//               });
+
+//               setSelectedCollectionName(selected?.name?.toLowerCase() || "");
+//               setFilteredCategories([]);
+//             }}
+//           >
+//             <option value="">Select Collection</option>
+//             {collectionsList.map(c => (
+//               <option key={c._id} value={c._id}>{c.name}</option>
+//             ))}
+//           </select> */}
+//           <select
+//             className="input"
+//             value={formData.collections[0] || ""}
+//             onChange={(e) => {
+//               const selected = collectionsList.find(c => c._id === e.target.value);
+
+//               setFormData(prev => ({
+//                 ...prev,
+//                 collections: e.target.value ? [e.target.value] : [],
+//                 gender: "",
+//                 category: ""
+//               }));
+
+//               setSelectedCollectionName(selected?.name?.toLowerCase() || "");
+//               setFilteredCategories([]);
+//             }}
+//           >
+//             <option value="">Select Collection</option>
+//             {collectionsList.map(c => (
+//               <option key={c._id} value={c._id}>
+//                 {c.name}
+//               </option>
+//             ))}
+//           </select>
+
+//           {/* Gender */}
+//           {selectedCollectionName === "kids" && (
+//             <select
+//               className="input"
+//               value={formData.gender}
+//               // onChange={e =>
+//               //   setFormData({
+//               //     ...formData,
+//               //     gender: e.target.value,
+//               //     category: ""
+//               //   })
+//               // }
+//               onChange={e => 
+//                 setFormData(prev => ({
+//                   ...prev,
+//                   gender: e.target.value,
+//                   category: ''
+//                 }))
+//               }
+//             >
+//               <option value="">Select Gender</option>
+//               <option value="boys">Boys</option>
+//               <option value="girls">Girls</option>
+//             </select>
+//           )}
+
+//           {/* Category */}
+//           {/* <select
+//             name="category"
+//             value={formData.category}
+//             onChange={handleChange}
+//             className="input"
+//           >
+//             <option value="">Select Category</option>
+//             {filteredCategories.map(c => (
+//               <option key={c._id} value={c._id}>
+//                 {c.name}
+//               </option>
+//             ))}
+//           </select> */}
+
+//           <select
+//             name="category"
+//             value={formData.category}
+//             onChange={handleChange}
+//             className="input"
+//           >
+//             <option value="">Select Category</option>
+//             {filteredCategories.map(c => (
+//               <option key={c._id} value={c._id}>
+//                 {c.name}
+//               </option>
+//             ))}
+//           </select>
+
+//           <input name="name" placeholder="Product Name" onChange={handleChange} className="input" />
+//           <textarea name="description" placeholder="Description" onChange={handleChange} className="input" />
+
+//           <div className="grid grid-cols-4 gap-4">
+//             <input name="price" placeholder="Price" onChange={handleChange} className="input" />
+//             <input name="discountPercent" placeholder="Discount %" onChange={handleChange} className="input" />
+//             <input value={formData.discountPrice} readOnly className="input bg-gray-100" />
+//             {/* <input name="sizes" placeholder="Sizes S,M,L" onChange={handleChange} className="input" /> */}
+//             <div>
+//               <div className="flex gap-2 mb-2">
+//                 <input
+//                   value={sizeInput}
+//                   onChange={e => setSizeInput(e.target.value)}
+//                   placeholder="Add size (e.g. XL)"
+//                   className="input"
+//                 />
+
+//                 <button
+//                   type="button"
+//                   onClick={() => {
+//                     if (!sizeInput) return;
+//                     setSizes([...sizes, sizeInput]);
+//                     setSizeInput("");
+//                   }}
+//                   className="bg-gray-200 px-3 rounded cursor-pointer"
+//                 >
+//                   Add
+//                 </button>
+//               </div>
+
+//               <div className="flex gap-2 flex-wrap">
+//                 {sizes.map((s, i) => (
+//                   <span
+//                     key={i}
+//                     className="bg-black text-white px-3 py-1 rounded cursor-pointer"
+//                     onClick={() => setSizes(sizes.filter((_, idx) => idx !== i))}
+//                   >
+//                     {s} ✕
+//                   </span>
+//                 ))}
+//               </div>
+//             </div>
+
+//           </div>
+
+//           <div className="grid grid-cols-2 gap-4">
+//             {["fabric", "material", "care", "weight", "dimensions", "origin"].map(f => (
+//               <input key={f} name={f} placeholder={f} onChange={handleChange} className="input" />
+//             ))}
+//           </div>
+
+//           {/* FLAGS – SAME UI */}
+//           <div className="flex gap-6">
+//             {["isTrending", "isCarousel", "isPremium", "isLimited"].map(f => (
+//               <label key={f} className="flex gap-2 items-center">
+//                 <input type="checkbox" name={f} onChange={handleChange} />
+//                 {f.replace("is", "")}
+//               </label>
+//             ))}
+//           </div>
+
+//           {/* ✅ CAROUSEL FIELDS – NO UI CHANGE */}
+//           {formData.isCarousel && (
+//             <>
+//               <input
+//                 name="carouselTitle"
+//                 placeholder="BUY 2"
+//                 onChange={handleChange}
+//                 className="input"
+//               />
+//               <input
+//                 name="carouselSubtitle"
+//                 placeholder="OVERSIZED T-SHIRTS"
+//                 onChange={handleChange}
+//                 className="input"
+//               />
+//               <input
+//                 name="carouselPriceText"
+//                 placeholder="AT ₹1099"
+//                 onChange={handleChange}
+//                 className="input"
+//               />
+//             </>
+//           )}
+
+//           <h2 className="text-xl font-semibold">Colors & Images</h2>
+
+//           {colors.map((c, i) => (
+//             <div key={i} className="border p-4 rounded-xl bg-gray-50">
+//               <input
+//                 placeholder="Color Name"
+//                 className="input mb-2"
+//                 onChange={e => {
+//                   const u = [...colors];
+//                   u[i].name = e.target.value;
+//                   setColors(u);
+//                 }}
+//               />
+
+//               <input
+//                 type="color"
+//                 onChange={e => {
+//                   const u = [...colors];
+//                   u[i].hex = e.target.value;
+//                   setColors(u);
+//                 }}
+//               />
+
+//               <div className="mt-3 border-dashed border-2 p-4 rounded text-center">
+//                 <input
+//                   hidden
+//                   id={`img-${i}`}
+//                   type="file"
+//                   multiple
+//                   accept="image/*"
+//                   onChange={e => {
+//                     const u = [...colors];
+//                     u[i].images = Array.from(e.target.files);
+//                     setColors(u);
+//                   }}
+//                 />
+//                 <label htmlFor={`img-${i}`} className="cursor-pointer block">
+//                   Upload Images
+//                 </label>
+//                 <p className="text-sm mt-2 text-gray-600">
+//                   {c.images.length} images selected
+//                 </p>
+//               </div>
+//             </div>
+//           ))}
+
+//           <button type="button" onClick={addColor} className="bg-gray-200 px-4 py-2 rounded-xl cursor-pointer">
+//             + Add Color
+//           </button>
+
+//           <button type="submit" className="w-full bg-black text-white py-3 rounded-xl cursor-pointer">
+//             Save Product
+//           </button>
+
+//         </form>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddProduct;
+
+
+
 import { useState, useEffect } from "react";
 import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
-
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -24,8 +473,6 @@ const AddProduct = () => {
     isCarousel: false,
     isPremium: false,
     isLimited: false,
-
-    // ✅ carousel fields
     carouselTitle: "",
     carouselSubtitle: "",
     carouselPriceText: ""
@@ -33,33 +480,53 @@ const AddProduct = () => {
 
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
-const [sizeInput, setSizeInput] = useState("");
-  const [categories, setCategories] = useState([]);
+  const [sizeInput, setSizeInput] = useState("");
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [collectionsList, setCollectionsList] = useState([]);
   const [selectedCollectionName, setSelectedCollectionName] = useState("");
   const navigate = useNavigate();
 
- useEffect(() => {
-  const loadData = async () => {
-    const catRes = await API.get("/categories");
-    const colRes = await API.get("/collections");
+  useEffect(() => {
+    const loadCollections = async () => {
+      try {
+        const res = await API.get("/collections");
+        setCollectionsList(Array.isArray(res.data) ? res.data : []);
+      } catch (err) {
+        console.error("COLLECTION ERROR:", err);
+      }
+    };
 
-    setCategories(catRes.data);
-    setCollectionsList(colRes.data);
-  };
-
-  loadData();
-}, []);
-
+    loadCollections();
+  }, []);
 
   useEffect(() => {
-    if (formData.collections.length) {
-      setFilteredCategories(
-        categories.filter(c => c.collectionRef === formData.collections[0])
-      );
-    }
-  }, [formData.collections, categories]);
+    const loadCategories = async () => {
+      try {
+        const selectedCollectionId = formData.collections[0];
+
+        if (!selectedCollectionId) {
+          setFilteredCategories([]);
+          return;
+        }
+
+        let url = `/categories?collection=${selectedCollectionId}`;
+
+        if (selectedCollectionName === "kids" && formData.gender) {
+          url += `&gender=${formData.gender}`;
+        }
+
+        const res = await API.get(url);
+        console.log("CATEGORY API RESPONSE:", res.data);
+
+        setFilteredCategories(Array.isArray(res.data) ? res.data : []);
+      } catch (err) {
+        console.error("CATEGORY ERROR:", err);
+        setFilteredCategories([]);
+      }
+    };
+
+    loadCategories();
+  }, [formData.collections, formData.gender, selectedCollectionName]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,17 +542,14 @@ const [sizeInput, setSizeInput] = useState("");
     const percent = Number(formData.discountPercent || 0);
     const discountPrice = Math.round(price - (price * percent) / 100);
 
-    Object.keys(formData).forEach(k => {
+    Object.keys(formData).forEach((k) => {
       if (k === "sizes") {
-data.append("sizes", JSON.stringify(sizes));
+        data.append("sizes", JSON.stringify(sizes));
       } else if (k === "collections") {
         data.append("collections", JSON.stringify(formData.collections));
       } else if (k === "discountPrice") {
         data.append("discountPrice", discountPrice);
       } else if (k === "gender") {
-        return;
-      } else if (k === "category" && !formData[k]) {
-        // Skip empty category to avoid Mongoose CastError
         return;
       } else {
         data.append(k, formData[k]);
@@ -96,50 +560,58 @@ data.append("sizes", JSON.stringify(sizes));
       data.append("gender", formData.gender);
     }
 
-    data.append("details", JSON.stringify({
-      fabric: formData.fabric,
-      material: formData.material,
-      care: formData.care,
-      weight: formData.weight,
-      dimensions: formData.dimensions,
-      origin: formData.origin,
-    }));
+    data.append(
+      "details",
+      JSON.stringify({
+        fabric: formData.fabric,
+        material: formData.material,
+        care: formData.care,
+        weight: formData.weight,
+        dimensions: formData.dimensions,
+        origin: formData.origin
+      })
+    );
 
-    data.append("colors", JSON.stringify(
-      colors.map(c => ({ name: c.name, hex: c.hex }))
-    ));
+    data.append(
+      "colors",
+      JSON.stringify(colors.map((c) => ({ name: c.name, hex: c.hex })))
+    );
 
     colors.forEach((color, i) => {
-      color.images.forEach(img => {
+      color.images.forEach((img) => {
         data.append(`colorImages_${i}`, img);
       });
     });
 
-    try {
-      await API.post("/products", data);
-      alert("✅ Product Added Successfully");
-      navigate("/admin/products");
-    } catch (err) {
-      console.error("ADD PRODUCT ERROR:", err);
-      alert("❌ Failed to add product: " + (err.response?.data?.message || err.message));
-    }
+    await API.post("/products", data, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("admin_token")}`
+      }
+    });
+
+    alert("✅ Product Added Successfully");
+    navigate("/admin/products");
   };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
-    let updated = {
-      ...formData,
-      [name]: type === "checkbox" ? checked : value
-    };
+    setFormData((prev) => {
+      const updated = {
+        ...prev,
+        [name]: type === "checkbox" ? checked : value
+      };
 
-    if (name === "price" || name === "discountPercent") {
-      const price = Number(name === "price" ? value : updated.price);
-      const percent = Number(name === "discountPercent" ? value : updated.discountPercent);
-      updated.discountPrice = Math.round(price - (price * percent) / 100);
-    }
+      if (name === "price" || name === "discountPercent") {
+        const price = Number(name === "price" ? value : updated.price);
+        const percent = Number(
+          name === "discountPercent" ? value : updated.discountPercent
+        );
+        updated.discountPrice = Math.round(price - (price * percent) / 100);
+      }
 
-    setFormData(updated);
+      return updated;
+    });
   };
 
   const addColor = () =>
@@ -148,23 +620,31 @@ data.append("sizes", JSON.stringify(sizes));
   return (
     <div className="bg-gray-100 py-16">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 p-8 shadow-md">
-
         <h1 className="text-3xl font-bold mb-8 text-center">Add Product</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-
-          {/* collection */}
           <select
             className="input"
+            value={formData.collections[0] || ""}
             onChange={(e) => {
-              const selected = collectionsList.find(c => c._id === e.target.value);
-              setFormData({ ...formData, collections: [e.target.value], gender: "" });
-              setSelectedCollectionName(selected?.name?.toLowerCase());
+              const value = e.target.value;
+              const selected = collectionsList.find((c) => c._id === value);
+
+              setSelectedCollectionName(selected?.name?.toLowerCase() || "");
+
+              setFormData((prev) => ({
+                ...prev,
+                collections: value ? [value] : [],
+                gender: "",
+                category: ""
+              }));
             }}
           >
             <option value="">Select Collection</option>
-            {collectionsList.map(c => (
-              <option key={c._id} value={c._id}>{c.name}</option>
+            {collectionsList.map((c) => (
+              <option key={c._id} value={c._id}>
+                {c.name}
+              </option>
             ))}
           </select>
 
@@ -172,7 +652,13 @@ data.append("sizes", JSON.stringify(sizes));
             <select
               className="input"
               value={formData.gender}
-              onChange={e => setFormData({ ...formData, gender: e.target.value })}
+              onChange={(e) =>
+                setFormData((prev) => ({
+                  ...prev,
+                  gender: e.target.value,
+                  category: ""
+                }))
+              }
             >
               <option value="">Select Gender</option>
               <option value="boys">Boys</option>
@@ -180,11 +666,24 @@ data.append("sizes", JSON.stringify(sizes));
             </select>
           )}
 
-          <select name="category" onChange={handleChange} className="input">
+          <select
+            name="category"
+            value={formData.category}
+            onChange={handleChange}
+            className="input"
+          >
             <option value="">Select Category</option>
-            {filteredCategories.map(c => (
-              <option key={c._id} value={c._id}>{c.name}</option>
-            ))}
+            {filteredCategories.length > 0 ? (
+              filteredCategories.map((c) => (
+                <option key={c._id} value={c._id}>
+                  {c.name}
+                </option>
+              ))
+            ) : (
+              <option disabled value="">
+                No categories found
+              </option>
+            )}
           </select>
 
           <input name="name" placeholder="Product Name" onChange={handleChange} className="input" />
@@ -194,81 +693,62 @@ data.append("sizes", JSON.stringify(sizes));
             <input name="price" placeholder="Price" onChange={handleChange} className="input" />
             <input name="discountPercent" placeholder="Discount %" onChange={handleChange} className="input" />
             <input value={formData.discountPrice} readOnly className="input bg-gray-100" />
-            {/* <input name="sizes" placeholder="Sizes S,M,L" onChange={handleChange} className="input" /> */}
+
             <div>
-  <div className="flex gap-2 mb-2">
-    <input
-      value={sizeInput}
-      onChange={e => setSizeInput(e.target.value)}
-      placeholder="Add size (e.g. XL)"
-      className="input"
-    />
+              <div className="flex gap-2 mb-2">
+                <input
+                  value={sizeInput}
+                  onChange={(e) => setSizeInput(e.target.value)}
+                  placeholder="Add size (e.g. XL)"
+                  className="input"
+                />
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (!sizeInput) return;
+                    setSizes([...sizes, sizeInput]);
+                    setSizeInput("");
+                  }}
+                  className="bg-gray-200 px-3 rounded cursor-pointer"
+                >
+                  Add
+                </button>
+              </div>
 
-    <button
-      type="button"
-      onClick={() => {
-        if (!sizeInput) return;
-        setSizes([...sizes, sizeInput]);
-        setSizeInput("");
-      }}
-      className="bg-gray-200 px-3 rounded cursor-pointer"
-    >
-      Add
-    </button>
-  </div>
-
-  <div className="flex gap-2 flex-wrap">
-    {sizes.map((s, i) => (
-      <span
-        key={i}
-        className="bg-black text-white px-3 py-1 rounded cursor-pointer"
-        onClick={() => setSizes(sizes.filter((_, idx) => idx !== i))}
-      >
-        {s} ✕
-      </span>
-    ))}
-  </div>
-</div>
-
+              <div className="flex gap-2 flex-wrap">
+                {sizes.map((s, i) => (
+                  <span
+                    key={i}
+                    className="bg-black text-white px-3 py-1 rounded cursor-pointer"
+                    onClick={() => setSizes(sizes.filter((_, idx) => idx !== i))}
+                  >
+                    {s} ✕
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {["fabric","material","care","weight","dimensions","origin"].map(f => (
+            {["fabric", "material", "care", "weight", "dimensions", "origin"].map((f) => (
               <input key={f} name={f} placeholder={f} onChange={handleChange} className="input" />
             ))}
           </div>
 
-          {/* FLAGS – SAME UI */}
           <div className="flex gap-6">
-            {["isTrending","isCarousel","isPremium","isLimited"].map(f => (
+            {["isTrending", "isCarousel", "isPremium", "isLimited"].map((f) => (
               <label key={f} className="flex gap-2 items-center">
                 <input type="checkbox" name={f} onChange={handleChange} />
-                {f.replace("is","")}
+                {f.replace("is", "")}
               </label>
             ))}
           </div>
 
-          {/* ✅ CAROUSEL FIELDS – NO UI CHANGE */}
           {formData.isCarousel && (
             <>
-              <input
-                name="carouselTitle"
-                placeholder="BUY 2"
-                onChange={handleChange}
-                className="input"
-              />
-              <input
-                name="carouselSubtitle"
-                placeholder="OVERSIZED T-SHIRTS"
-                onChange={handleChange}
-                className="input"
-              />
-              <input
-                name="carouselPriceText"
-                placeholder="AT ₹1099"
-                onChange={handleChange}
-                className="input"
-              />
+              <input name="carouselTitle" placeholder="BUY 2" onChange={handleChange} className="input" />
+              <input name="carouselSubtitle" placeholder="OVERSIZED T-SHIRTS" onChange={handleChange} className="input" />
+              <input name="carouselPriceText" placeholder="AT ₹1099" onChange={handleChange} className="input" />
             </>
           )}
 
@@ -279,7 +759,7 @@ data.append("sizes", JSON.stringify(sizes));
               <input
                 placeholder="Color Name"
                 className="input mb-2"
-                onChange={e => {
+                onChange={(e) => {
                   const u = [...colors];
                   u[i].name = e.target.value;
                   setColors(u);
@@ -288,7 +768,7 @@ data.append("sizes", JSON.stringify(sizes));
 
               <input
                 type="color"
-                onChange={e => {
+                onChange={(e) => {
                   const u = [...colors];
                   u[i].hex = e.target.value;
                   setColors(u);
@@ -302,7 +782,7 @@ data.append("sizes", JSON.stringify(sizes));
                   type="file"
                   multiple
                   accept="image/*"
-                  onChange={e => {
+                  onChange={(e) => {
                     const u = [...colors];
                     u[i].images = Array.from(e.target.files);
                     setColors(u);
@@ -325,7 +805,6 @@ data.append("sizes", JSON.stringify(sizes));
           <button type="submit" className="w-full bg-black text-white py-3 rounded-xl cursor-pointer">
             Save Product
           </button>
-
         </form>
       </div>
     </div>
