@@ -3,7 +3,7 @@ import crypto from "crypto";
 import Payment from "../models/payment.model.js";
 import Order from "../models/order.model.js";
 import { razorpay } from "../utils/razorpay.js";
-import authMiddleware from "../middlewares/auth.middleware.js";
+import {protect} from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ router.post("/razorpay-order", async (req, res) => {
 /* ===============================
    VERIFY PAYMENT + CREATE ORDER + SAVE PAYMENT
 ================================ */
-router.post("/razorpay-verify", authMiddleware, async (req, res) => {
+router.post("/razorpay-verify", protect, async (req, res) => {
   try {
     const {
       razorpay_order_id,

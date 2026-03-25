@@ -2,7 +2,8 @@ import axios from "axios";
 
 
 const API = axios.create({
-  baseURL: "/api",
+  // baseURL: "/api",
+  baseURL: "http://127.0.0.1:4000/api",
 });
 
 API.interceptors.request.use(
@@ -21,14 +22,26 @@ API.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// export const loginUser = async (data) => {
+//   const response = await API.post("/auth/login", data);
+//   localStorage.setItem("token", response.data.token);
+//   return response.data;
+// };
+
 export const loginUser = async (data) => {
-  const response = await API.post("/auth/login", data);
+  const response = await API.post("/users/login", data); // ✅ FIX
   localStorage.setItem("token", response.data.token);
   return response.data;
 };
 
+// export const registerUser = async (data) => {
+//   const response = await API.post("/auth/register", data);
+//   localStorage.setItem("token", response.data.token);
+//   return response.data;
+// };
+
 export const registerUser = async (data) => {
-  const response = await API.post("/auth/register", data);
+  const response = await API.post("/users/signup", data); // ✅ FIX
   localStorage.setItem("token", response.data.token);
   return response.data;
 };
@@ -39,11 +52,10 @@ export const getUserProfile = async () => {
 };
 
 export const logoutUser = () => {
-  const wasAdmin = !!localStorage.getItem("admin_token");
+  
   localStorage.removeItem("token");
   localStorage.removeItem("admin_token");
-  localStorage.removeItem("graphura_admin");
-  window.location.href = wasAdmin ? "/admin/login" : "/login";
-};
+   window.location.href = "/admin/login";
+  };
 
 export default API;

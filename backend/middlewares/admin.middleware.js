@@ -4,4 +4,4 @@ export const isAdmin = (req, res, next) => {
   }
   next();
 };
- export default isAdmin;
+//  export default isAdmin;

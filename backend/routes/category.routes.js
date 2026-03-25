@@ -5,7 +5,7 @@ import {
   deleteCategory
 } from "../controllers/category.controller.js";
 
-import protect from "../middlewares/auth.middleware.js";
+import {protect} from "../middlewares/auth.middleware.js";
 
 import { isAdmin } from "../middlewares/admin.middleware.js";
 

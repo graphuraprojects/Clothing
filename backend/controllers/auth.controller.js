@@ -141,18 +141,11 @@ export const login = async (req, res) => {
 };
 
 export const getMe = async (req,res)=>{
- try {
-  const user = await User.findById(req.user._id)
-   .populate("cart.product")
-   .populate("wishlist");
+ const user = await User.findById(req.user._id)
+  .populate("cart.product")
+  .populate("wishlist");
 
-  if (!user) return res.status(404).json({ message: "User not found" });
-
-  res.json(user);
- } catch (err) {
-  console.error("GET ME ERROR:", err.message);
-  res.status(500).json({ message: err.message });
- }
+ res.json(user);
 };
 
 import { OAuth2Client } from "google-auth-library";
