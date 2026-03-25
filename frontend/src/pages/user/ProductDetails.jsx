@@ -55,82 +55,82 @@ function ProductDetails() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedSize, setSelectedSize] = useState("");
 
-useEffect(() => {
-  if (!product?.inventory?.length) return;
+  useEffect(() => {
+    if (!product?.inventory?.length) return;
 
-  const firstSize = product.inventory[0].size;
-  setSelectedSize(firstSize);
-}, [product]);
-
-
+    const firstSize = product.inventory[0].size;
+    setSelectedSize(firstSize);
+  }, [product]);
 
 
-const selectedVariant = product?.inventory?.find(
-  i => i.size === selectedSize && i.color === selectedColor?.name
-);
 
 
-const variantStock = selectedVariant?.stock || 0;
+  const selectedVariant = product?.inventory?.find(
+    i => i.size === selectedSize && i.color === selectedColor?.name
+  );
 
 
-const sizes = product?.inventory
-  ? Array.from(
+  const variantStock = selectedVariant?.stock || 0;
+
+
+  const sizes = product?.inventory
+    ? Array.from(
       new Set(product.inventory.map(i => i.size))
     ).sort()
-  : [];
+    : [];
 
 
   useEffect(() => {
     loadProduct();
   }, [id]);
 
- const loadProduct = async () => {
- setLoading(true);
+  const loadProduct = async () => {
+    setLoading(true);
 
- try {
-  const res = await API.get(`/products/${id}`);
-  const prod = res.data;
+    try {
+      const res = await API.get(`/products/${id}`);
+      const prod = res.data;
 
-  setProduct(prod);
-  setSelectedColor(prod.colors?.[0]);
-  setSelectedImage(0);
+      setProduct(prod);
+      setSelectedColor(prod.colors?.[0]);
+      setSelectedImage(0);
 
-  const rel = await API.get("/products");
+      const rel = await API.get("/products");
 
-  const all = Array.isArray(rel.data)
-    ? rel.data
-    : rel.data.products;
+      const all = Array.isArray(rel.data)
+        ? rel.data
+        : rel.data.products;
 
-    const related = all
-  .filter(p => p._id !== prod._id)
-  .slice(0, 4);
+      const related = all
+        .filter(p => p._id !== prod._id)
+        .slice(0, 4);
 
-  // const related = all
-  //   .filter(p => p._id !== prod._id)
-  //   .slice(0,4)
-  //   .map(p => ({
-  //     id:p._id,
-  //     name:p.name,
-  //     price:p.price,
-  //     image:p.colors?.[0]?.images?.[0],
-  //     category:p.category?.name,
-  //     rating:p.rating || 4.5,
-  //     originalPrice:p.originalPrice,
-  //     discount:p.discount
-  //   }));
+      // const related = all
+      //   .filter(p => p._id !== prod._id)
+      //   .slice(0,4)
+      //   .map(p => ({
+      //     id:p._id,
+      //     name:p.name,
+      //     price:p.price,
+      //     image:p.colors?.[0]?.images?.[0],
+      //     category:p.category?.name,
+      //     rating:p.rating || 4.5,
+      //     originalPrice:p.originalPrice,
+      //     discount:p.discount
+      //   }));
 
-  setRelatedProducts(related);
+      setRelatedProducts(related);
 
- } catch (err) {
-  console.error(err);
- } finally {
-  setLoading(false);
- }
-};
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
 
- const isInWishlist =
-  product && Array.isArray(wishlist) && wishlist.includes(product._id);
+  const isInWishlist =
+    product && Array.isArray(wishlist) && wishlist.includes(product._id);
 
 
   const isInCart =
@@ -142,93 +142,141 @@ const sizes = product?.inventory
         item.color === selectedColor?.name,
     );
 
-    
 
- const handleAddToCart = async () => {
-  const token = localStorage.getItem("token");
 
-  if (!token) {
-    navigate("/user/login");
-    return;
-  }
+  //  const handleAddToCart = async () => {
+  //   const token = localStorage.getItem("token");
 
-  if (!selectedSize) {
-    alert("Select size");
-    return;
-  }
+  //   if (!token) {
+  //     navigate("/user/login");
+  //     return;
+  //   }
 
-  try {
-    await new Promise(resolve => setTimeout(resolve, 0));
+  //   if (!selectedSize) {
+  //     alert("Select size");
+  //     return;
+  //   }
 
-    const res = await API.post(
-      "/cart",
-      {
+  //   try {
+  //     await new Promise(resolve => setTimeout(resolve, 0));
+
+  //     const res = await API.post(
+  //       "/cart",
+  //       {
+  //         product: product._id,
+  //         name: product.name,
+  //         price: product.discountPrice || product.price,
+  //         image: product.colors?.[0]?.images?.[0],
+  //         size: selectedSize,
+  //         color: selectedColor?.name,
+  //         quantity
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`
+  //         }
+  //       }
+  //     );
+
+  //     addToCart({
+  //       id: product._id,
+  //       name: product.name,
+  //       price: product.discountPrice || product.price,
+  //       image: product.colors?.[0]?.images?.[0],
+  //       size: selectedSize,
+  //       color: selectedColor?.name,
+  //       quantity
+  //     });
+
+  //     setShowCartMessage(true);
+  //     setTimeout(() => setShowCartMessage(false), 3000);
+
+  //   } catch (err) {
+  //     console.error(err.response?.data || err.message);
+  //     alert("Add to cart failed");
+  //   }
+  // };
+
+  const handleAddToCart = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      navigate("/user/login");
+      return;
+    }
+
+    if (!selectedSize) {
+      alert("Select size");
+      return;
+    }
+
+    try {
+      console.log("Sending cart request...");
+
+      const payload = {
         product: product._id,
         name: product.name,
         price: product.discountPrice || product.price,
-        image: product.colors?.[0]?.images?.[0],
+        image: selectedColor?.images?.[0],
         size: selectedSize,
         color: selectedColor?.name,
         quantity
-      },
-      {
+      };
+
+      console.log("Payload:", payload);
+
+      const res = await API.post("/cart", payload, {
         headers: {
           Authorization: `Bearer ${token}`
         }
-      }
-    );
+      });
 
-    addToCart({
-      id: product._id,
-      name: product.name,
-      price: product.discountPrice || product.price,
-      image: product.colors?.[0]?.images?.[0],
-      size: selectedSize,
-      color: selectedColor?.name,
-      quantity
-    });
+      console.log("Cart response:", res.data);
 
-    setShowCartMessage(true);
-    setTimeout(() => setShowCartMessage(false), 3000);
+      addToCart({
+        id: product._id,
+        ...payload
+      });
 
-  } catch (err) {
-    console.error(err.response?.data || err.message);
-    alert("Add to cart failed");
-  }
-};
+      setShowCartMessage(true);
+      setTimeout(() => setShowCartMessage(false), 3000);
 
-
+    } catch (err) {
+      console.error("ERROR:", err.response?.data || err.message);
+      alert(err.response?.data?.message || "Add to cart failed");
+    }
+  };
 
   const handleBuyNow = () => {
     handleAddToCart();
     navigate("/checkout");
   };
 
-const handleWishlistToggle = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/user/login");
-    return;
-  }
+  const handleWishlistToggle = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/user/login");
+      return;
+    }
 
-  try {
-    await API.post(
-      `/cart/wishlist/${product._id}`,
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    try {
+      await API.post(
+        `/cart/wishlist/${product._id}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    setShowWishlistMessage(true);
-    setTimeout(() => setShowWishlistMessage(false), 3000);
+      setShowWishlistMessage(true);
+      setTimeout(() => setShowWishlistMessage(false), 3000);
 
-  } catch (err) {
-    console.error("Wishlist error", err.response?.data);
-  }
-};
+    } catch (err) {
+      console.error("Wishlist error", err.response?.data);
+    }
+  };
 
 
 
@@ -415,8 +463,8 @@ const handleWishlistToggle = async () => {
 
   return (
     <>
-    {/* <ProductNavbar /> */}
-    <Navbar/>
+      {/* <ProductNavbar /> */}
+      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-28 pb-8 grid lg:grid-cols-2 gap-8 lg:gap-12">
         {/* Product Images */}
@@ -427,25 +475,24 @@ const handleWishlistToggle = async () => {
               <div className="relative pt-[100%] md:pt-[75%] overflow-hidden cursor-zoom-in cursor-pointer"
                 onMouseMove={handleMouseMove}
                 onClick={handleImageZoom}>
-             <img
-  src={selectedColor?.images?.[selectedImage]}
-  alt={`${product.name} - View ${selectedImage + 1}`}
-  className={`absolute inset-0 w-full h-full object-cover transition-transform duration-300 pointer-events-none ${
-    isZoomed ? "scale-150" : "hover:scale-105"
-  } ${imageLoading ? "opacity-0" : "opacity-100"}`}
-  style={{
-    transformOrigin: isZoomed
-      ? `${zoomPosition.x}% ${zoomPosition.y}%`
-      : "center",
-  }}
-  onLoad={() => setImageLoading(false)}
-  loading="lazy"
-/>
+                <img
+                  src={selectedColor?.images?.[selectedImage]}
+                  alt={`${product.name} - View ${selectedImage + 1}`}
+                  className={`absolute inset-0 w-full h-full object-cover transition-transform duration-300 pointer-events-none ${isZoomed ? "scale-150" : "hover:scale-105"
+                    } ${imageLoading ? "opacity-0" : "opacity-100"}`}
+                  style={{
+                    transformOrigin: isZoomed
+                      ? `${zoomPosition.x}% ${zoomPosition.y}%`
+                      : "center",
+                  }}
+                  onLoad={() => setImageLoading(false)}
+                  loading="lazy"
+                />
 
 
                 {/* Wishlist button on image */}
-               {/* ❤️ Wishlist button (ON IMAGE) */}
-{/* <button
+                {/* ❤️ Wishlist button (ON IMAGE) */}
+                {/* <button
   onClick={(e) => {
     e.stopPropagation();
     handleWishlistToggle();
@@ -487,7 +534,7 @@ const handleWishlistToggle = async () => {
               </div>
             </div>
 
-          {(selectedColor?.images || product.colors?.[0]?.images)?.length >= 1 && (
+            {(selectedColor?.images || product.colors?.[0]?.images)?.length >= 1 && (
 
               <>
                 <button
@@ -530,10 +577,10 @@ const handleWishlistToggle = async () => {
             </div>
           </div>
 
-         {(selectedColor?.images || product.colors?.[0]?.images)?.length >= 1 && (
+          {(selectedColor?.images || product.colors?.[0]?.images)?.length >= 1 && (
 
             <div className="grid grid-cols-4 gap-3 mt-4">
-            {(selectedColor?.images || product.colors?.[0]?.images || []).map((img,index)=>(
+              {(selectedColor?.images || product.colors?.[0]?.images || []).map((img, index) => (
                 <button
                   key={index}
                   onClick={() => {
@@ -605,24 +652,24 @@ const handleWishlistToggle = async () => {
 
             <div className="flex items-center gap-4 mt-3">
               <div className="flex items-center">
-               <span className="text-2xl font-bold text-gray-900">
-  ₹{(product.discountPrice || product.price).toLocaleString()}
-                      </span>
+                <span className="text-2xl font-bold text-gray-900">
+                  ₹{(product.discountPrice || product.price).toLocaleString()}
+                </span>
 
                 {product.discountPrice && product.discountPrice < product.price && (
-                    <>
-                      <span className="ml-3 text-gray-500 line-through">
-                        ₹{product.price.toLocaleString()}
-                      </span>
-                      <span className="ml-2 bg-red-100 text-green-600 text-sm font-semibold px-2 py-0.5 rounded">
-                        Save ₹
-                       {(
-                          product.price - product.discountPrice
-                        ).toLocaleString()}
+                  <>
+                    <span className="ml-3 text-gray-500 line-through">
+                      ₹{product.price.toLocaleString()}
+                    </span>
+                    <span className="ml-2 bg-red-100 text-green-600 text-sm font-semibold px-2 py-0.5 rounded">
+                      Save ₹
+                      {(
+                        product.price - product.discountPrice
+                      ).toLocaleString()}
 
-                      </span>
-                    </>
-                  )}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -761,44 +808,43 @@ const handleWishlistToggle = async () => {
             </div>
           )} */}
           {/* Size Selection */}
-{sizes.length > 0 && (
-  <div>
-    <div className="flex justify-between items-center mb-3">
-      <h3 className="font-medium text-sm sm:text-base text-gray-900">
-        Select Size
-      </h3>
-      <button
-        onClick={() => setShowSizeGuide(true)}
-        className="text-xs sm:text-sm text-[#8b6f47] hover:underline font-medium cursor-pointer"
-      >
-        Size Guide
-      </button>
-    </div>
+          {sizes.length > 0 && (
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-medium text-sm sm:text-base text-gray-900">
+                  Select Size
+                </h3>
+                <button
+                  onClick={() => setShowSizeGuide(true)}
+                  className="text-xs sm:text-sm text-[#8b6f47] hover:underline font-medium cursor-pointer"
+                >
+                  Size Guide
+                </button>
+              </div>
 
-    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
-      {sizes.map((size) => {
-        const stock = product.inventory.find(
-          i => i.size === size && i.color === selectedColor?.name
-        )?.stock ?? 0;
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3">
+                {sizes.map((size) => {
+                  const stock = product.inventory.find(
+                    i => i.size === size && i.color === selectedColor?.name
+                  )?.stock ?? 0;
 
-        return (
-          <button
-            key={size}
-            onClick={() => setSelectedSize(size)}
-            disabled={stock === 0}
-            className={`cursor-pointer ${`relative py-2 px-3 rounded-lg border ${
-              selectedSize === size
-                ? "border-[#8b6f47] bg-[#f5f3ef]"
-                : "border-gray-200"
-            } ${stock === 0 ? "opacity-50 cursor-not-allowed" : ""}`}`}
-          >
-            {size}
-          </button>
-        );
-      })}
-    </div>
-  </div>
-)}
+                  return (
+                    <button
+                      key={size}
+                      onClick={() => setSelectedSize(size)}
+                      disabled={stock === 0}
+                      className={`cursor-pointer ${`relative py-2 px-3 rounded-lg border ${selectedSize === size
+                          ? "border-[#8b6f47] bg-[#f5f3ef]"
+                          : "border-gray-200"
+                        } ${stock === 0 ? "opacity-50 cursor-not-allowed" : ""}`}`}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
 
           {/* Quantity & Stock */}
@@ -899,11 +945,10 @@ const handleWishlistToggle = async () => {
             <button
               onClick={handleBuyNow}
               disabled={!selectedSize || product.stock === 0}
-              className={`cursor-pointer ${`w-full py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl ${
-                !selectedSize || product.stock === 0
+              className={`cursor-pointer ${`w-full py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 shadow-lg hover:shadow-xl ${!selectedSize || product.stock === 0
                   ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                   : "bg-linear-to-r from-[#8b6f47] to-[#7a6140] text-white hover:from-[#7a6140] hover:to-[#6b5535]"
-              }`}`}
+                }`}`}
             >
               {product.stock === 0 ? "Out of Stock" : "Buy Now"}
             </button>
@@ -919,13 +964,12 @@ const handleWishlistToggle = async () => {
               <button
                 onClick={handleAddToCart}
                 disabled={!selectedSize || product.stock === 0 || isInCart}
-                className={`cursor-pointer ${`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${
-                  isInCart
+                className={`cursor-pointer ${`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${isInCart
                     ? "bg-green-100 text-green-700 border-2 border-green-300"
                     : !selectedSize || product.stock === 0
                       ? "bg-gray-200 text-gray-400 cursor-not-allowed"
                       : "bg-[#8b6f47] text-white hover:bg-[#7a6140]"
-                }`}`}
+                  }`}`}
               >
                 <ShoppingCart size={18} className="sm:size-5" />
                 <span className="font-semibold">
@@ -935,11 +979,10 @@ const handleWishlistToggle = async () => {
 
               <button
                 onClick={handleWishlistToggle}
-                className={`cursor-pointer ${`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base border-2 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${
-                  isInWishlist
+                className={`cursor-pointer ${`py-3 sm:py-4 rounded-xl font-medium text-sm sm:text-base border-2 transition-all duration-300 flex items-center justify-center gap-2 sm:gap-3 shadow-md hover:shadow-lg ${isInWishlist
                     ? "border-red-500 text-red-600 bg-red-50 hover:bg-red-100"
                     : "border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-700"
-                }`}`}
+                  }`}`}
               >
                 <Heart
                   size={18}
@@ -961,11 +1004,10 @@ const handleWishlistToggle = async () => {
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`cursor-pointer ${`py-2 sm:py-3 px-1 font-medium text-xs sm:text-sm border-b-2 transition-colors whitespace-nowrap ${
-                        activeTab === tab
+                      className={`cursor-pointer ${`py-2 sm:py-3 px-1 font-medium text-xs sm:text-sm border-b-2 transition-colors whitespace-nowrap ${activeTab === tab
                           ? "border-[#8b6f47] text-[#8b6f47]"
                           : "border-transparent text-gray-500 hover:text-gray-700"
-                      }`}`}
+                        }`}`}
                     >
                       {tab.charAt(0).toUpperCase() + tab.slice(1)}
                     </button>
@@ -1199,42 +1241,42 @@ const handleWishlistToggle = async () => {
             </button>
           </div>
 
-         {/* ================= RELATED PRODUCTS ================= */}
-<section className="mt-14">
-  <h2 className="permanent-marker-regular text-2xl mb-6">
-    Related Products
-  </h2>
+          {/* ================= RELATED PRODUCTS ================= */}
+          <section className="mt-14">
+            <h2 className="permanent-marker-regular text-2xl mb-6">
+              Related Products
+            </h2>
 
-  <div
-    className="
+            <div
+              className="
       grid
       grid-cols-2
       sm:grid-cols-3
       lg:grid-cols-4
       gap-4 sm:gap-6
     "
-  >
-    {relatedProducts.map((relatedProduct) => (
-      <ProductCard
-        key={relatedProduct._id || relatedProduct.id}
-        product={{
-          ...relatedProduct,
-          _id: relatedProduct._id || relatedProduct.id,
-          colors: relatedProduct.colors?.length
-            ? relatedProduct.colors
-            : [
-                {
-                  images: [relatedProduct.image],
-                },
-              ],
-        }}
-      />
-    ))}
-  </div>
-</section>
+            >
+              {relatedProducts.map((relatedProduct) => (
+                <ProductCard
+                  key={relatedProduct._id || relatedProduct.id}
+                  product={{
+                    ...relatedProduct,
+                    _id: relatedProduct._id || relatedProduct.id,
+                    colors: relatedProduct.colors?.length
+                      ? relatedProduct.colors
+                      : [
+                        {
+                          images: [relatedProduct.image],
+                        },
+                      ],
+                  }}
+                />
+              ))}
+            </div>
+          </section>
 
         </div>
-      )} 
+      )}
 
       {/* Size Guide Modal */}
       {showSizeGuide && (

@@ -6,7 +6,7 @@ import {
   undoLastInventory
 } from "../controllers/inventory.controller.js";
 
-import protect from "../middlewares/auth.middleware.js";
+import { protect } from "../middlewares/auth.middleware.js";
 import { isAdmin } from "../middlewares/admin.middleware.js";
 
 const router = express.Router();

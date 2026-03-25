@@ -1,6 +1,6 @@
 import express from "express";
 import {placeOrder,getMyOrders,getAllOrders,updateOrderStatus,getCustomerOrders} from "../controllers/order.controller.js";
-import protect from "../middlewares/auth.middleware.js";
+import {protect} from "../middlewares/auth.middleware.js";
 import { isAdmin } from "../middlewares/admin.middleware.js";
 import Order from "../models/order.model.js";
 
@@ -22,19 +22,14 @@ router.get(
   protect,
   isAdmin,
   async (req, res) => {
-    try {
-      const order = await Order.findById(req.params.id)
-        .populate("user", "name email");
+    const order = await Order.findById(req.params.id)
+      .populate("user", "name email");
 
-      if (!order) {
-        return res.status(404).json({ message: "Order not found" });
-      }
-
-      res.json({ order });
-    } catch (err) {
-      console.error("ORDER DETAIL ERROR:", err.message);
-      res.status(500).json({ message: err.message });
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
     }
+
+    res.json({ order });
   }
 );
 
