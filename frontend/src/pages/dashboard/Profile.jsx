@@ -70,18 +70,21 @@ export default function Profile() {
     try {
       const res = await API.put("/user/dashboard/profile", tempProfile);
 
+      // Handle both response formats: { success: true, user } or { user }
+      const updatedUser = res.data.user || res.data;
+
       setProfile({
-        name: res.data.user.name || "",
-        email: res.data.user.email || "",
-        phone: res.data.user.phone || "",
-        location: res.data.user.location || "",
+        name: updatedUser.name || "",
+        email: updatedUser.email || "",
+        phone: updatedUser.phone || "",
+        location: updatedUser.location || "",
       });
 
       setTempProfile({
-        name: res.data.user.name || "",
-        email: res.data.user.email || "",
-        phone: res.data.user.phone || "",
-        location: res.data.user.location || "",
+        name: updatedUser.name || "",
+        email: updatedUser.email || "",
+        phone: updatedUser.phone || "",
+        location: updatedUser.location || "",
       });
 
       setEditOpen(false);

@@ -7,7 +7,8 @@ export default function DeleteCollection() {
 
   const fetchCollections = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const adminToken = localStorage.getItem("admin_token");
+      const token = adminToken || localStorage.getItem("token");
 
       const res = await API.get("/collections", {
         headers: {
@@ -33,7 +34,8 @@ export default function DeleteCollection() {
     if (!window.confirm("Delete this collection?")) return;
 
     try {
-      const token = localStorage.getItem("token");
+      const adminToken = localStorage.getItem("admin_token");
+      const token = adminToken || localStorage.getItem("token");
 
       await API.delete(`/collections/${id}`, {
         headers: {

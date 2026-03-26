@@ -90,14 +90,23 @@ export const protect = async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // ✅ ONLY USER
-    const user = await User.findById(decoded.id || decoded._id).select("-password");
-
-    if (!user) {
-      return res.status(401).json({ message: "User not found" });
+    // Check both User and Admin collections
+    let account = await User.findById(decoded.id || decoded._id).select("-password");
+    
+    if (!account) {
+      account = await Admin.findById(decoded.id || decoded._id).select("-password");
     }
 
-    req.user = user;
+    if (!account) {
+      return res.status(401).json({ message: "Account not found" });
+    }
+
+    // Add role to request for downstream checks
+    req.user = {
+      ...account.toObject(),
+      role: decoded.role || account.role
+    };
+    
     next();
 
   } catch (error) {

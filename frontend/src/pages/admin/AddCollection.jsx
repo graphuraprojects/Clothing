@@ -32,7 +32,7 @@ const makeSlug = (text) =>
         },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("admin_token") || localStorage.getItem("token")}`,
           },
         }
       );

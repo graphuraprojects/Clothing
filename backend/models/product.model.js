@@ -70,10 +70,13 @@ carouselPriceText: String,
  {
   name:String,
   hex:String,
-  images:[String]   // <=== THIS WAS MISSING
+  images:[String]
  }
 ]
 ,
+
+ // Fallback images array
+ images:[String],
 
 
  location:{
@@ -85,4 +88,3 @@ carouselPriceText: String,
 },{timestamps:true});
 
 export default mongoose.model("Product", productSchema);
-

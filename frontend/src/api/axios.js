@@ -29,7 +29,7 @@ API.interceptors.request.use(
 // };
 
 export const loginUser = async (data) => {
-  const response = await API.post("/users/login", data); // ✅ FIX
+  const response = await API.post("/users/login", data);
   localStorage.setItem("token", response.data.token);
   return response.data;
 };
@@ -41,13 +41,13 @@ export const loginUser = async (data) => {
 // };
 
 export const registerUser = async (data) => {
-  const response = await API.post("/users/signup", data); // ✅ FIX
+  const response = await API.post("/users/signup", data);
   localStorage.setItem("token", response.data.token);
   return response.data;
 };
 
 export const getUserProfile = async () => {
-  const response = await API.get("/auth/me");
+  const response = await API.get("/user/dashboard/me");
   return response.data;
 };
 
@@ -55,7 +55,7 @@ export const logoutUser = () => {
   
   localStorage.removeItem("token");
   localStorage.removeItem("admin_token");
-   window.location.href = "/admin/login";
+  window.location.href = "/";
   };
 
 export default API;

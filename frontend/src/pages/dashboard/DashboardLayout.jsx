@@ -32,30 +32,49 @@ const DashboardLayout = () => {
 
 
   
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    if (!token) return navigate("/login");
+    if (!token) {
+      setIsLoading(false);
+      return navigate("/login");
+    }
 
-    API.get("/user/dashboard/me")
-      .then((res) => {
-        console.log("DASHBOARD USER:", res.data);
-        setUser(res.data.user);
+    Promise.all([
+      API.get("/user/dashboard/me"),
+      API.get("/user/dashboard/orders/my")
+    ])
+      .then(([userRes, ordersRes]) => {
+        console.log("DASHBOARD USER:", userRes.data);
+        console.log("ORDERS:", ordersRes.data);
+        setUser(userRes.data.user || userRes.data);
+        setOrders(Array.isArray(ordersRes.data) ? ordersRes.data : []);
       })
-      .catch((err) => console.log("ME ERROR:", err.response?.data || err));
-
-    //  API.get("/user/dashboard/notifications")
-    //   .then(res => setNotifications(res.data.notifications))
-    //   .catch(() => setNotifications([]));
-
-    API.get("/user/dashboard/orders/my").then((res) => {
-      console.log("ORDERS:", res.data);
-      setOrders(res.data);
-    });
+      .catch((err) => {
+        console.log("DASHBOARD ERROR:", err.response?.data || err);
+        if (err.response?.status === 401) {
+          localStorage.removeItem("token");
+          navigate("/login");
+        }
+      })
+      .finally(() => setIsLoading(false));
   }, []);
 
   const logout = async () => {
     await logoutUser();
     navigate("/login");
   };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-gray-100">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-[#6B4423] border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-[#6B4423] font-semibold">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-screen flex bg-gray-100 overflow-hidden">
@@ -264,7 +283,7 @@ const DashboardLayout = () => {
         {/* Content */}
 
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
-          <Outlet />
+          <Outlet context={{ user, orders }} />
         </main>
       </div>
     </div>
