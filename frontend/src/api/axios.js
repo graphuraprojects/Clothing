@@ -8,12 +8,16 @@ const API = axios.create({
 
 API.interceptors.request.use(
   (config) => {
-    const userToken = localStorage.getItem("token");
-    const adminToken = localStorage.getItem("admin_token");
-
-    const token = adminToken || userToken;
+    // Check if the user is currently in the admin panel
+    const isAdminPanel = window.location.pathname.startsWith("/admin");
+    
+    // Choose the appropriate token based on the UI context
+    const token = isAdminPanel 
+      ? (localStorage.getItem("admin_token") || localStorage.getItem("token")) 
+      : localStorage.getItem("token");
 
     if (token) {
+      console.log(`Axios Request to ${config.url || ""} | Using ${isAdminPanel ? "Admin" : "User"} Token:`, token.substring(0, 15) + "...");
       config.headers.Authorization = `Bearer ${token}`;
     }
 

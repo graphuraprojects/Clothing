@@ -82,6 +82,7 @@ export const protect = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    console.warn("Auth Middleware - No token provided for:", req.originalUrl);
     return res.status(401).json({ message: "No token provided" });
   }
 
@@ -89,27 +90,32 @@ export const protect = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log(`Auth Middleware - Decoding ID: ${decoded.id || decoded._id} for route: ${req.originalUrl}`);
 
     // Check both User and Admin collections
     let account = await User.findById(decoded.id || decoded._id).select("-password");
+    let isUser = !!account;
     
     if (!account) {
       account = await Admin.findById(decoded.id || decoded._id).select("-password");
     }
 
     if (!account) {
+      console.warn(`Auth Middleware - Account NOT found in DB for ID: ${decoded.id || decoded._id}`);
       return res.status(401).json({ message: "Account not found" });
     }
 
     // Add role to request for downstream checks
     req.user = {
       ...account.toObject(),
-      role: decoded.role || account.role
+      role: decoded.role || account.role || (isUser ? "user" : "admin")
     };
     
+    console.log(`Auth Middleware - Success for ${account.email} | Computed Role: ${req.user.role}`);
     next();
 
   } catch (error) {
+    console.error("Auth Middleware - Token verification failed:", error.message);
     return res.status(401).json({ message: "Invalid token" });
   }
 };
