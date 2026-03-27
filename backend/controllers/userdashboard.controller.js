@@ -34,10 +34,12 @@ export const updateProfile = async (req, res) => {
   const user = await User.findByIdAndUpdate(
   req.user._id,
   {
-   name:req.body.name,
-   email:req.body.email,
-   phone:req.body.phone,
-   location:req.body.location
+   name: req.body.name,
+   email: req.body.email,
+   phone: req.body.phone,
+   location: req.body.location,
+   gender: req.body.gender,
+   isTwoFactorEnabled: req.body.isTwoFactorEnabled
   },
   { new:true }
  ).select("-password");
@@ -163,7 +165,14 @@ export const deleteAddress = async (req, res) => {
 /* USER PROFILE */
 
 export const getMe = async (req, res) => {
-  const user = await User.findById(req.user._id).select("-password");
+  const user = await User.findById(req.user._id).select("-password").lean();
+
+  if (user && !user.location) {
+    const defaultAddr = await Address.findOne({ user: req.user._id, default: true }).lean();
+    if (defaultAddr) {
+      user.location = defaultAddr.address;
+    }
+  }
 
   res.json({
     success: true,

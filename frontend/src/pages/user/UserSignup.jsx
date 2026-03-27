@@ -4,7 +4,7 @@ import { GoogleLogin } from "@react-oauth/google";
 import API from "../../api/axios";
 import { Loader2 } from "lucide-react";
 
-import logo from "../../assets/logo/logo.webp";
+import logo from "../../assets/logo/logoWhite.webp";
 import userlogin from "../../assets/Login/userlogin.webp";
 
 export default function UserSignup() {

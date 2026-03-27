@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import logo from "../../assets/logo/logo.webp";
+import logo from "../../assets/logo/logoWhite.webp";
 import { GoogleLogin } from "@react-oauth/google";
 import API from "../../api/axios";
 import userlogin from "../../assets/Login/userlogin.webp";

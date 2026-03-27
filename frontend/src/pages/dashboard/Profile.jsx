@@ -32,6 +32,10 @@ export default function Profile() {
     email: "",
     phone: "",
     location: "",
+    gender: "",
+    isTwoFactorEnabled: true,
+    role: "user",
+    createdAt: ""
   });
 
   const [tempProfile, setTempProfile] = useState(profile);
@@ -49,6 +53,10 @@ export default function Profile() {
         email: user.email || "",
         phone: user.phone || "",
         location: user.location || "",
+        gender: user.gender || "",
+        isTwoFactorEnabled: user.isTwoFactorEnabled ?? true,
+        role: user.role || "user",
+        createdAt: user.createdAt || ""
       };
 
       setProfile(data);
@@ -75,6 +83,8 @@ export default function Profile() {
         email: res.data.user.email || "",
         phone: res.data.user.phone || "",
         location: res.data.user.location || "",
+        gender: res.data.user.gender || "",
+        isTwoFactorEnabled: res.data.user.isTwoFactorEnabled ?? true
       });
 
       setTempProfile({
@@ -82,6 +92,8 @@ export default function Profile() {
         email: res.data.user.email || "",
         phone: res.data.user.phone || "",
         location: res.data.user.location || "",
+        gender: res.data.user.gender || "",
+        isTwoFactorEnabled: res.data.user.isTwoFactorEnabled ?? true
       });
 
       setEditOpen(false);
@@ -214,97 +226,53 @@ export default function Profile() {
       {/* Info + Security */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
         <Card title="Personal Information">
           <hr className="text-black" />
-          <InfoRow icon={FiUser} value={profile.name} />
+          <InfoRow icon={FiUser} label="Full Name" value={profile.name || "Not provided"} />
           <hr className="text-black/20" />
-          <InfoRow icon={FiMail} value={profile.email} />
+          <InfoRow icon={FiMail} label="Email Address" value={profile.email || "Not provided"} />
           <hr className="text-black/20" />
-          <InfoRow icon={FiPhone} value={profile.phone} />
+          <InfoRow icon={FiPhone} label="Phone Number" value={profile.phone || "Not provided"} />
           <hr className="text-black/20" />
-          <InfoRow icon={FiMapPin} value={profile.location} />
+          <InfoRow icon={FiMapPin} label="Default Address" value={profile.location || "No address added yet"} />
+          <hr className="text-black/20" />
+          <InfoRow icon={FiUser} label="Gender" value={profile.gender || "Not specified"} />
+          <hr className="text-black/20" />
+          <InfoRow icon={FiCheckCircle} label="Account Role" value={profile.role?.toUpperCase() || "USER"} />
+          <hr className="text-black/20" />
+          <InfoRow icon={FiPackage} label="Member Since" value={profile.createdAt ? new Date(profile.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : "Recently"} />
           <hr className="text-black/20" />
         </Card>
 
         <Card title="Account Security">
-
-          <hr />
-
-          {/* <button
-            onClick={() => setPasswordOpen(true)}
-            className="flex items-center gap-2 text-sm font-semibold text-black hover:text-gray-600 transition"
-
-          >
-
-            <FiLock />
-            Change Password
-          </button> */}
-
+          <hr className="text-black/20" />
           <button
             onClick={() => setPasswordOpen(true)}
-            className="flex items-center gap-2 m-2 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 transition cursor-pointer"
+            className="flex items-center gap-2 m-3 px-4 py-2 rounded-lg text-sm font-semibold bg-gray-200 text-gray-800 hover:bg-gray-300 transition cursor-pointer"
           >
             <FiLock className="text-base" />
             Change Password
           </button>
 
-          <hr className="text-black/20 mt-2" />
-
-          {/* <p className="mt-3 text-sm font-medium text-green-600">
-            ✔ Two-Step Verification Enabled
-          </p> */}
-
-          <p className="m-3 flex items-center gap-2 text-sm font-medium text-green-600">
-            <FiCheckCircle className="text-green-500" />
-            Two-Step Verification Enabled
-          </p>
-
           <hr className="text-black/20" />
 
+          <p className={`m-3 flex items-center gap-2 text-sm font-medium ${profile.isTwoFactorEnabled ? "text-green-600" : "text-amber-600"}`}>
+            {profile.isTwoFactorEnabled ? (
+              <>
+                <FiCheckCircle className="text-green-500" />
+                Two-Step Verification Enabled
+              </>
+            ) : (
+              <>
+                <FiXCircle className="text-amber-500" />
+                Two-Step Verification Disabled
+              </>
+            )}
+          </p>
+          <hr className="text-black/20" />
         </Card>
-
       </div>
 
-      {/* Payment */}
-
-      {/* <Card title="Saved Payment Methods">
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-
-          {cards.map((card, i) => (
-
-            <div
-              key={i}
-              className="rounded-2xl p-5 bg-gradient-to-r from-gray-900 to-black text-white shadow-md hover:shadow-xl hover:scale-[1.02] transition"
-            >
-
-              <p className="font-semibold tracking-widest text-sm">
-                {card.number}
-              </p>
-
-              <p className="text-xs opacity-80 mt-2">
-                Expiry {card.expiry}
-              </p>
-
-            </div>
-
-          ))}
-
-          <button
-            onClick={() => setCardOpen(true)}
-            className="rounded-2xl p-5 flex items-center justify-center gap-2 border-2 border-dashed border-gray-300 text-black hover:bg-gray-100 hover:border-black transition"
-
-          >
-
-            <FiPlus />
-            Add new card
-
-          </button>
-
-        </div>
-
-      </Card> */}
 
       <Card title="Saved Payment Methods">
 
@@ -410,6 +378,21 @@ export default function Profile() {
             }
           />
 
+          <div className="flex flex-col gap-1">
+             <label className="text-sm text-gray-600">Gender</label>
+             <select 
+               value={tempProfile.gender}
+               onChange={(e) => setTempProfile({ ...tempProfile, gender: e.target.value })}
+               className="w-full rounded-xl px-3 py-2 border border-gray-300 focus:ring-2 focus:ring-black outline-none text-sm bg-white"
+             >
+               <option value="">Select Gender</option>
+               <option value="Male">Male</option>
+               <option value="Female">Female</option>
+               <option value="Other">Other</option>
+               <option value="Prefer not to say">Prefer not to say</option>
+             </select>
+          </div>
+
           <ModalFooter
             onCancel={() => setEditOpen(false)}
             onSave={saveProfile}
@@ -490,18 +473,19 @@ const Card = ({ title, children }) => (
 );
 
 /* Info Row */
-
-const InfoRow = ({ icon: Icon, value }) => (
-
+const InfoRow = ({ icon: Icon, label, value }) => (
   <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition">
 
     <div className="bg-gray-100 p-2 rounded-lg">
       <Icon className="text-gray-600 text-lg" />
     </div>
 
-    <span className="text-gray-700 text-sm font-medium">
-      {value}
-    </span>
+    <div className="flex flex-col">
+       <span className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">{label}</span>
+       <span className="text-gray-700 text-sm font-medium">
+         {value}
+       </span>
+    </div>
 
   </div>
 

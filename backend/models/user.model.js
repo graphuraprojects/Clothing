@@ -40,10 +40,18 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true },
   phone: String,
   password: String,
-   location:{
-  type:String,
-  default:""
- },
+  location: {
+    type: String,
+    default: ""
+  },
+  gender: {
+    type: String,
+    default: ""
+  },
+  isTwoFactorEnabled: {
+    type: Boolean,
+    default: true
+  },
 
   role: {
     type: String,
