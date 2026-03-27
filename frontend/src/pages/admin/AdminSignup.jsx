@@ -4,6 +4,7 @@ import leftBlue from "../../assets/Login/userlogin.webp";
 import logo from "../../assets/logo/logoWhite.webp";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 
 const AdminSignup = () => {
   const navigate = useNavigate();
@@ -189,9 +190,9 @@ const AdminSignup = () => {
               whileHover={{ scale: 1.02 }}
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition"
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition flex justify-center items-center gap-2"
             >
-              {loading ? "Signing up..." : "SIGN UP"}
+              {loading ? <><Loader2 size={24} className="animate-spin" /> Signing up...</> : "SIGN UP"}
             </motion.button>
           </form>
 

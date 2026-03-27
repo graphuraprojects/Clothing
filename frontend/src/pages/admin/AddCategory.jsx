@@ -1,4 +1,5 @@
 import { useState,useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
 const AddCategory = ({ refresh }) => {
 
@@ -8,6 +9,7 @@ const AddCategory = ({ refresh }) => {
  const [collections,setCollections]=useState([]);
  const [message,setMessage]=useState("");
  const [selectedCollectionName,setSelectedCollectionName]=useState("");
+ const [isLoading, setIsLoading] = useState(false);
 
  useEffect(()=>{
   fetch("/api/collections")
@@ -17,6 +19,7 @@ const AddCategory = ({ refresh }) => {
 
  const submitHandler = async (e) => {
   e.preventDefault();
+  setIsLoading(true);
 
   const res = await fetch("/api/categories",{
    method:"POST",
@@ -42,6 +45,7 @@ const AddCategory = ({ refresh }) => {
   }else{
    setMessage(data.message);
   }
+  setIsLoading(false);
  };
 
  return (
@@ -116,10 +120,11 @@ const AddCategory = ({ refresh }) => {
         {/* BUTTON */}
 
         <button
+          disabled={isLoading}
           className="bg-black text-white px-5 py-3 rounded-xl w-full
-          transition transform hover:-translate-y-0.5 hover:bg-gray-900 cursor-pointer"
+          transition transform hover:-translate-y-0.5 hover:bg-gray-900 cursor-pointer disabled:opacity-70 flex justify-center items-center gap-2"
         >
-          Add Category
+          {isLoading ? <Loader2 size={20} className="animate-spin" /> : "Add Category"}
         </button>
 
       </form>

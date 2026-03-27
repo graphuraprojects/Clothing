@@ -66,13 +66,12 @@ import OrderDetail from "./pages/admin/OrderDetail";
 // import WhatsAppAutomation from "./pages/admin/WhatsAppAutomation";
 import ScrollToTop from "./components/Home/ScrollToTop";
 import Coupons from "./pages/admin/Coupons";
-import { ShoppingCart } from "lucide-react";
+
 
 const App = () => {
   const isAdminLoggedIn = localStorage.getItem("graphura_admin");
 
   return (
-    <ShopProvider>
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
@@ -143,7 +142,6 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
-    </ShopProvider>
   );
 };
 

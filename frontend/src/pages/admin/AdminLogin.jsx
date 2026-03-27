@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
 
 import logo from "../../assets/logo/logoWhite.webp";
 import userlogin from "../../assets/Login/userlogin.webp";
@@ -143,9 +144,9 @@ const AdminLogin = () => {
               whileHover={{ scale: 1.03 }}
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition disabled:opacity-60"
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 py-3 rounded-xl text-white font-semibold tracking-wide shadow-lg hover:shadow-indigo-500/40 transition disabled:opacity-60 flex justify-center items-center gap-2"
             >
-              {loading ? "Signing in..." : "SIGN IN"}
+              {loading ? <><Loader2 size={24} className="animate-spin" /> Signing in...</> : "SIGN IN"}
             </motion.button>
 
           </form>

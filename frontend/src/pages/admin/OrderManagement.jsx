@@ -177,12 +177,6 @@ const stats = {
 
           {/* TABLE */}
           <OrderTable orders={filteredOrders} />
-          {/* Orders Table */}
-          <div className="overflow-x-auto -mx-3 sm:mx-0">
-            <div className="min-h-screen flex overflow-x-hidden">
-              <OrderTable />
-            </div>
-          </div>
         </motion.main>
       </div>
     </div>

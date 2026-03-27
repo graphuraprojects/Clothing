@@ -29,7 +29,9 @@ API.interceptors.request.use(
 // };
 
 export const loginUser = async (data) => {
+  console.log("loginUser API called with data:", data);
   const response = await API.post("/users/login", data); // ✅ FIX
+  console.log("loginUser API response:", response.data);
   localStorage.setItem("token", response.data.token);
   return response.data;
 };
@@ -41,13 +43,15 @@ export const loginUser = async (data) => {
 // };
 
 export const registerUser = async (data) => {
+  console.log("registerUser API called with data:", data);
   const response = await API.post("/users/signup", data); // ✅ FIX
+  console.log("registerUser API response:", response.data);
   localStorage.setItem("token", response.data.token);
   return response.data;
 };
 
 export const getUserProfile = async () => {
-  const response = await API.get("/auth/me");
+  const response = await API.get("/users/me");
   return response.data;
 };
 
@@ -55,7 +59,7 @@ export const logoutUser = () => {
   
   localStorage.removeItem("token");
   localStorage.removeItem("admin_token");
-   window.location.href = "/admin/login";
+   window.location.href = "/login";
   };
 
 export default API;

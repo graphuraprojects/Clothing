@@ -15,16 +15,18 @@ const Notifications = () => {
 
   const fetchNotifications = async () => {
     try {
+      console.log("Notifications - Fetching notifications...");
       const res = await API.get("/admin/notifications");
-      console.log(res.data)
-      setNotifications(res.data);
+      console.log("Notifications - Fetch Success:", res.data);
+      setNotifications(Array.isArray(res.data) ? res.data : []);
     } catch (error) {
-      console.error("Error fetching notifications:", error);
+      console.error("Notifications - Error fetching notifications:", error.response?.data || error);
     }
   };
 
   const openNotification = async (notification) => {
     try {
+      console.log("Notifications - Opening notification ID:", notification._id);
       // mark notification as read
       await API.put(`/admin/notifications/${notification._id}/read`);
 
@@ -35,10 +37,11 @@ const Notifications = () => {
         )
       );
 
+      console.log("Notifications - Marked as read successfully");
       // navigate to refund requests page
       navigate("/admin/refund-requests");
     } catch (error) {
-      console.error("Error opening notification:", error);
+      console.error("Notifications - Error opening notification:", error.response?.data || error);
     }
   };
 

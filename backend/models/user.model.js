@@ -14,8 +14,8 @@ const cartSchema = new mongoose.Schema({
   color: String,
   
   location: {
- type: String,
- default: ""
+  type: String,
+  default: ""
 },
 
   quantity: {
@@ -51,14 +51,18 @@ const userSchema = new mongoose.Schema({
     default: "user"
   },
 
-cart: [
-  {
-    product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-    quantity: Number,
-    size: String,
-    color: String,
-  }
-],
+  // Cart now stores full product data for offline access
+  cart: [
+    {
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      name: String,
+      price: Number,
+      image: String,
+      quantity: Number,
+      size: String,
+      color: String,
+    }
+  ],
   wishlist: [wishlistSchema],
 
   addresses: [],

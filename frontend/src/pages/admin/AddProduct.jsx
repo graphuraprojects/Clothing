@@ -451,6 +451,7 @@
 import { useState, useEffect } from "react";
 import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -484,6 +485,7 @@ const AddProduct = () => {
   const [filteredCategories, setFilteredCategories] = useState([]);
   const [collectionsList, setCollectionsList] = useState([]);
   const [selectedCollectionName, setSelectedCollectionName] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -536,6 +538,8 @@ const AddProduct = () => {
       return;
     }
 
+    setIsLoading(true);
+
     const data = new FormData();
 
     const price = Number(formData.price || 0);
@@ -583,14 +587,26 @@ const AddProduct = () => {
       });
     });
 
-    await API.post("/products", data, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("admin_token")}`
-      }
-    });
+    console.log("AddProduct - FormData to submit:");
+    for (let pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
 
-    alert("✅ Product Added Successfully");
-    navigate("/admin/products");
+    try {
+      const res = await API.post("/products", data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("admin_token")}`
+        }
+      });
+      console.log("AddProduct - Success Response:", res.data);
+      alert("✅ Product Added Successfully");
+      navigate("/admin/products");
+    } catch (err) {
+      console.error("AddProduct - API Error:", err.response?.data || err.message);
+      alert("Failed to add product: " + (err.response?.data?.message || err.message));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -802,8 +818,8 @@ const AddProduct = () => {
             + Add Color
           </button>
 
-          <button type="submit" className="w-full bg-black text-white py-3 rounded-xl cursor-pointer">
-            Save Product
+          <button disabled={isLoading} type="submit" className="w-full bg-black text-white py-3 rounded-xl cursor-pointer disabled:opacity-70 flex justify-center items-center gap-2">
+            {isLoading ? <><Loader2 size={24} className="animate-spin" /> Saving...</> : "Save Product"}
           </button>
         </form>
       </div>

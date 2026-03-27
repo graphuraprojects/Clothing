@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import API from "../../api/axios";
+import { Loader2 } from "lucide-react";
 
 import logo from "../../assets/logo/logo.webp";
 import userlogin from "../../assets/Login/userlogin.webp";
@@ -137,9 +138,9 @@ export default function UserSignup() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-3 rounded-full bg-black text-white text-sm font-medium active:scale-95 transition cursor-pointer"
+                  className="w-full py-3 rounded-full bg-black text-white text-sm font-medium active:scale-95 transition cursor-pointer disabled:opacity-70 flex justify-center items-center gap-2"
                 >
-                  {loading ? "Creating account..." : "SIGN UP"}
+                  {loading ? <><Loader2 size={18} className="animate-spin" /> Creating account...</> : "SIGN UP"}
                 </button>
               </form>
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../../api/axios";
+import { Loader2 } from "lucide-react";
 
 export default function AddCollection() {
 
@@ -72,9 +73,9 @@ shadow-md transition-all hover:-translate-y-1 hover:shadow-xl">
           disabled={loading}
           className="bg-black text-white px-6 py-3 rounded-xl w-full
           transition transform hover:-translate-y-0.5 hover:bg-gray-900
-          disabled:opacity-50 cursor-pointer"
+          disabled:opacity-70 cursor-pointer flex justify-center items-center gap-2"
         >
-          {loading ? "Saving..." : "Save Collection"}
+          {loading ? <><Loader2 size={20} className="animate-spin" /> Saving...</> : "Save Collection"}
         </button>
 
       </form>

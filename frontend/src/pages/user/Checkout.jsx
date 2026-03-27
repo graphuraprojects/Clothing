@@ -26,6 +26,7 @@ import {
   Package,
   Clock,
   ChevronLeft,
+  Loader2,
 } from "lucide-react";
 
 const loadRazorpay = () => {
@@ -383,6 +384,7 @@ const CheckoutPage = () => {
 
   /* ================= COD FLOW ================= */
   if (paymentMethod === "cod") {
+    setIsProcessing(true);
     try {
       const res = await API.post(
         "/orders",
@@ -412,6 +414,8 @@ const CheckoutPage = () => {
         err.response?.data?.message || "Order failed"
       );
       setCurrentStep(3);
+    } finally {
+      setIsProcessing(false);
     }
 
     return;
@@ -1170,11 +1174,11 @@ const CheckoutPage = () => {
                       </button>
                       <button
                         onClick={handlePlaceOrder}
-                        disabled={!paymentMethod}
-                        className={`cursor-pointer ${`px-6 py-3 rounded-lg font-semibold transition
-                          ${paymentMethod ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}`}
+                        disabled={!paymentMethod || isProcessing}
+                        className={`cursor-pointer px-6 py-3 rounded-lg font-semibold transition disabled:opacity-70 flex items-center justify-center gap-2
+                          ${paymentMethod ? "bg-green-600 text-white hover:bg-green-700" : "bg-gray-300 text-gray-500 cursor-not-allowed"}`}
                       >
-                        Place Order & Pay →
+                        {isProcessing ? <><Loader2 size={20} className="animate-spin" /> Processing...</> : "Place Order & Pay →"}
                       </button>
                     </div>
                   </>

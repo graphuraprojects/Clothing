@@ -5,6 +5,7 @@ import logo from "../../assets/logo/logo.webp";
 import { GoogleLogin } from "@react-oauth/google";
 import API from "../../api/axios";
 import userlogin from "../../assets/Login/userlogin.webp";
+import { Loader2 } from "lucide-react";
 
 export default function UserLogin() {
   const navigate = useNavigate();
@@ -108,9 +109,9 @@ export default function UserLogin() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-[#000000] text-white py-3 rounded-xl tracking-wide hover:opacity-90 active:scale-95 transition cursor-pointer"
+                  className="w-full bg-[#000000] text-white py-3 rounded-xl tracking-wide hover:opacity-90 active:scale-95 transition cursor-pointer disabled:opacity-70 flex justify-center items-center gap-2"
                 >
-                  {loading ? "Signing in..." : "SIGN IN"}
+                  {loading ? <><Loader2 size={20} className="animate-spin" /> Signing in...</> : "SIGN IN"}
                 </button>
               </form>
 
