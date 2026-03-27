@@ -37,7 +37,7 @@ const AnimatedHeading = () => {
 
   return (
     <div className="min-h-[40px] sm:min-h-[50px] md:min-h-[70px]">
-      <h1 className="hero-main-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+      <h1 className="hero-main-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl whitespace-nowrap">
         <b>{displayedText}</b>
         <span
           className="inline-block w-[2px] h-[0.8em] ml-1 align-middle"

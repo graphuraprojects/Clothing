@@ -342,8 +342,8 @@
 .hero-outline-text {
   font-family: "Playfair Display", serif;
   font-size: clamp(32px, 5vw, 56px);
-  font-weight: 300;
-  -webkit-text-stroke: 1px rgba(196, 162, 101, 0.18);
+  font-weight: 400;
+  -webkit-text-stroke: 1.5px rgba(196, 162, 101, 0.6);
   color: transparent;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -679,15 +679,15 @@
 
 .section-editorial {
   position: relative;
-  padding: 5rem 1.5rem;
+  padding: 2rem 1.5rem;
 }
 
 @media (min-width: 768px) {
-  .section-editorial { padding: 7rem 3rem; }
+  .section-editorial { padding: 2.5rem 3rem; }
 }
 
 @media (min-width: 1024px) {
-  .section-editorial { padding: 8rem 4rem; }
+  .section-editorial { padding: 3rem 4rem; }
 }
 
 .section-noir {

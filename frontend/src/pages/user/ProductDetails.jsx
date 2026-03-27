@@ -743,17 +743,17 @@ function ProductDetails() {
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 {product.colors.map((color) => (
                   <button
-                    key={color.id}
+                    key={color._id || color.name}
                     onClick={() => handleColorSelect(color)}
-                    className={`cursor-pointer ${`relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-transform shadow-sm ${selectedColor?.id === color.id ? "border-black scale-110 ring-2 ring-black ring-opacity-20" : "border-gray-300 hover:scale-105"}`}`}
-                    style={{ backgroundColor: color.value }}
+                    className={`cursor-pointer relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 transition-transform shadow-sm ${selectedColor?._id === color._id || selectedColor?.name === color.name ? "border-black scale-110 ring-2 ring-black ring-opacity-20" : "border-gray-300 hover:scale-105"}`}
+                    style={{ backgroundColor: color.hex || color.value || color.colorHex || (color.name ? color.name.toLowerCase().replace(/\s+/g, "") : "#ccc") }}
                     title={color.name}
                     aria-label={`Select ${color.name} color`}
                   >
-                    {selectedColor?.id === color.id && (
+                    {selectedColor?.name === color.name && (
                       <div className="absolute inset-0 border-2 border-white rounded-full"></div>
                     )}
-                    {selectedColor?.id === color.id && (
+                    {selectedColor?.name === color.name && (
                       <div className="absolute -top-1 -right-1 w-5 h-5 bg-[#8b6f47] rounded-full flex items-center justify-center">
                         <Check size={12} className="text-white" />
                       </div>
