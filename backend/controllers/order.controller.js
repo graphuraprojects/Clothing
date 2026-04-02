@@ -5,6 +5,8 @@ import Inventory from "../models/inventory.model.js";
 import twilio from "twilio";
 import WhatsappLog from "../models/WhatsappLog.model.js";
 
+import User from '../models/user.model.js'
+
 const client = twilio(
   process.env.TWILIO_SID,
   process.env.TWILIO_AUTH
@@ -13,10 +15,17 @@ const client = twilio(
 
 export const placeOrder = async (req, res) => {
   try {
-    const user = req.user;
+    // const user = req.user;
+    const user = await User.findById(req.user._id)
+
+    if (!user) {
+      return res.status(404).json({
+        message: "user not found"
+      })
+    }
 
     // 🔐 BLOCK UNPAID ONLINE ORDERS
-    if (req.body.payment !== "cod" && !req.body.paymentVerified) {
+    if (req.body.paymentMethod !== "cod" && !req.body.paymentVerified) {
       return res.status(400).json({
         message: "Payment not verified. Order not created.",
       });
@@ -82,7 +91,8 @@ export const placeOrder = async (req, res) => {
       discount: req.body.discount,
       total: req.body.total,
 
-      status: "Processing",
+      // status: "Processing",
+      paymentStatus: req.body.paymentMethod === "cod" ? "pending" : "paid"
     });
 
 
