@@ -314,10 +314,59 @@ const CheckoutPage = () => {
     }, 2500);
   };
 
-  const handlePlaceOrder = (e) => {
+  // const handlePlaceOrder = (e) => {
+  //   e.preventDefault();
+  //   simulatePayment();
+  // };
+
+
+  const handlePlaceOrder = async (e) => {
     e.preventDefault();
+  
+    // ✅ COD FLOW (REAL ORDER)
+    if (paymentMethod === "cod") {
+      try {
+        const res = await fetch("http://localhost:4000/api/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`, // if using auth
+          },
+          body: JSON.stringify({
+            shipping: shippingInfo,
+            items: cart,
+            subtotal,
+            shippingCost: estimatedShipping,
+            gst,
+            discount,
+            total,
+            paymentMethod: "cod",
+          }),
+        });
+  
+        const data = await res.json();
+  
+        if (data.success) {
+          setPaymentStatus("success");
+          setCurrentStep(3);
+        } else {
+          setPaymentStatus("failed");
+          setPaymentError(data.message);
+          setCurrentStep(3);
+        }
+      } catch (err) {
+        setPaymentStatus("failed");
+        setPaymentError("Something went wrong");
+        setCurrentStep(3);
+      }
+  
+      return;
+    }
+  
+    // 💳 ONLINE PAYMENT FLOW
     simulatePayment();
   };
+
 
   const handleRetryPayment = () => {
     setPaymentStatus("");
